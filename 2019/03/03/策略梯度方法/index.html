@@ -100,20 +100,24 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="AMiFans’s Blogs">
-<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/index.html">
+  <meta name="description" content="策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。 策略梯度方法推导策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望  \max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\">
+<meta property="og:type" content="article">
+<meta property="og:title" content="策略梯度方法">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/03/策略梯度方法/index.html">
 <meta property="og:site_name" content="AMiFans’s Blogs">
+<meta property="og:description" content="策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。 策略梯度方法推导策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望  \max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-03T14:00:56.902Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AMiFans’s Blogs">
+<meta name="twitter:title" content="策略梯度方法">
+<meta name="twitter:description" content="策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。 策略梯度方法推导策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望  \max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/">
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/03/策略梯度方法/">
 
 
 
@@ -123,7 +127,7 @@
   };
 </script>
 
-  <title>AMiFans’s Blogs</title>
+  <title>策略梯度方法 | AMiFans’s Blogs</title>
   
 
 
@@ -171,8 +175,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -210,7 +213,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
 
     
     
@@ -323,9 +326,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -357,10 +360,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/03/策略梯度方法/" class="post-title-link" itemprop="url">策略梯度方法</a>
+          <h1 class="post-title" itemprop="name headline">策略梯度方法
+
               
             
           </h1>
@@ -422,9 +423,7 @@
       
 
       
-        
-          
-            <p>策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。</p>
+        <p>策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。</p>
 <h3 id="策略梯度方法推导"><a href="#策略梯度方法推导" class="headerlink" title="策略梯度方法推导"></a><strong>策略梯度方法推导</strong></h3><p>策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望</p>
 <script type="math/tex; mode=display">
 \max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\sum_tr(\mathbf{s}_t,\mathbf{a}_t)\right]......(1)</script><p>首先，定义我们的目标函数为：</p>
@@ -452,8 +451,6 @@ p_\theta(\tau)=p(\mathbf{s}_1)\prod_{t=1}^T\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)
 <p>$\sum_{t=1}^T\nabla_\theta\log \pi_\theta(\mathbf{a}_t|\mathbf{s}_t)$是最大对数似然。在深度学习中，它衡量观察数据的可能性。在强化学习的背景下，它衡量了当前策略下轨迹的可能性。通过将其与奖励相乘，我们希望如果轨迹导致高的正奖励，则增加策略的出现可能性。相反，如果策略导致高的负奖励，我们希望降低该策略的出现可能性。</p>
 <h3 id="策略梯度方法改进"><a href="#策略梯度方法改进" class="headerlink" title="策略梯度方法改进"></a><strong>策略梯度方法改进</strong></h3><p><strong>策略梯度方法的高方差问题：</strong> 由于采样的轨迹千差万别，而且可能不同的 action 会带来一样的 Expected Reward。如果在分类任务中出现一个输入可以分为多个类的情况，梯度就会乱掉，因为网络不知道应该最大化哪个类别的输出概率。梯度很不稳定，就会带来收敛性很差的问题。</p>
 
-          
-        
       
     </div>
 
@@ -476,166 +473,28 @@ p_\theta(\tau)=p(\mathbf{s}_1)\prod_{t=1}^T\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/02/CGAN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AMiFans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AMiFans’s Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/02/CGAN/" class="post-title-link" itemprop="url">CGAN 解读</a>
-              
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
+              <a href="/2019/03/02/CGAN/" rel="next" title="CGAN 解读">
+                <i class="fa fa-chevron-left"></i> CGAN 解读
+              </a>
             
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-02 18:08:31" itemprop="dateCreated datePublished" datetime="2019-03-02T18:08:31+08:00">2019-03-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                <time title="修改时间：2019-03-03 13:05:27" itemprop="dateModified" datetime="2019-03-03T13:05:27+08:00">2019-03-03</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h4 id="简称：CGAN"><a href="#简称：CGAN" class="headerlink" title="简称：CGAN"></a>简称：CGAN</h4><h4 id="论文名称：Conditional-Generative-Adversarial-Nets"><a href="#论文名称：Conditional-Generative-Adversarial-Nets" class="headerlink" title="论文名称：Conditional Generative Adversarial Nets"></a>论文名称：Conditional Generative Adversarial Nets</h4><h4 id="论文作用：使生成的数据带有约束，如果约束为类别标签，则可以生成相应标签的数据"><a href="#论文作用：使生成的数据带有约束，如果约束为类别标签，则可以生成相应标签的数据" class="headerlink" title="论文作用：使生成的数据带有约束，如果约束为类别标签，则可以生成相应标签的数据"></a>论文作用：使生成的数据带有约束，如果约束为类别标签，则可以生成相应标签的数据</h4><h4 id="论文解读："><a href="#论文解读：" class="headerlink" title="论文解读："></a>论文解读：</h4><h4 id="1-CGAN-的网络结构"><a href="#1-CGAN-的网络结构" class="headerlink" title="1.CGAN 的网络结构"></a>1.CGAN 的网络结构</h4><p><img src="\image\CGAN-1.jpg" alt="图1 条件对抗网络"><br>在 CGAN 中，生成器和判别器都增加额外信息 y 为条件, y 可以是任意信息,例如类别信息,或者其他模态的数据。如图所示，通过将额外信息 y 输送给判别模型和生成模型,作为输入层的一部分,从而实现条件 GAN。</p>
-<p>优化函数：</p>
-<script type="math/tex; mode=display">
-\min_G \max_D V(D,G)=\mathbb{E}_{x\thicksim P_{data}(x)}[\log D(x|y)]+\mathbb{E}_{z\thicksim P_{z}(z)}[\log (1-D(G(z|y)))]</script><h4 id="2-实验结果"><a href="#2-实验结果" class="headerlink" title="2.实验结果"></a>2.实验结果</h4><p><img src="\image\CGAN-2.jpg" alt="图2 生成的MNIST数字"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -645,154 +504,15 @@ p_\theta(\tau)=p(\mathbf{s}_1)\prod_{t=1}^T\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)
   </article>
 
 
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/02/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AMiFans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AMiFans’s Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/02/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-02 10:33:36 / 修改时间：16:52:55" itemprop="dateCreated datePublished" datetime="2019-03-02T10:33:36+08:00">2019-03-02</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="I-love-you"><a href="#I-love-you" class="headerlink" title="I love you"></a>I love you</h2>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -812,8 +532,17 @@ p_\theta(\tau)=p(\mathbf{s}_1)\prod_{t=1}^T\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -857,6 +586,23 @@ p_\theta(\tau)=p(\mathbf{s}_1)\prod_{t=1}^T\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#策略梯度方法推导"><span class="nav-text">策略梯度方法推导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略梯度方法改进"><span class="nav-text">策略梯度方法改进</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -988,6 +734,10 @@ p_\theta(\tau)=p(\mathbf{s}_1)\prod_{t=1}^T\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
 
   
 
@@ -999,6 +749,8 @@ p_\theta(\tau)=p(\mathbf{s}_1)\prod_{t=1}^T\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)
   
 
 
+  
+
 
   
 
@@ -1013,16 +765,6 @@ p_\theta(\tau)=p(\mathbf{s}_1)\prod_{t=1}^T\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)
   
 
   
-  
-    
-      
-        
-      
-    
-      
-    
-      
-    
   
 
   
