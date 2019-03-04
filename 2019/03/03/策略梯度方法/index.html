@@ -100,6 +100,23 @@
 
 
 
+<script>
+    
+    window.onload = function(){
+        var path = 'https://malizhi.cn'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
   <meta name="description" content="策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。 策略梯度方法推导策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望  \max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\">
 <meta property="og:type" content="article">
 <meta property="og:title" content="策略梯度方法">
