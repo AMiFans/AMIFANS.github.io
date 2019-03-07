@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mathb">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-07T09:15:55.110Z">
+<meta property="og:updated_time" content="2019-03-07T10:26:55.275Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="演员-批评家方法">
 <meta name="twitter:description" content="策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mathb">
@@ -401,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-03-07 09:56:23 / 修改时间：17:15:55" itemprop="dateCreated datePublished" datetime="2019-03-07T09:56:23+08:00">2019-03-07</time>
+              <time title="创建时间：2019-03-07 09:56:23 / 修改时间：18:26:55" itemprop="dateCreated datePublished" datetime="2019-03-07T09:56:23+08:00">2019-03-07</time>
             
 
             
@@ -491,7 +491,15 @@ y_{i,t}=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|
 <li>$\nabla_\theta J(\theta)\approx\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_t|\mathbf{s}_t)\hat{A}^\pi(\mathbf{s}_t,\mathbf{a}_t)\right]$。</li>
 <li>$\theta\leftarrow \theta+\alpha\nabla_\theta J(\theta)$。</li>
 </ol>
-
+<h3 id="引入“折扣因子”"><a href="#引入“折扣因子”" class="headerlink" title="引入“折扣因子”"></a><strong>引入“折扣因子”</strong></h3><p>在策略梯度中引入“折扣因子”，梯度变为</p>
+<script type="math/tex; mode=display">
+\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\nabla_\theta\log\pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\left(\sum_{t'=t}^T\gamma^{t'-t}r(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})\right)</script><p>在演员-评论家算法中引入“折扣因子”，首先我们的优势函数将从</p>
+<script type="math/tex; mode=display">
+\hat{A}^\pi(\mathbf{s}_i,\mathbf{a}_i)=r(\mathbf{s}_i,\mathbf{a}_i)+\hat{V}^\pi_\phi(\mathbf{s}_i')-\hat{V}^\pi_\phi(\mathbf{s}_i)</script><p>变为</p>
+<script type="math/tex; mode=display">
+\hat{A}^\pi(\mathbf{s}_i,\mathbf{a}_i)=r(\mathbf{s}_i,\mathbf{a}_i)+\gamma\hat{V}^\pi_\phi(\mathbf{s}_i')-\hat{V}^\pi_\phi(\mathbf{s}_i)</script><p>此时的梯度将变为</p>
+<script type="math/tex; mode=display">
+\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\nabla_\theta\log\pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\left(r(\mathbf{s}_{i,t},\mathbf{a}_{i,t})+\gamma\hat{V}^\pi_\phi(\mathbf{s}_{i,t+1})-\hat{V}^\pi_\phi(\mathbf{s}_{i,t})\right)</script>
       
     </div>
 
@@ -698,7 +706,7 @@ y_{i,t}=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#策略梯度法引入值函数"><span class="nav-text">策略梯度法引入值函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#演员-评论家算法"><span class="nav-text">演员-评论家算法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#策略梯度法引入值函数"><span class="nav-text">策略梯度法引入值函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#演员-评论家算法"><span class="nav-text">演员-评论家算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入“折扣因子”"><span class="nav-text">引入“折扣因子”</span></a></li></ol></div>
             
 
           </div>
@@ -763,7 +771,7 @@ y_{i,t}=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">4.2k</span> 字
+      博客全站共： <span class="post-count">4.6k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->
