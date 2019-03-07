@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。 策略梯度方法推导策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望  \max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-05T09:38:10.890Z">
+<meta property="og:updated_time" content="2019-03-07T01:32:47.276Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="策略梯度方法">
 <meta name="twitter:description" content="策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。 策略梯度方法推导策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望  \max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\">
@@ -416,7 +416,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-05 17:38:10" itemprop="dateModified" datetime="2019-03-05T17:38:10+08:00">2019-03-05</time>
+                <time title="修改时间：2019-03-07 09:32:47" itemprop="dateModified" datetime="2019-03-07T09:32:47+08:00">2019-03-07</time>
               
             
           </span>
@@ -537,13 +537,11 @@ J(\theta)=\mathbf{E}_{\tau\sim p_\theta(\tau)}[r(\tau)]=\mathbf{E}_{\tau\sim \ba
 \nabla_{\theta'}J(\theta')=\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\sum_{t=1}^T\nabla_{\theta'}\log \pi_{\theta'}(\mathbf{a}_t|\mathbf{s}_t)\left(\prod_{t'=1}^t\frac{\pi_{\theta'}(\mathbf{a}_{t'}|\mathbf{s}_{t'})}{\pi_{\theta}(\mathbf{a}_{t'}|\mathbf{s}_{t'})}\right)\left(\sum_{t'=t}^Tr(\mathbf{s}_{t'},\mathbf{a}_{t'})-b\right)\right]</script><p>但是，这种形式也是存在问题的，上式中中间那块连乘部分的数值，是关于T指数增长的，如果每个数都略小于1，而时间轴非常长，这个乘积最终将非常接近于0，这样梯度效果就会很差了。</p>
 <p>为了解决这个问题，我们可以重写目标函数的形式，如下</p>
 <script type="math/tex; mode=display">
-[J(\theta)=\sum_{t=1}^T\mathbf{E}_{(\mathbf{s}_t,\mathbf{a}_t)\sim p_\theta(\mathbf{s}_t,\mathbf{a}_t)}[r(\mathbf{s}_t,\mathbf{a}_t)]]</script><p>进一步展开可得</p>
+J(\theta)=\sum_{t=1}^T\mathbf{E}_{(\mathbf{s}_t,\mathbf{a}_t)\sim p_\theta(\mathbf{s}_t,\mathbf{a}_t)}[r(\mathbf{s}_t,\mathbf{a}_t)]</script><p>进一步展开可得</p>
 <script type="math/tex; mode=display">
 J(\theta)=\sum_{t=1}^T\mathbf{E}_{\mathbf{s}_t\sim p_\theta(\mathbf{s}_t)}\left[\mathbf{E}_{\mathbf{a}_t\sim\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)}[r(\mathbf{s}_t,\mathbf{a}_t)]\right]</script><p>这样我们便可以在两个层面上做重要性抽样了，最终形式为</p>
 <script type="math/tex; mode=display">
 J(\theta')=\sum_{t=1}^T\mathbf{E}_{\mathbf{s}_t\sim p_\theta(\mathbf{s}_t)}\left[\frac{p_{\theta'}(\mathbf{s}_t)}{p_{\theta}(\mathbf{s}_t)}\mathbf{E}_{\mathbf{a}_t\sim\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)}\left[\frac{\pi_{\theta'}(\mathbf{a}_t|\mathbf{s}_t)}{\pi_{\theta}(\mathbf{a}_t|\mathbf{s}_t)}r(\mathbf{s}_t,\mathbf{a}_t)\right]\right]</script><p>但是同时又带来了一个新的问题，那就是需要知道在新的给定策略下某个时刻在某个状态的概率$p_{\theta’}(\mathbf{s}_t)$，我们一般将$\frac{p_{\theta’}(\mathbf{s}_t)}{p_{\theta}(\mathbf{s}_t)}$这一项忽略，因为当两个策略足够接近时，这个比值近似为1。</p>
-<p><strong>总结</strong></p>
-<p>（未完，待续。。。。。。）</p>
 <p><strong>参考</strong></p>
 <ol>
 <li><a href="http://rail.eecs.berkeley.edu/deeprlcourse/" target="_blank" rel="noopener">CS 294-112 at UC Berkeley</a></li>
