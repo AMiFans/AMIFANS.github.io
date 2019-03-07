@@ -117,24 +117,24 @@
 
 </script>
 
-  <meta name="description" content="I love you">
+  <meta name="description" content="**策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mat">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/02/hello-world/index.html">
+<meta property="og:title" content="演员-批评家方法">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/07/演员-批评家方法/index.html">
 <meta property="og:site_name" content="AMiFans’s Blogs">
-<meta property="og:description" content="I love you">
+<meta property="og:description" content="**策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mat">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-02T08:52:55.983Z">
+<meta property="og:updated_time" content="2019-03-07T03:28:25.435Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="I love you">
+<meta name="twitter:title" content="演员-批评家方法">
+<meta name="twitter:description" content="**策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mat">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/02/hello-world/">
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/07/演员-批评家方法/">
 
 
 
@@ -144,7 +144,7 @@
   };
 </script>
 
-  <title>Hello World | AMiFans’s Blogs</title>
+  <title>演员-批评家方法 | AMiFans’s Blogs</title>
   
 
 
@@ -360,7 +360,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/02/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/07/演员-批评家方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="AMiFans">
@@ -377,7 +377,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World
+          <h1 class="post-title" itemprop="name headline">演员-批评家方法
 
               
             
@@ -401,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-03-02 10:33:36 / 修改时间：16:52:55" itemprop="dateCreated datePublished" datetime="2019-03-02T10:33:36+08:00">2019-03-02</time>
+              <time title="创建时间：2019-03-07 09:56:23 / 修改时间：11:28:25" itemprop="dateCreated datePublished" datetime="2019-03-07T09:56:23+08:00">2019-03-07</time>
             
 
             
@@ -411,6 +411,22 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -440,7 +456,23 @@
       
 
       
-        <h2 id="I-love-you"><a href="#I-love-you" class="headerlink" title="I love you"></a>I love you</h2>
+        <h3 id="策略梯度法引入值函数"><a href="#策略梯度法引入值函数" class="headerlink" title="**策略梯度法引入值函数"></a><strong>**策略梯度法引入值函数</strong></h3><p>策略梯度法中梯度的基本形式为：</p>
+<script type="math/tex; mode=display">
+\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t'=t}^Tr(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})\right]......(1)</script><p>现在我们回顾一下状态-动作值函数$Q(\mathbf{s}_t,\mathbf{a}_t)$和状态值函数$V(\mathbf{s}_t)$的定义：</p>
+<script type="math/tex; mode=display">
+Q(\mathbf{s}_t,\mathbf{a}_t)=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|\mathbf{s}_t,\mathbf{a}_t]......(2)</script><p>现在我们令公式（1）中的$\sum_{t’=t}^Tr(\mathbf{s}_{i,t’},\mathbf{a}_{i,t’})=\hat{Q}_{i,t}$，为什么用$\hat{Q}_{i,t}$因为$Q(\mathbf{s}_t,\mathbf{a}_t)$是$\hat{Q}_{i,t}$的期望。</p>
+<p>现在我们要做的就是用$Q(\mathbf{s}_t,\mathbf{a}_t)$代替$\hat{Q}_{i,t}$，因为采样的每一条轨迹中，在状态$s_t$之后的奖赏之和可能是不同的，我们想使得状态$s_t$之后奖赏之和能够稳定。</p>
+<p>同样在引入基线后，我们可以将前文所述的基线$b_t=\frac{1}{N}\sum_iQ^\pi(\mathbf{s}_{i,t},\mathbf{a}_{i,t})用其期望$V(s_t) = \sum_{t’=t}^T \mathop{E}_{\pi_\theta} [r(s_{t’}, a_{t’})|s_t]$取代，现在我们的梯度形式就变为</p>
+<script type="math/tex; mode=display">
+\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})A^\pi(\mathbf{s}_t,\mathbf{a}_t)\right]</script><p>其中，$A^\pi(\mathbf{s}_t,\mathbf{a}_t)=Q^\pi(\mathbf{s}_t,\mathbf{a}_t)-V^\pi(\mathbf{s}_t)$,称为优势函数（Advantage Function）。</p>
+<p>优势函数可理解为在给定策略$\pi$的情况下，在状态$\mathbf{s}_t$处，采用行动$\mathbf{a}_t$能比该策略的平均今后收益期望多出多少。</p>
+<h3 id="演员-评论家算法"><a href="#演员-评论家算法" class="headerlink" title="演员-评论家算法"></a><strong>演员-评论家算法</strong></h3><p>演员-评论家算法要做的就是引入另一个参数$\phi$，通过神经网络来拟合优势函数$A^\pi(\mathbf{s}_t,\mathbf{a}_t)$</p>
+<p>$Q(\mathbf{s}_t,\mathbf{a}_t)$和$V^\pi(\mathbf{s}_t)$有如下的关系，</p>
+<script type="math/tex; mode=display">
+Q^\pi(\mathbf{s}_t,\mathbf{a}_t)=r(\mathbf{s}_t,\mathbf{a}_t)+\sum_{t'=t+1}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|\mathbf{s}_t,\mathbf{a}_t]=r(\mathbf{s}_t,\mathbf{a}_t)+\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s_{t+1}}|\mathbf{s}_t,\mathbf{a}_t)}[V^\pi(\mathbf{s}_{t+1})]</script><p>如果我们用用轨迹样本来估计这个期望（即用$V^\pi(\mathbf{s}_{t+1})$来代替$\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s_{t+1}}|\mathbf{s}_t,\mathbf{a}_t)}[V^\pi(\mathbf{s}_{t+1})]$），那么，优势函数也可以被近似为</p>
+<script type="math/tex; mode=display">
+A^\pi(\mathbf{s}_t,\mathbf{a}_t)\approx r(\mathbf{s}_t,\mathbf{a}_t)+V^\pi(\mathbf{s}_{t+1})-V^\pi(\mathbf{s}_t)</script><p>这样的话，我们只需要用参数$\phi$去拟合$V^\pi(\mathbf{s}_t$即可。</p>
+
       
     </div>
 
@@ -470,15 +502,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/03/03/策略梯度方法/" rel="next" title="策略梯度方法">
+                <i class="fa fa-chevron-left"></i> 策略梯度方法
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/02/CGAN/" rel="prev" title="CGAN 解读">
-                CGAN 解读 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -647,7 +679,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-love-you"><span class="nav-text">I love you</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#策略梯度法引入值函数"><span class="nav-text">**策略梯度法引入值函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#演员-评论家算法"><span class="nav-text">演员-评论家算法</span></a></li></ol></div>
             
 
           </div>
@@ -841,6 +873,53 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+</style>
+
+    
   
 
 

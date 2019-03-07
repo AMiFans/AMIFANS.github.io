@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。 策略梯度方法推导策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望  \max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-07T01:32:47.276Z">
+<meta property="og:updated_time" content="2019-03-07T01:48:28.361Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="策略梯度方法">
 <meta name="twitter:description" content="策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。 策略梯度方法推导策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望  \max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\">
@@ -416,7 +416,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-07 09:32:47" itemprop="dateModified" datetime="2019-03-07T09:32:47+08:00">2019-03-07</time>
+                <time title="修改时间：2019-03-07 09:48:28" itemprop="dateModified" datetime="2019-03-07T09:48:28+08:00">2019-03-07</time>
               
             
           </span>
@@ -509,12 +509,19 @@ p_\theta(\tau)=p(\mathbf{s}_1)\prod_{t=1}^T\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)
 <script type="math/tex; mode=display">
 \nabla_\theta J(\theta)=\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)(r(\tau)-b)]......(14)</script><p>其中，$b$ 是一个常数。接下来在数学上证明其合理性</p>
 <ul>
-<li>计算期望：<script type="math/tex; mode=display">
-\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)b]=\int p_\theta(\tau)\nabla_\theta \log p_\theta(\tau)b\mathrm{d}\tau=\int \nabla_\theta p_\theta(\tau)b\mathrm{d}\tau=b\nabla_\theta\int p_\theta(\tau)\mathrm{d}\tau=b\nabla_\theta1=0......(15)</script>因此，引入常数 $b$ 之后，$\nabla_\theta J(\theta)$ 的值不会改变。</li>
-<li>计算方差<br>引入常数 $b$ 之后，尽管期望值没有发生变化，但是如何保证方差减小呢？<br>方差的表达式为 $\text{Var}[X]=\mathbf{E}[X^2]-\mathbf{E}[X]^2$。而$\nabla_\theta J(\theta)=\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)(r(\tau)-b)]$，其方差为：<script type="math/tex; mode=display">
-\text{Var}=\mathbf{E}_{\tau\sim p_\theta(\tau)}[(\nabla_\theta \log p_\theta(\tau)(r(\tau)-b))^2]-\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)(r(\tau)-b)]^2=\mathbf{E}_{\tau\sim p_\theta(\tau)}[(\nabla_\theta \log p_\theta(\tau)(r(\tau)-b))^2]-\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)r(\tau)]^2......(16)</script>令$g(\tau):=\nabla_\theta \log p_\theta(\tau)$，并 使 $\text{Var}$ 对 $b$ 的一阶导数为0，则<script type="math/tex; mode=display">
-\frac{\mathrm{d}\text{Var}}{\mathrm{d}b}=\frac{\mathrm{d}}{\mathrm{d}b}\mathbf{E}[g(\tau)^2(r(\tau)-b)^2]=\frac{\mathrm{d}}{\mathrm{d}b}\left(\mathbf{E}[g(\tau)^2 r(\tau)^2]-2b\mathbf{E}[g(\tau)^2 r(\tau)]+b^2\mathbf{E}[g(\tau)^2]\right)=0......(17)</script>化简后得到<script type="math/tex; mode=display">
--2\mathbf{E}[g(\tau)^2 r(\tau)]+2b^*\mathbf{E}[g(\tau)^2]=0......(18)</script>求解得到 $b$ 的最优值<script type="math/tex; mode=display">
+<li><p>计算期望：</p>
+<script type="math/tex; mode=display">
+\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)b]=\int p_\theta(\tau)\nabla_\theta \log p_\theta(\tau)b\mathrm{d}\tau=\int \nabla_\theta p_\theta(\tau)b\mathrm{d}\tau=b\nabla_\theta\int p_\theta(\tau)\mathrm{d}\tau=b\nabla_\theta1=0......(15)</script><p>因此，引入常数 $b$ 之后，$\nabla_\theta J(\theta)$ 的值不会改变。其中一个不错的基准线是</p>
+<script type="math/tex; mode=display">
+b_t=\frac{1}{N}\sum_iQ^\pi(\mathbf{s}_{i,t},\mathbf{a}_{i,t})</script></li>
+<li><p>计算方差<br>引入常数 $b$ 之后，尽管期望值没有发生变化，但是如何保证方差减小呢？<br>方差的表达式为 $\text{Var}[X]=\mathbf{E}[X^2]-\mathbf{E}[X]^2$。而$\nabla_\theta J(\theta)=\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)(r(\tau)-b)]$，其方差为：</p>
+<script type="math/tex; mode=display">
+\text{Var}=\mathbf{E}_{\tau\sim p_\theta(\tau)}[(\nabla_\theta \log p_\theta(\tau)(r(\tau)-b))^2]-\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)(r(\tau)-b)]^2=\mathbf{E}_{\tau\sim p_\theta(\tau)}[(\nabla_\theta \log p_\theta(\tau)(r(\tau)-b))^2]-\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)r(\tau)]^2......(16)</script><p>令$g(\tau):=\nabla_\theta \log p_\theta(\tau)$，并 使 $\text{Var}$ 对 $b$ 的一阶导数为0，则</p>
+<script type="math/tex; mode=display">
+\frac{\mathrm{d}\text{Var}}{\mathrm{d}b}=\frac{\mathrm{d}}{\mathrm{d}b}\mathbf{E}[g(\tau)^2(r(\tau)-b)^2]=\frac{\mathrm{d}}{\mathrm{d}b}\left(\mathbf{E}[g(\tau)^2 r(\tau)^2]-2b\mathbf{E}[g(\tau)^2 r(\tau)]+b^2\mathbf{E}[g(\tau)^2]\right)=0......(17)</script><p>化简后得到</p>
+<script type="math/tex; mode=display">
+-2\mathbf{E}[g(\tau)^2 r(\tau)]+2b^*\mathbf{E}[g(\tau)^2]=0......(18)</script><p>求解得到 $b$ 的最优值</p>
+<script type="math/tex; mode=display">
 b^*=\frac{\mathbf{E}[g(\tau)^2 r(\tau)]}{\mathbf{E}[g(\tau)^2]}......(19)</script></li>
 </ul>
 <p><strong>策略梯度方法的样本效率问题：</strong> 策略梯度法是一个在线 (on-policy) 算法，这是因为在计算策略梯度$\nabla_\theta J(\theta)=\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)r(\tau)]$的时候所用的数据都是在新的策略下采样得到的，这就要求每次梯度更新之后就要根据新的策略全部重新采样，并把之前的在旧策略下采样到的样本全都丢弃，这种做法对数据的利用率非常低，使得收敛的速度也极低。那么如何有效利用旧的样本呢？这就需要引入<strong>重要性采样</strong> 的概念。</p>
@@ -587,6 +594,10 @@ J(\theta')=\sum_{t=1}^T\mathbf{E}_{\mathbf{s}_t\sim p_\theta(\mathbf{s}_t)}\left
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/03/07/演员-批评家方法/" rel="prev" title="演员-批评家方法">
+                演员-批评家方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -656,7 +667,7 @@ J(\theta')=\sum_{t=1}^T\mathbf{E}_{\mathbf{s}_t\sim p_\theta(\mathbf{s}_t)}\left
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -819,7 +830,7 @@ J(\theta')=\sum_{t=1}^T\mathbf{E}_{\mathbf{s}_t\sim p_\theta(\mathbf{s}_t)}\left
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">2.9k</span> 字
+      博客全站共： <span class="post-count">3.7k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->
