@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mathb">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-07T14:01:08.776Z">
+<meta property="og:updated_time" content="2019-03-07T14:03:12.570Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="演员-批评家方法">
 <meta name="twitter:description" content="策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mathb">
@@ -401,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-03-07 09:56:23 / 修改时间：22:01:08" itemprop="dateCreated datePublished" datetime="2019-03-07T09:56:23+08:00">2019-03-07</time>
+              <time title="创建时间：2019-03-07 09:56:23 / 修改时间：22:03:12" itemprop="dateCreated datePublished" datetime="2019-03-07T09:56:23+08:00">2019-03-07</time>
             
 
             
@@ -499,7 +499,7 @@ y_{i,t}=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|
 <script type="math/tex; mode=display">
 \hat{A}^\pi(\mathbf{s}_i,\mathbf{a}_i)=r(\mathbf{s}_i,\mathbf{a}_i)+\gamma\hat{V}^\pi_\phi(\mathbf{s}_i')-\hat{V}^\pi_\phi(\mathbf{s}_i)......(13)</script><p>此时的梯度将变为</p>
 <script type="math/tex; mode=display">
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\nabla_\theta\log\pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\left(r(\mathbf{s}_{i,t},\mathbf{a}_{i,t})+\gamma\hat{V}^\pi_\phi(\mathbf{s}_{i,t+1})-\hat{V}^\pi_\phi(\mathbf{s}_{i,t})\right)......(14)</script><p><strong>在线的演员-评论家算法</strong> (online actor-critic algorithm)</p>
+\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\nabla_\theta\log\pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\left(r(\mathbf{s}_{i,t},\mathbf{a}_{i,t})+\gamma\hat{V}^\pi_\phi(\mathbf{s}_{i,t+1})-\hat{V}^\pi_\phi(\mathbf{s}_{i,t})\right)......(14)</script><p><strong>在线的演员-评论家算法 (online actor-critic algorithm)</strong></p>
 <ol>
 <li>根据策略执行行动$\mathbf{a}\sim\pi_\theta(\mathbf{a}|\mathbf{s})$，得到一个状态转移样本$(\mathbf{s},\mathbf{a},\mathbf{s}’,r)$，即从一个状态出发执行某行动到哪个新的状态，单步收益多少</li>
 <li>使用评论家的结果$r+\gamma\hat{V}^\pi_\phi(\mathbf{s}’)$来更新$\hat{V}^\pi_\phi(\mathbf{s})$</li>
