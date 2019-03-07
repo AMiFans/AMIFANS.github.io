@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mathb">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-07T13:46:12.124Z">
+<meta property="og:updated_time" content="2019-03-07T14:01:08.776Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="演员-批评家方法">
 <meta name="twitter:description" content="策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mathb">
@@ -401,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-03-07 09:56:23 / 修改时间：21:46:12" itemprop="dateCreated datePublished" datetime="2019-03-07T09:56:23+08:00">2019-03-07</time>
+              <time title="创建时间：2019-03-07 09:56:23 / 修改时间：22:01:08" itemprop="dateCreated datePublished" datetime="2019-03-07T09:56:23+08:00">2019-03-07</time>
             
 
             
@@ -463,10 +463,10 @@
 Q(\mathbf{s}_t,\mathbf{a}_t)=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|\mathbf{s}_t,\mathbf{a}_t]......(2)</script><script type="math/tex; mode=display">
 V(s_t)=\sum_{t'=t}^T \mathop{E}_{\pi_\theta} [r(s_{t'}, a_{t'})|s_t]......(3)</script><p>现在我们令公式（1）中的$\sum_{t’=t}^Tr(\mathbf{s}_{i,t’},\mathbf{a}_{i,t’})=\hat{Q}_{i,t}$，为什么用$\hat{Q}_{i,t}$,因为这两者是有密切联系的，$Q(\mathbf{s}_t,\mathbf{a}_t)$是$\hat{Q}_{i,t}$的期望。</p>
 <p>现在我们要做的就是用$Q(\mathbf{s}_t,\mathbf{a}_t)$代替$\hat{Q}_{i,t}$，因为采样的每一条轨迹中，在状态$s_t$之后的奖赏之和可能是不同的，我们想使得状态$s_t$之后奖赏之和能够稳定。</p>
-<p>同样在引入基线后，我们可以将前文所述的基线$b_t=\frac{1}{N}\sum_iQ^\pi(\mathbf{s}_{i,t},\mathbf{a}_{i,t})用其期望 $V(s_t)=\sum_{t’=t}^T \mathop{E}_{\pi_\theta} [r(s_{t’}, a_{t’})|s_t]$ 取代，现在我们的梯度形式就变为</p>
+<p>同样在引入基线后，我们可以将前文所述的基线$b_t=\frac{1}{N}\sum_iQ^\pi(\mathbf{s}_{i,t},\mathbf{a}_{i,t})用其期望 $V(s_t)=\sum_{t’=t}^T \mathop{E}_{\pi_\theta} [r(s_{t’}, a_{t’})|s_t]$取代，现在我们的梯度形式就变为</p>
 <script type="math/tex; mode=display">
 \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})A^\pi(\mathbf{s}_t,\mathbf{a}_t)\right]......(4)</script><p>其中，$A^\pi(\mathbf{s}_t,\mathbf{a}_t)=Q^\pi(\mathbf{s}_t,\mathbf{a}_t)-V^\pi(\mathbf{s}_t)$,称为优势函数（Advantage Function）。</p>
-<p>优势函数可理解为在给定策略$\pi$的情况下，在状态$\mathbf{s}_t$处，采用行动$\mathbf{a}_t$能比该策略的平均今后收益期望多出多少。</p>
+<p>优势函数可理解为在给定策略$\pi$的情况下，在状态$\mathbf{s}_t$处，采用行动$\mathbf{a}_t$的收益能比该策略的平均今后收益期望多出多少。</p>
 <h3 id="演员-评论家算法"><a href="#演员-评论家算法" class="headerlink" title="演员-评论家算法"></a><strong>演员-评论家算法</strong></h3><p>演员-评论家算法要做的就是引入另一个参数$\phi$，通过神经网络来拟合优势函数$A^\pi(\mathbf{s}_t,\mathbf{a}_t)$</p>
 <p>$Q(\mathbf{s}_t,\mathbf{a}_t)$和$V^\pi(\mathbf{s}_t)$有如下的关系，</p>
 <script type="math/tex; mode=display">
@@ -507,9 +507,17 @@ y_{i,t}=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|
 <li>$\nabla_\theta J(\theta)\approx\nabla_\theta\log \pi_\theta(\mathbf{a}|\mathbf{s})\hat{A}^\pi(\mathbf{s},\mathbf{a})$</li>
 <li>$\theta\leftarrow \theta+\alpha\nabla_\theta J(\theta)$</li>
 </ol>
+<p><strong>批量演员-评论家算法 (batch actor-critic algorithm)</strong>：</p>
+<ol>
+<li>根据策略$\pi_\theta(\mathbf{a}|\mathbf{s})$得到一些样本$\{\mathbf{s}_i,\mathbf{a}_i\}$，包括所处状态、行动和收益。</li>
+<li>使用样本收益之和拟合$\hat{V}^\pi_\phi(\mathbf{s})$。这一步样本可以做蒙特卡洛，也可以做自助法；拟合可以用最小二乘的目标函数。</li>
+<li>评估优势函数$\hat{A}^\pi(\mathbf{s}_i,\mathbf{a}_i)=r(\mathbf{s}_i,\mathbf{a}_i)+\gamma\hat{V}^\pi_\phi(\mathbf{s}_i’)-\hat{V}^\pi_\phi(\mathbf{s}_i)$。</li>
+<li>$\nabla_\theta J(\theta)\approx\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_t|\mathbf{s}_t)\hat{A}^\pi(\mathbf{s}_t,\mathbf{a}_t)\right]$。</li>
+<li>$\theta\leftarrow \theta+\alpha\nabla_\theta J(\theta)$。</li>
+</ol>
 <p> Actor-Critic算法（公式14）是低方差的（由于Critic的存在）、有偏差的（如果Critic表现地不好）</p>
 <p>Policy Gradients方法（公式11）是高方差（由于用单样本采样来估计）、无偏差的</p>
-<p>为了是结果无偏差、低方差的，我们可以结合上述两者的优点，算法如下：</p>
+<p>为了使结果无偏差、低方差的，我们可以结合上述两者的优点，算法如下：</p>
 <script type="math/tex; mode=display">
 \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\nabla_\theta\log\pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\left(\sum_{t'=t}^T\gamma^{t'-t}r(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})-\hat{V}^\pi_\phi(\mathbf{s}_{i,t})\right)</script><p>在CS294-112的作业2中正是利用这个算法。</p>
 <p><strong>参考</strong></p>
@@ -789,7 +797,7 @@ y_{i,t}=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">4.9k</span> 字
+      博客全站共： <span class="post-count">5.1k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->
