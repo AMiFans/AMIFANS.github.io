@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="**策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mat">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-07T03:28:25.435Z">
+<meta property="og:updated_time" content="2019-03-07T03:39:25.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="演员-批评家方法">
 <meta name="twitter:description" content="**策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mat">
@@ -401,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-03-07 09:56:23 / 修改时间：11:28:25" itemprop="dateCreated datePublished" datetime="2019-03-07T09:56:23+08:00">2019-03-07</time>
+              <time title="创建时间：2019-03-07 09:56:23 / 修改时间：11:39:25" itemprop="dateCreated datePublished" datetime="2019-03-07T09:56:23+08:00">2019-03-07</time>
             
 
             
@@ -460,18 +460,19 @@
 <script type="math/tex; mode=display">
 \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t'=t}^Tr(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})\right]......(1)</script><p>现在我们回顾一下状态-动作值函数$Q(\mathbf{s}_t,\mathbf{a}_t)$和状态值函数$V(\mathbf{s}_t)$的定义：</p>
 <script type="math/tex; mode=display">
-Q(\mathbf{s}_t,\mathbf{a}_t)=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|\mathbf{s}_t,\mathbf{a}_t]......(2)</script><p>现在我们令公式（1）中的$\sum_{t’=t}^Tr(\mathbf{s}_{i,t’},\mathbf{a}_{i,t’})=\hat{Q}_{i,t}$，为什么用$\hat{Q}_{i,t}$因为$Q(\mathbf{s}_t,\mathbf{a}_t)$是$\hat{Q}_{i,t}$的期望。</p>
+Q(\mathbf{s}_t,\mathbf{a}_t)=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|\mathbf{s}_t,\mathbf{a}_t]......(2)</script><script type="math/tex; mode=display">
+V(s_t)=\sum_{t'=t}^T \mathop{E}_{\pi_\theta} [r(s_{t'}, a_{t'})|s_t]......(3)</script><p>现在我们令公式（1）中的$\sum_{t’=t}^Tr(\mathbf{s}_{i,t’},\mathbf{a}_{i,t’})=\hat{Q}_{i,t}$，为什么用$\hat{Q}_{i,t}$,因为这两者是有密切联系的，$Q(\mathbf{s}_t,\mathbf{a}_t)$是$\hat{Q}_{i,t}$的期望。</p>
 <p>现在我们要做的就是用$Q(\mathbf{s}_t,\mathbf{a}_t)$代替$\hat{Q}_{i,t}$，因为采样的每一条轨迹中，在状态$s_t$之后的奖赏之和可能是不同的，我们想使得状态$s_t$之后奖赏之和能够稳定。</p>
-<p>同样在引入基线后，我们可以将前文所述的基线$b_t=\frac{1}{N}\sum_iQ^\pi(\mathbf{s}_{i,t},\mathbf{a}_{i,t})用其期望$V(s_t) = \sum_{t’=t}^T \mathop{E}_{\pi_\theta} [r(s_{t’}, a_{t’})|s_t]$取代，现在我们的梯度形式就变为</p>
+<p>同样在引入基线后，我们可以将前文所述的基线$b_t=\frac{1}{N}\sum_iQ^\pi(\mathbf{s}_{i,t},\mathbf{a}_{i,t})用其期望 $V(s_t)=\sum_{t’=t}^T \mathop{E}_{\pi_\theta} [r(s_{t’}, a_{t’})|s_t]$ 取代，现在我们的梯度形式就变为</p>
 <script type="math/tex; mode=display">
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})A^\pi(\mathbf{s}_t,\mathbf{a}_t)\right]</script><p>其中，$A^\pi(\mathbf{s}_t,\mathbf{a}_t)=Q^\pi(\mathbf{s}_t,\mathbf{a}_t)-V^\pi(\mathbf{s}_t)$,称为优势函数（Advantage Function）。</p>
+\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})A^\pi(\mathbf{s}_t,\mathbf{a}_t)\right]......(4)</script><p>其中，$A^\pi(\mathbf{s}_t,\mathbf{a}_t)=Q^\pi(\mathbf{s}_t,\mathbf{a}_t)-V^\pi(\mathbf{s}_t)$,称为优势函数（Advantage Function）。</p>
 <p>优势函数可理解为在给定策略$\pi$的情况下，在状态$\mathbf{s}_t$处，采用行动$\mathbf{a}_t$能比该策略的平均今后收益期望多出多少。</p>
 <h3 id="演员-评论家算法"><a href="#演员-评论家算法" class="headerlink" title="演员-评论家算法"></a><strong>演员-评论家算法</strong></h3><p>演员-评论家算法要做的就是引入另一个参数$\phi$，通过神经网络来拟合优势函数$A^\pi(\mathbf{s}_t,\mathbf{a}_t)$</p>
 <p>$Q(\mathbf{s}_t,\mathbf{a}_t)$和$V^\pi(\mathbf{s}_t)$有如下的关系，</p>
 <script type="math/tex; mode=display">
-Q^\pi(\mathbf{s}_t,\mathbf{a}_t)=r(\mathbf{s}_t,\mathbf{a}_t)+\sum_{t'=t+1}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|\mathbf{s}_t,\mathbf{a}_t]=r(\mathbf{s}_t,\mathbf{a}_t)+\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s_{t+1}}|\mathbf{s}_t,\mathbf{a}_t)}[V^\pi(\mathbf{s}_{t+1})]</script><p>如果我们用用轨迹样本来估计这个期望（即用$V^\pi(\mathbf{s}_{t+1})$来代替$\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s_{t+1}}|\mathbf{s}_t,\mathbf{a}_t)}[V^\pi(\mathbf{s}_{t+1})]$），那么，优势函数也可以被近似为</p>
+Q^\pi(\mathbf{s}_t,\mathbf{a}_t)=r(\mathbf{s}_t,\mathbf{a}_t)+\sum_{t'=t+1}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|\mathbf{s}_t,\mathbf{a}_t]=r(\mathbf{s}_t,\mathbf{a}_t)+\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s_{t+1}}|\mathbf{s}_t,\mathbf{a}_t)}[V^\pi(\mathbf{s}_{t+1})]......(5)</script><p>如果我们用用轨迹样本来估计这个期望（即用$V^\pi(\mathbf{s}_{t+1})$来代替$\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s_{t+1}}|\mathbf{s}_t,\mathbf{a}_t)}[V^\pi(\mathbf{s}_{t+1})]$），那么，优势函数也可以被近似为</p>
 <script type="math/tex; mode=display">
-A^\pi(\mathbf{s}_t,\mathbf{a}_t)\approx r(\mathbf{s}_t,\mathbf{a}_t)+V^\pi(\mathbf{s}_{t+1})-V^\pi(\mathbf{s}_t)</script><p>这样的话，我们只需要用参数$\phi$去拟合$V^\pi(\mathbf{s}_t$即可。</p>
+A^\pi(\mathbf{s}_t,\mathbf{a}_t)\approx r(\mathbf{s}_t,\mathbf{a}_t)+V^\pi(\mathbf{s}_{t+1})-V^\pi(\mathbf{s}_t)......(6)</script><p>这样的话，我们只需要用参数$\phi$去拟合$V^\pi(\mathbf{s}_t)$即可。</p>
 
       
     </div>
