@@ -125,7 +125,7 @@
 <meta property="og:description" content="首先我们回顾一下“策略梯度方法（PG）”和“信赖域策略优化（TRPO）”。策略梯度方法（PG）策略梯度方法通过计算策略梯度的估计并利用随机梯度上升算法来工作。 最常用的梯度估计形式为：  \hat{\mathbb{E}}_t\left[\nabla_\theta\log \pi_\theta(a_{t}|s_{t})\hat{A}_t\right]......(1)其中$\pi_\theta$为随">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://github.com/image/PPO.jpg">
-<meta property="og:updated_time" content="2019-03-08T12:29:35.850Z">
+<meta property="og:updated_time" content="2019-03-08T13:00:14.146Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="近端策略优化算法(PPO)">
 <meta name="twitter:description" content="首先我们回顾一下“策略梯度方法（PG）”和“信赖域策略优化（TRPO）”。策略梯度方法（PG）策略梯度方法通过计算策略梯度的估计并利用随机梯度上升算法来工作。 最常用的梯度估计形式为：  \hat{\mathbb{E}}_t\left[\nabla_\theta\log \pi_\theta(a_{t}|s_{t})\hat{A}_t\right]......(1)其中$\pi_\theta$为随">
@@ -403,7 +403,7 @@
                 
               
 
-              <time title="创建时间：2019-03-08 16:48:10 / 修改时间：20:29:35" itemprop="dateCreated datePublished" datetime="2019-03-08T16:48:10+08:00">2019-03-08</time>
+              <time title="创建时间：2019-03-08 16:48:10 / 修改时间：21:00:14" itemprop="dateCreated datePublished" datetime="2019-03-08T16:48:10+08:00">2019-03-08</time>
             
 
             
@@ -469,10 +469,15 @@ L^{PG}(\theta)=\hat{\mathbb{E}}_t\left[\log \pi_\theta(a_{t}|s_{t})\hat{A}_t\rig
 <p>PPO1：截断替代目标</p>
 <p>首先，我们令$r_t(\theta)=\frac{\pi_{\theta}\left(a_t|s_t\right)}{\pi_{\theta_{old}}\left(a_t|s_t\right)}$，所以$r(\theta_{old})=1$。$TRPO$的替代目标为</p>
 <script type="math/tex; mode=display">
-L^{CPL}(\theta)=\hat{\mathbb{E}}_t\left[\frac{\pi_{\theta}\left(a_t|s_t\right)}{\pi_{\theta_{old}}\left(a_t|s_t\right)}\hat{A}_{\theta_{old}}\left(s_t,a_t\right)\right]=\hat{\mathbb{E}}_t\left[r_t(\theta)\hat{A}_{\theta_{old}}\left(s_t,a_t\right)\right]</script><p>上标$CPI$指的是$TRPO$中的保守政策迭代，如果没有约束，最大化$L^{CPL}$将会导致非常大幅度的梯度更新。为了惩罚政策的变化（即$r_t(\theta)$远离1，即新旧策略的KL 散度不能太大），提出了如下的目标</p>
+L^{CPL}(\theta)=\hat{\mathbb{E}}_t\left[\frac{\pi_{\theta}\left(a_t|s_t\right)}{\pi_{\theta_{old}}\left(a_t|s_t\right)}\hat{A}_{\theta_{old}}\left(s_t,a_t\right)\right]=\hat{\mathbb{E}}_t\left[r_t(\theta)\hat{A}_{\theta_{old}}\left(s_t,a_t\right)\right]......(4)</script><p>上标$CPI$指的是$TRPO$中的保守政策迭代，如果没有约束，最大化$L^{CPL}$将会导致非常大幅度的梯度更新。为了惩罚政策的变化（即$r_t(\theta)$远离1，即新旧策略的KL 散度不能太大），提出了如下的目标</p>
 <script type="math/tex; mode=display">
-L^{CLIP}(\theta)=\hat{\mathbb{E}}_t\left[ min(r_t(\theta)\hat{A}_t ,clip(r_t(\theta),1-\varepsilon,1+\varepsilon)\hat{A}_t)\right]</script><p>论文中$\epsilon=0.2$，直观示意图如下<br><img src="\image\PPO.jpg" alt="图1 PPO"><br>该算法的意思为：<br>当A&gt;0时，如果$r_t(\theta)&gt;1+\epsilon$，则$L^{CLIP}(\theta)=(1+\epsilon)\hat{A}_t$；如果$r_t(\theta)&lt;1+\epsilon$则$L^{CLIP}(\theta)=r_t(\theta)\hat{A}_t$;</p>
+L^{CLIP}(\theta)=\hat{\mathbb{E}}_t\left[ min(r_t(\theta)\hat{A}_t ,clip(r_t(\theta),1-\varepsilon,1+\varepsilon)\hat{A}_t)\right]......(5)</script><p>论文中$\epsilon=0.2$，直观示意图如下<br><img src="\image\PPO.jpg" alt="图1 PPO"><br>该算法的意思为：<br>当A&gt;0时，如果$r_t(\theta)&gt;1+\epsilon$，则$L^{CLIP}(\theta)=(1+\epsilon)\hat{A}_t$；如果$r_t(\theta)&lt;1+\epsilon$则$L^{CLIP}(\theta)=r_t(\theta)\hat{A}_t$;</p>
 <p>当A<0时，如果$r_t(\theta)>1-\epsilon$，则$L^{CLIP}(\theta)=r_t(\theta)\hat{A}_t$；如果$r_t(\theta)&lt;1-\epsilon$，则$L^{CLIP}(\theta)=(1-\epsilon)\hat{A}_t$;</0时，如果$r_t(\theta)></p>
+<p>PPO2：自适应KL惩罚系数</p>
+<script type="math/tex; mode=display">
+L^{KLPEN}(\theta)=\hat{\mathbb{E}}_t\left[\frac{\pi_{\theta}\left(a_t|s_t\right)}{\pi_{\theta_{old}}\left(a_t|s_t\right)}\hat{A}_t-\beta \ KL\left[\pi_{\theta_{old}}\left(\cdot |s_t\right),\pi_{\theta}\left(\cdot |s_t\right)\right]\right]......(6)</script><p>令$d=\hat{\mathbb{E}}_t\left[KL\left[\pi_{\theta_{old}}\left(\cdot |s_t\right),\pi_{\theta}\left(\cdot |s_t\right)\right]\right]$</p>
+<p>$如果d&lt;d_{targ}/1.5,\beta\leftarrow \beta/2</p>
+<p>如果d&gt;d_{targ}\times1.5,\beta\leftarrow \beta\times2$</p>
 
       
     </div>
@@ -719,7 +724,7 @@ L^{CLIP}(\theta)=\hat{\mathbb{E}}_t\left[ min(r_t(\theta)\hat{A}_t ,clip(r_t(\th
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">7.2k</span> 字
+      博客全站共： <span class="post-count">7.3k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->
