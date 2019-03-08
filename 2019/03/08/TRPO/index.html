@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="根据策略梯度方法，参数更新方程式为：  \theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。TRPO要解决的问题就是解决这">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-08T08:24:51.492Z">
+<meta property="og:updated_time" content="2019-03-08T08:34:40.850Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="信赖域策略优化(TRPO)">
 <meta name="twitter:description" content="根据策略梯度方法，参数更新方程式为：  \theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。TRPO要解决的问题就是解决这">
@@ -401,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-03-08 09:03:49 / 修改时间：16:24:51" itemprop="dateCreated datePublished" datetime="2019-03-08T09:03:49+08:00">2019-03-08</time>
+              <time title="创建时间：2019-03-08 09:03:49 / 修改时间：16:34:40" itemprop="dateCreated datePublished" datetime="2019-03-08T09:03:49+08:00">2019-03-08</time>
             
 
             
@@ -495,7 +495,7 @@ subject\ to~~~\bar{D}_{KL}^{\rho_{\theta_{old}}}\left(\theta_{old},\theta\right)
  maximize_{\theta}E_{s~\pi_{\theta_{old}},a~\pi_{\theta_{old}}}\left[\frac{\pi_{\theta}\left(a|s\right)}{\pi_{\theta_{old}}\left(a|s\right)}A_{\theta_{old}}\left(s,a\right)\right] \\ subject\ to\ E_{s~\pi_{\theta_{old}}}\left[D_{KL}\left(\pi_{\theta_{old}}\left(\cdot |s\right)||\pi_{\theta}\left(\cdot |s\right)\right)\right]\le\delta......(14)</script><p>论文中提出，可以将$A_{\theta_{old}}\left(s,a\right)$用$Q_{\theta_{old}}\left(s,a\right)$代替。</p>
 <p>论文总结</p>
 <ul>
-<li>理论上证明了可通过优化替代目标并对KL散度进行惩罚来更新策略使得$\eta$单调递增。 然而，较大惩罚系数 C 会导致更新步伐过小，所以我们希望减小这个系数。实际上，很难有力地选择惩罚系数，因此我们使用硬约束$\delta$（KL散度的界限）而不是惩罚。</li>
+<li>理论上证明了可通过优化替代目标$\eta\left(\tilde{\pi}\right)$并对KL散度进行惩罚来更新策略使得$\eta$单调递增。 然而，较大惩罚系数 C 会导致更新步伐过小，所以我们希望减小这个系数。实际上，很难有力地选择惩罚系数，因此我们使用硬约束$\delta$（KL散度的界限）而不是惩罚。</li>
 <li>$D_{KL}^{\max}\left(\theta_{old},\theta\right)$很难进行数值优化和估计，因此我们用$\bar{D}_{KL}^{\rho_{\theta_{old}}}\left(\theta_{old},\theta\right)$来代替。</li>
 <li>我们的理论忽略了优势函数的估计误差。 Kakade和Langford（2002）在他们的推导中考虑了这个误差，并且在本文的背景中也存在相同的论点，但是为了简单化我们省略了它。</li>
 </ul>
