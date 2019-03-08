@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="根据策略梯度方法，参数更新方程式为：  \theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。TRPO要解决的问题就是解决这">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-08T08:15:41.454Z">
+<meta property="og:updated_time" content="2019-03-08T08:24:51.492Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="信赖域策略优化(TRPO)">
 <meta name="twitter:description" content="根据策略梯度方法，参数更新方程式为：  \theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。TRPO要解决的问题就是解决这">
@@ -401,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-03-08 09:03:49 / 修改时间：16:15:41" itemprop="dateCreated datePublished" datetime="2019-03-08T09:03:49+08:00">2019-03-08</time>
+              <time title="创建时间：2019-03-08 09:03:49 / 修改时间：16:24:51" itemprop="dateCreated datePublished" datetime="2019-03-08T09:03:49+08:00">2019-03-08</time>
             
 
             
@@ -471,33 +471,33 @@ E_{\tau |\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^tA_{\pi}\left(s_t,a_t\righ
 <script type="math/tex; mode=display">
 \rho_{\pi}\left(s\right)=P\left(s_0=s\right)+\gamma P\left(s_1=s\right)+\gamma^2P\left(s_2=s\right)+\cdots......(5)</script><p>为了出现策略项，我们可以利用公式（5）将公式（3）改写为</p>
 <script type="math/tex; mode=display">
-\eta\left(\tilde{\pi}\right)=\eta\left(\pi\right)+\sum_{t=0}^{\infty}{\sum_s{P\left(s_t=s|\tilde{\pi}\right)}}\sum_a{\tilde{\pi}\left(a|s\right)\gamma^tA_{\pi}\left(s,a\right)}=\eta\left(\pi\right)+\sum_s{\rho_{\tilde{\pi}}\left(s\right)\sum_a{\tilde{\pi}\left(a|s\right)A^{\pi}\left(s,a\right)}}......(6)</script><p>由于$\rho_{\tilde{\pi}}$严重的依赖于新的策略$\tilde{\pi}$，使得公式（6）很难去优化。因此，我们忽略因策略改变而产生的状态分布的改变，即令$\rho_{\pi}\approx\\rho_{\tilde{\pi}}$，近似后的公式为</p>
+\eta\left(\tilde{\pi}\right)=\eta\left(\pi\right)+\sum_{t=0}^{\infty}{\sum_s{P\left(s_t=s|\tilde{\pi}\right)}}\sum_a{\tilde{\pi}\left(a|s\right)\gamma^tA_{\pi}\left(s,a\right)}=\eta\left(\pi\right)+\sum_s{\rho_{\tilde{\pi}}\left(s\right)\sum_a{\tilde{\pi}\left(a|s\right)A^{\pi}\left(s,a\right)}}......(6)</script><p>由于$\rho_{\tilde{\pi}}$严重的依赖于新的策略$\tilde{\pi}$，使得公式（6）很难去优化。因此，我们忽略因策略改变而产生的状态分布的改变，即令$\rho_{\pi}\approx \rho_{\tilde{\pi}}$，近似后的公式为</p>
 <script type="math/tex; mode=display">
 L_{\pi}\left(\tilde{\pi}\right)=\eta\left(\pi\right)+\sum_s{\rho_{\pi}\left(s\right)\sum_a{\tilde{\pi}\left(a|s\right)A^{\pi}\left(s,a\right)}}......(7)</script><p>对比公式（6）与公式（7），我们发现$L_{\pi}\left(\tilde{\pi}\right)\textrm{，}\eta\left(\tilde{\pi}\right)$在策略 $\pi_{\theta_{old}} $处一阶近似，即：</p>
 <script type="math/tex; mode=display">
 L_{\pi_{\theta_{old}}}\left(\pi_{\theta_{old}}\right)=\eta\left(\pi_{\theta_{old}}\right) \\ \nabla_{\theta}L_{\pi_{\theta_{old}}}\left(\pi_{\theta}\right)|_{\theta =\theta_{old}}=\nabla_{\theta}\eta\left(\pi_{\theta}\right)|_{\theta =\theta_{old}}......(8)</script><p>TRPO在“自然策略梯度”的基础上提出了如下的算法，</p>
 <script type="math/tex; mode=display">
-\eta\left(\tilde{\pi}\right)\geqslant L_{\pi}\left(\tilde{\pi}\right)-CD_{KL}^{\max}\left(\pi ,\tilde{\pi}\right) \\ subject\ to~~~\ C=\frac{2\varepsilon\gamma}{\left(1-\gamma\right)^2},\varepsilon=\max_{s,a}|A_{\pi}\left(s,a\right)|</script><p>该不等式带给我们重要的启示，那就是该不等式给了$\eta\left(\tilde{\pi}\right)$的下界，我们定义这个下界为$M_i\left(\pi\right)=L_{\pi_i}\left(\pi\right)-CD_{KL}^{\max}\left(\pi_i,\pi\right)$</p>
+\eta\left(\tilde{\pi}\right)\geqslant L_{\pi}\left(\tilde{\pi}\right)-CD_{KL}^{\max}\left(\pi ,\tilde{\pi}\right) \\ subject\ to~~~\ C=\frac{2\varepsilon\gamma}{\left(1-\gamma\right)^2},\varepsilon=\max_{s,a}|A_{\pi}\left(s,a\right)|......(9)</script><p>该不等式带给我们重要的启示，那就是给出了$\eta\left(\tilde{\pi}\right)$的下界，我们定义这个下界为$M_i\left(\pi\right)=L_{\pi_i}\left(\pi\right)-CD_{KL}^{\max}\left(\pi_i,\pi\right)$</p>
 <p>利用这个下界我们可以证明策略的单调性：</p>
 <script type="math/tex; mode=display">
 \eta\left(\pi_{i+1}\right)\geqslant M_i\left(\pi_{i+1}\right)\\
 \eta\left(\pi_i\right)=M_i\left(\pi_i\right)\\
-则\ \eta\left(\pi_{i+1}\right)-\eta\left(\pi_i\right)\geqslant M_i\left(\pi_{i+1}\right)-M\left(\pi_i\right)</script><p>如果新的策略$\pi_{i+1}$能使得$M_i$最大，那么有不等式$M_i\left(\pi_{i+1}\right)-M\left(\pi_i\right)\geqslant 0 $，则$\eta\left(\pi_{i+1}\right)-\eta\left(\pi_i\right)\geqslant 0 $，那么我们的目标将转化为寻找使得$M_i$最大的新的策略。可形式化为</p>
+则\ \eta\left(\pi_{i+1}\right)-\eta\left(\pi_i\right)\geqslant M_i\left(\pi_{i+1}\right)-M\left(\pi_i\right)......(10)</script><p>如果新的策略$\pi_{i+1}$能使得$M_i$最大，那么有不等式$M_i\left(\pi_{i+1}\right)-M\left(\pi_i\right)\geqslant 0 $，则$\eta\left(\pi_{i+1}\right)-\eta\left(\pi_i\right)\geqslant 0 $，那么我们的目标将转化为寻找使得$M_i$最大的新的策略。可形式化为</p>
 <script type="math/tex; mode=display">
-maximize_{\theta}\left[L_{\theta_{old}}\left(\theta\right)-CD_{KL}^{\max}\left(\theta_{old},\theta\right)\right]</script><p>然而在实际中，使用惩罚系数 C 会使得更新步伐非常小，因此，提出如下的形式</p>
-<script type="math/tex; mode=display">
-maximize_{\theta}L_{\theta_{old}}\left(\theta\right)\\
-subject\ to~~~D_{KL}^{\max}\left(\theta_{old},\theta\right)\leqslant \delta</script><p>但是，这个问题强加了一个约束，即KL散度在状态空间的每个点都有界限， 尽管理论上可行，但由于存在大量约束，这个问题难以解决。因此我们可以使用考虑平均KL散度来近似</p>
+maximize_{\theta}\left[L_{\theta_{old}}\left(\theta\right)-CD_{KL}^{\max}\left(\theta_{old},\theta\right)\right]......(11)</script><p>然而在实际中，使用惩罚系数 C 会使得更新步伐非常小，因此，提出如下的形式</p>
 <script type="math/tex; mode=display">
 maximize_{\theta}L_{\theta_{old}}\left(\theta\right)\\
-subject\ to~~~\bar{D}_{KL}^{\rho_{\theta_{old}}}\left(\theta_{old},\theta\right)\le\delta</script><p>另外，我们同样也可以引入“重要性采样”，并作形式上的演化，最终的不等式化为</p>
+subject\ to~~~D_{KL}^{\max}\left(\theta_{old},\theta\right)\leqslant \delta......(12)</script><p>但是，这个问题强加了一个约束，即KL散度在状态空间的每个点都有界限， 尽管理论上可行，但由于存在大量约束，这个问题难以解决。因此我们可以使用考虑平均KL散度来近似</p>
 <script type="math/tex; mode=display">
- maximize_{\theta}E_{s~\pi_{\theta_{old}},a~\pi_{\theta_{old}}}\left[\frac{\pi_{\theta}\left(a|s\right)}{\pi_{\theta_{old}}\left(a|s\right)}A_{\theta_{old}}\left(s,a\right)\right] \\ subject\ to\ E_{s~\pi_{\theta_{old}}}\left[D_{KL}\left(\pi_{\theta_{old}}\left(\cdot |s\right)||\pi_{\theta}\left(\cdot |s\right)\right)\right]\le\delta</script><p>论文中提出，可以将$A_{\theta_{old}}\left(s,a\right)$用$Q_{\theta_{old}}\left(s,a\right)$代替。</p>
+maximize_{\theta}L_{\theta_{old}}\left(\theta\right)\\
+subject\ to~~~\bar{D}_{KL}^{\rho_{\theta_{old}}}\left(\theta_{old},\theta\right)\le\delta......(13)</script><p>另外，我们同样也可以引入“重要性采样”，并作形式上的演化，最终的不等式化为</p>
+<script type="math/tex; mode=display">
+ maximize_{\theta}E_{s~\pi_{\theta_{old}},a~\pi_{\theta_{old}}}\left[\frac{\pi_{\theta}\left(a|s\right)}{\pi_{\theta_{old}}\left(a|s\right)}A_{\theta_{old}}\left(s,a\right)\right] \\ subject\ to\ E_{s~\pi_{\theta_{old}}}\left[D_{KL}\left(\pi_{\theta_{old}}\left(\cdot |s\right)||\pi_{\theta}\left(\cdot |s\right)\right)\right]\le\delta......(14)</script><p>论文中提出，可以将$A_{\theta_{old}}\left(s,a\right)$用$Q_{\theta_{old}}\left(s,a\right)$代替。</p>
 <p>论文总结</p>
 <ul>
 <li>理论上证明了可通过优化替代目标并对KL散度进行惩罚来更新策略使得$\eta$单调递增。 然而，较大惩罚系数 C 会导致更新步伐过小，所以我们希望减小这个系数。实际上，很难有力地选择惩罚系数，因此我们使用硬约束$\delta$（KL散度的界限）而不是惩罚。</li>
 <li>$D_{KL}^{\max}\left(\theta_{old},\theta\right)$很难进行数值优化和估计，因此我们用$\bar{D}_{KL}^{\rho_{\theta_{old}}}\left(\theta_{old},\theta\right)$来代替。</li>
-<li>我们的理论忽略了优势函数的估计误差。 Kakade和Langford（2002）在他们的推导中考虑了这个误差，并且在本文的背景中也存在相同的论点，但是为了简单化我们省略了它</li>
+<li>我们的理论忽略了优势函数的估计误差。 Kakade和Langford（2002）在他们的推导中考虑了这个误差，并且在本文的背景中也存在相同的论点，但是为了简单化我们省略了它。</li>
 </ul>
 
       
