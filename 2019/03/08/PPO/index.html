@@ -125,7 +125,8 @@
 <meta property="og:description" content="首先我们回顾一下“策略梯度方法（PG）”和“信赖域策略优化（TRPO）”。策略梯度方法（PG）策略梯度方法通过计算策略梯度的估计并利用随机梯度上升算法来工作。 最常用的梯度估计形式为：  \hat{\mathbb{E}}_t\left[\nabla_\theta\log \pi_\theta(a_{t}|s_{t})\hat{A}_t\right]......(1)其中$\pi_\theta$为随">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://github.com/image/PPO.jpg">
-<meta property="og:updated_time" content="2019-03-08T13:48:59.855Z">
+<meta property="og:image" content="https://github.com/image/PPOA.jpg">
+<meta property="og:updated_time" content="2019-03-08T13:50:32.138Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="近端策略优化算法(PPO)">
 <meta name="twitter:description" content="首先我们回顾一下“策略梯度方法（PG）”和“信赖域策略优化（TRPO）”。策略梯度方法（PG）策略梯度方法通过计算策略梯度的估计并利用随机梯度上升算法来工作。 最常用的梯度估计形式为：  \hat{\mathbb{E}}_t\left[\nabla_\theta\log \pi_\theta(a_{t}|s_{t})\hat{A}_t\right]......(1)其中$\pi_\theta$为随">
@@ -403,7 +404,7 @@
                 
               
 
-              <time title="创建时间：2019-03-08 16:48:10 / 修改时间：21:48:59" itemprop="dateCreated datePublished" datetime="2019-03-08T16:48:10+08:00">2019-03-08</time>
+              <time title="创建时间：2019-03-08 16:48:10 / 修改时间：21:50:32" itemprop="dateCreated datePublished" datetime="2019-03-08T16:48:10+08:00">2019-03-08</time>
             
 
             
@@ -495,7 +496,8 @@ L^{CLIP+VF+S}_t(\theta) = \hat{E}_t\left[L^{CLIP}_t(\theta)−c_1L^{VF}_t(\theta
 \hat{A}_{t}=-V\left(s_t\right)+r_t+\gamma r_{t+1}+...+\gamma^{T-t+1}r_{T-1}+\gamma^{T-t}V\left(s_{T}\right)......(7)</script><p>另外，我们可以使用广义优势函数来扩广$\hat{A}_{t}$，当λ= 1时，它会趋近到等式（7）</p>
 <script type="math/tex; mode=display">
 \hat{A}_{t}=\delta_t+(\gamma\lambda) \delta_{t+1}+...+...+(\gamma\lambda)^{T-t+1}\delta_{T-1}......(8)
-\\where\  \delta_t=r_t+\gamma V(s_{t+1})-V(s_{t})</script>
+\\where\  \delta_t=r_t+\gamma V(s_{t+1})-V(s_{t})</script><p><img src="\image\PPOA.jpg" alt="图1 PPOAL"></p>
+
       
     </div>
 
