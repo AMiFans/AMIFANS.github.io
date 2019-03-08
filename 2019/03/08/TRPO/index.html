@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="根据策略梯度方法，参数更新方程式为：  \theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。TRPO要解决的问题就是解决这">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-08T03:19:12.945Z">
+<meta property="og:updated_time" content="2019-03-08T03:24:08.281Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="信赖域策略优化(TRPO)">
 <meta name="twitter:description" content="根据策略梯度方法，参数更新方程式为：  \theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。TRPO要解决的问题就是解决这">
@@ -401,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-03-08 09:03:49 / 修改时间：11:19:12" itemprop="dateCreated datePublished" datetime="2019-03-08T09:03:49+08:00">2019-03-08</time>
+              <time title="创建时间：2019-03-08 09:03:49 / 修改时间：11:24:08" itemprop="dateCreated datePublished" datetime="2019-03-08T09:03:49+08:00">2019-03-08</time>
             
 
             
@@ -463,21 +463,21 @@
 <script type="math/tex; mode=display">
 \eta\left(\pi\right)=E_{s_0,a_0,\cdots ~}\left[\sum_{t=0}^{\infty}{\gamma^tA_{\pi}\left(s_t,a_t\right)}\right]......(2)</script><p>其中</p>
 <script type="math/tex; mode=display">
-s_0∼\rho_0(s_0),a_t∼\pi(a_t|s_t),s_{t+1}∼P(s_{t+1}|s_t, a_t)......(3)</script><p>TRPO的目的是找到新的策略，使得回报函数单调不减。那么如果将新的策略所对应的回报函数可以用旧的策略所对应的回报函数与其他项之和(公式4)代替并保证新的策略所对应的其他项大于等于零，那么新的策略就能保证回报函数单调不减。</p>
+s_0∼\rho_0(s_0),a_t∼\pi(a_t|s_t),s_{t+1}∼P(s_{t+1}|s_t, a_t)</script><p>TRPO的目的是找到新的策略，使得回报函数单调不减。那么如果将新的策略所对应的回报函数可以用旧的策略所对应的回报函数与其他项之和(公式3)代替并保证新的策略所对应的其他项大于等于零，那么新的策略就能保证回报函数单调不减。</p>
 <script type="math/tex; mode=display">
-\eta\left(\tilde{\pi}\right)=\eta\left(\pi\right)+E_{s_0,a_0,\cdots ~\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^tA_{\pi}\left(s_t,a_t\right)}\right]......(4)</script><p>其中，</p>
+\eta\left(\tilde{\pi}\right)=\eta\left(\pi\right)+E_{s_0,a_0,\cdots ~\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^tA_{\pi}\left(s_t,a_t\right)}\right]......(3)</script><p>其中，</p>
 <script type="math/tex; mode=display">
-A_{\pi}\left(s,a\right)=Q_{\pi}\left(s,a\right)-V_{\pi}\left(s\right)......(5)</script><p>证明如下($\tilde{\pi}$为新策略，$\pi$为就策略)：</p>
+A_{\pi}\left(s,a\right)=Q_{\pi}\left(s,a\right)-V_{\pi}\left(s\right)......(4)</script><p>证明如下($\tilde{\pi}$为新策略，$\pi$为就策略)：</p>
 <script type="math/tex; mode=display">
-E_{\tau |\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^tA_{\pi}\left(s_t,a_t\right)}\right] \\ =E_{\tau |\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^t\left(r\left(s\right)+\gamma V^{\pi}\left(s_{t+1}\right)-V^{\pi}\left(s_t\right)\right)}\right] \\ =E_{\tau |\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^t\left(r\left(s_t\right)\right)+\sum_{t=0}^{\infty}{\gamma^t\left(\gamma V^{\pi}\left(s_{t+1}\right)-V^{\pi}\left(s_t\right)\right)}}\right] \\ =E_{\tau |\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^t\left(r\left(s_t\right)\right)}\right]+E_{s_0}\left[-V^{\pi}\left(s_0\right)\right] \\ =\eta\left(\tilde{\pi}\right)-\eta\left(\pi\right) \]</script><p>我们定义:</p>
+E_{\tau |\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^tA_{\pi}\left(s_t,a_t\right)}\right] \\ =E_{\tau |\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^t\left(r\left(s\right)+\gamma V^{\pi}\left(s_{t+1}\right)-V^{\pi}\left(s_t\right)\right)}\right] \\ =E_{\tau |\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^t\left(r\left(s_t\right)\right)+\sum_{t=0}^{\infty}{\gamma^t\left(\gamma V^{\pi}\left(s_{t+1}\right)-V^{\pi}\left(s_t\right)\right)}}\right] \\ =E_{\tau |\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^t\left(r\left(s_t\right)\right)}\right]+E_{s_0}\left[-V^{\pi}\left(s_0\right)\right] \\ =\eta\left(\tilde{\pi}\right)-\eta\left(\pi\right)</script><p>我们定义:</p>
 <script type="math/tex; mode=display">
-\rho_{\pi}\left(s\right)=P\left(s_0=s\right)+\gamma P\left(s_1=s\right)+\gamma^2P\left(s_2=s\right)+\cdots......(6)</script><p>为了出现策略项，我们可以利用公式（6）将公式（4）改写为</p>
+\rho_{\pi}\left(s\right)=P\left(s_0=s\right)+\gamma P\left(s_1=s\right)+\gamma^2P\left(s_2=s\right)+\cdots......(5)</script><p>为了出现策略项，我们可以利用公式（5）将公式（3）改写为</p>
 <script type="math/tex; mode=display">
-\eta\left(\tilde{\pi}\right)=\eta\left(\pi\right)+\sum_{t=0}^{\infty}{\sum_s{P\left(s_t=s|\tilde{\pi}\right)}}\sum_a{\tilde{\pi}\left(a|s\right)\gamma^tA_{\pi}\left(s,a\right)}=\eta\left(\pi\right)+\sum_s{\rho_{\tilde{\pi}}\left(s\right)\sum_a{\tilde{\pi}\left(a|s\right)A^{\pi}\left(s,a\right)}}......(7)</script><p>由于$\rho_{\tilde{\pi}}$严重的依赖于新的策略$\tilde{\pi}$，使得公式（7）很难去优化。因此，我们忽略因策略改变而产生的状态分布的改变，即令$\rho_{\pi}\approx\\rho_{\tilde{\pi}}$，近似后的公式为</p>
+\eta\left(\tilde{\pi}\right)=\eta\left(\pi\right)+\sum_{t=0}^{\infty}{\sum_s{P\left(s_t=s|\tilde{\pi}\right)}}\sum_a{\tilde{\pi}\left(a|s\right)\gamma^tA_{\pi}\left(s,a\right)}=\eta\left(\pi\right)+\sum_s{\rho_{\tilde{\pi}}\left(s\right)\sum_a{\tilde{\pi}\left(a|s\right)A^{\pi}\left(s,a\right)}}......(6)</script><p>由于$\rho_{\tilde{\pi}}$严重的依赖于新的策略$\tilde{\pi}$，使得公式（6）很难去优化。因此，我们忽略因策略改变而产生的状态分布的改变，即令$\rho_{\pi}\approx\\rho_{\tilde{\pi}}$，近似后的公式为</p>
 <script type="math/tex; mode=display">
-L_{\pi}\left(\tilde{\pi}\right)=\eta\left(\pi\right)+\sum_s{\rho_{\pi}\left(s\right)\sum_a{\tilde{\pi}\left(a|s\right)A^{\pi}\left(s,a\right)}}......(8)</script><p>对比公式（7）与公式（8），我们发现$L_{\pi}\left(\tilde{\pi}\right)\textrm{，}\eta\left(\tilde{\pi}\right)$在策略 $\pi_{\theta_{old}} $处一阶近似，即：</p>
+L_{\pi}\left(\tilde{\pi}\right)=\eta\left(\pi\right)+\sum_s{\rho_{\pi}\left(s\right)\sum_a{\tilde{\pi}\left(a|s\right)A^{\pi}\left(s,a\right)}}......(7)</script><p>对比公式（6）与公式（7），我们发现$L_{\pi}\left(\tilde{\pi}\right)\textrm{，}\eta\left(\tilde{\pi}\right)$在策略 $\pi_{\theta_{old}} $处一阶近似，即：</p>
 <script type="math/tex; mode=display">
-L_{\pi_{\theta_{old}}}\left(\pi_{\theta_{old}}\right)=\eta\left(\pi_{\theta_{old}}\right) \\ \nabla_{\theta}L_{\pi_{\theta_{old}}}\left(\pi_{\theta}\right)|_{\theta =\theta_{old}}=\nabla_{\theta}\eta\left(\pi_{\theta}\right)|_{\theta =\theta_{old}}</script><p>(未完。。。)</p>
+L_{\pi_{\theta_{old}}}\left(\pi_{\theta_{old}}\right)=\eta\left(\pi_{\theta_{old}}\right) \\ \nabla_{\theta}L_{\pi_{\theta_{old}}}\left(\pi_{\theta}\right)|_{\theta =\theta_{old}}=\nabla_{\theta}\eta\left(\pi_{\theta}\right)|_{\theta =\theta_{old}}......(8)</script><p>(未完。。。)</p>
 
       
     </div>
