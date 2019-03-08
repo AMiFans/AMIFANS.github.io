@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mathb">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-08T00:51:51.231Z">
+<meta property="og:updated_time" content="2019-03-08T00:55:51.236Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="演员-评论家方法(Actor-Critic)">
 <meta name="twitter:description" content="策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mathb">
@@ -416,7 +416,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-08 08:51:51" itemprop="dateModified" datetime="2019-03-08T08:51:51+08:00">2019-03-08</time>
+                <time title="修改时间：2019-03-08 08:55:51" itemprop="dateModified" datetime="2019-03-08T08:55:51+08:00">2019-03-08</time>
               
             
           </span>
@@ -471,7 +471,7 @@
 \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t'=t}^Tr(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})\right]......(1)</script><p>现在我们回顾一下状态-动作值函数$Q(\mathbf{s}_t,\mathbf{a}_t)$和状态值函数$V(\mathbf{s}_t)$的定义：</p>
 <script type="math/tex; mode=display">
 Q(\mathbf{s}_t,\mathbf{a}_t)=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|\mathbf{s}_t,\mathbf{a}_t]......(2)</script><script type="math/tex; mode=display">
-V(s_t)=\sum_{t'=t}^T \mathop{E}_{\pi_\theta} [r(s_{t'}, a_{t'})|s_t]......(3)</script><p>现在我们令公式（1）中的$\sum_{t’=t}^Tr(\mathbf{s}_{i,t’},\mathbf{a}_{i,t’})=\hat{Q}_{i,t}$，为什么用$\hat{Q}_{i,t}$,因为这两者是有密切联系的，$Q(\mathbf{s}_t,\mathbf{a}_t)$是$\hat{Q}_{i,t}$的期望。</p>
+V(s_t)=\sum_{t'=t}^T \mathop{E}_{\pi_\theta} [r(s_{t'}, a_{t'})|s_t]......(3)</script><p>现在我们令公式（1）中的$\sum_{t’=t}^Tr(\mathbf{s}_{i,t’},\mathbf{a}_{i,t’})=\hat{Q}_{i,t}$，为什么用$\hat{Q}_{i,t}$来表示,因为这两者是有密切联系的，$Q(\mathbf{s}_t,\mathbf{a}_t)$是$\hat{Q}_{i,t}$的期望。</p>
 <p>现在我们要做的就是用$Q(\mathbf{s}_t,\mathbf{a}_t)$代替$\hat{Q}_{i,t}$，因为采样的每一条轨迹中，在状态$s_t$之后的奖赏之和可能是不同的，我们想使得状态$s_t$之后奖赏之和能够稳定。</p>
 <p>同样在引入基线后，我们可以将前文所述的基线$b_t=\frac{1}{N}\sum_iQ^\pi(\mathbf{s}_{i,t},\mathbf{a}_{i,t})$用其期望$V(s_t)=\sum_{t’=t}^T\mathop{E}_{\pi_\theta} [r(s_{t’}, a_{t’})|s_t]$取代，现在我们的梯度形式就变为</p>
 <script type="math/tex; mode=display">
