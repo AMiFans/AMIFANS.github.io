@@ -126,7 +126,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://github.com/image/PPO.jpg">
 <meta property="og:image" content="https://github.com/image/PPOA.jpg">
-<meta property="og:updated_time" content="2019-03-08T13:50:32.138Z">
+<meta property="og:updated_time" content="2019-03-09T05:12:51.038Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="近端策略优化算法(PPO)">
 <meta name="twitter:description" content="首先我们回顾一下“策略梯度方法（PG）”和“信赖域策略优化（TRPO）”。策略梯度方法（PG）策略梯度方法通过计算策略梯度的估计并利用随机梯度上升算法来工作。 最常用的梯度估计形式为：  \hat{\mathbb{E}}_t\left[\nabla_\theta\log \pi_\theta(a_{t}|s_{t})\hat{A}_t\right]......(1)其中$\pi_\theta$为随">
@@ -404,12 +404,22 @@
                 
               
 
-              <time title="创建时间：2019-03-08 16:48:10 / 修改时间：21:50:32" itemprop="dateCreated datePublished" datetime="2019-03-08T16:48:10+08:00">2019-03-08</time>
+              <time title="创建时间：2019-03-08 16:48:10" itemprop="dateCreated datePublished" datetime="2019-03-08T16:48:10+08:00">2019-03-08</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                <time title="修改时间：2019-03-09 13:12:51" itemprop="dateModified" datetime="2019-03-09T13:12:51+08:00">2019-03-09</time>
               
             
           </span>
@@ -475,7 +485,7 @@ L^{CPL}(\theta)=\hat{\mathbb{E}}_t\left[\frac{\pi_{\theta}\left(a_t|s_t\right)}{
 L^{CLIP}(\theta)=\hat{\mathbb{E}}_t\left[ min(r_t(\theta)\hat{A}_t ,clip(r_t(\theta),1-\varepsilon,1+\varepsilon)\hat{A}_t)\right]......(5)</script><p>论文中$\epsilon=0.2$，直观示意图如下<br><img src="\image\PPO.jpg" alt="图1 PPO"><br>该算法的意思为：<br>当A&gt;0时，如果$r_t(\theta)&gt;1+\epsilon$，则$L^{CLIP}(\theta)=(1+\epsilon)\hat{A}_t$；如果$r_t(\theta)&lt;1+\epsilon$则$L^{CLIP}(\theta)=r_t(\theta)\hat{A}_t$;</p>
 <p>当A<0时，如果$r_t(\theta)>1-\epsilon$，则$L^{CLIP}(\theta)=r_t(\theta)\hat{A}_t$；如果$r_t(\theta)&lt;1-\epsilon$，则$L^{CLIP}(\theta)=(1-\epsilon)\hat{A}_t$;</0时，如果$r_t(\theta)></p>
 <p>PPO2：自适应KL惩罚系数</p>
-<p>在$TRPO$中，<br>使用“自适应惩罚系数”$\beta$来约束KL散度，在此算法的最简单实例中，我们在每个策略更新中执行以下步骤：</p>
+<p>在$TRPO$中，使用“自适应惩罚系数 ”$\beta$ 来约束KL散度，在此算法的最简单实例中，我们在每个策略更新中执行以下步骤：</p>
 <ul>
 <li>使用多个的minibatch SGD，优化KL惩罚的目标</li>
 </ul>
@@ -483,20 +493,19 @@ L^{CLIP}(\theta)=\hat{\mathbb{E}}_t\left[ min(r_t(\theta)\hat{A}_t ,clip(r_t(\th
 L^{KLPEN}(\theta)=\hat{\mathbb{E}}_t\left[\frac{\pi_{\theta}\left(a_t|s_t\right)}{\pi_{\theta_{old}}\left(a_t|s_t\right)}\hat{A}_t-\beta \ KL\left[\pi_{\theta_{old}}\left(\cdot |s_t\right),\pi_{\theta}\left(\cdot |s_t\right)\right]\right]......(6)</script><ul>
 <li>计算$d=\hat{\mathbb{E}}_t\left[KL\left[\pi_{\theta_{old}}\left(\cdot |s_t\right),\pi_{\theta}\left(\cdot |s_t\right)\right]\right]$</li>
 </ul>
-<p>$如果d&lt;d_{targ}/1.5,\beta\leftarrow \beta/2$</p>
-<p>$如果d&gt;d_{targ}\times1.5,\beta\leftarrow \beta\times2$</p>
-<p>实验中，PPO2的效果没有PPO的效果好</p>
+<p>$\ \ \ \ 如果d&lt;d_{targ}/1.5,\beta\leftarrow \beta/2$</p>
+<p>$\ \ \ \ 如果d&gt;d_{targ}\times1.5,\beta\leftarrow \beta\times2$</p>
+<p>实验中，PPO2的效果没有PPO1的效果好</p>
 <p><strong>算法</strong></p>
 <script type="math/tex; mode=display">
-L^{CLIP+VF+S}_t(\theta) = \hat{E}_t\left[L^{CLIP}_t(\theta)−c_1L^{VF}_t(\theta)+c_2S[\pi_\theta](s_t)\right]
-\\
-其中c1,c2是系数,S表示entropy bonus,L^{VF}_t是平方误差损失
+L^{CLIP+VF+S}_t(\theta) = \hat{E}_t\left[L^{CLIP}_t(\theta)−c_1L^{VF}_t(\theta)+c_2S[\pi_\theta](s_t)\right]</script><script type="math/tex; mode=display">
+其中 c1, c2 是系数,S 表示熵奖励, L^{VF}_t是平方误差损失
 (V_\theta(s_t)-V^{targ}_t)^2</script><p>优势估计函数为</p>
 <script type="math/tex; mode=display">
 \hat{A}_{t}=-V\left(s_t\right)+r_t+\gamma r_{t+1}+...+\gamma^{T-t+1}r_{T-1}+\gamma^{T-t}V\left(s_{T}\right)......(7)</script><p>另外，我们可以使用广义优势函数来扩广$\hat{A}_{t}$，当λ= 1时，它会趋近到等式（7）</p>
 <script type="math/tex; mode=display">
 \hat{A}_{t}=\delta_t+(\gamma\lambda) \delta_{t+1}+...+...+(\gamma\lambda)^{T-t+1}\delta_{T-1}......(8)
-\\where\  \delta_t=r_t+\gamma V(s_{t+1})-V(s_{t})</script><p><img src="\image\PPOA.jpg" alt="图1 PPOAL"></p>
+\\where\  \delta_t=r_t+\gamma V(s_{t+1})-V(s_{t})</script><p>使用固定长度轨迹段的近端策略优化（PPO）算法如下所示。 每次迭代时，N个actor中的每个都收集T个时间步长的数据。 然后我们在这些NT时间步长的数据上构建替代损失，并使用 minibatch SGD（或通常为了更好的性能，Adam ）进行K个epochs的优化。<br><img src="\image\PPOA.jpg" alt="图1 PPOAL"></p>
 
       
     </div>
@@ -743,7 +752,7 @@ L^{CLIP+VF+S}_t(\theta) = \hat{E}_t\left[L^{CLIP}_t(\theta)−c_1L^{VF}_t(\theta
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">7.5k</span> 字
+      博客全站共： <span class="post-count">7.6k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->
