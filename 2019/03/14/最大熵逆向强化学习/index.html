@@ -117,20 +117,24 @@
 
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="AMiFans’s Blogs">
-<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/categories/生成对抗网络/index.html">
+  <meta name="description" content="基于最大边际的方法往往会产生歧义，比如许多不同的回报函数会导致相同的专家策略。在这种情况下，所学到的回报函数往往具有随机的偏好。最大熵方法就是为解决此问题提出的。 最大熵原理指出，在学习概率模型时，在所有满足约束的概率模型（分布）中，熵最大的模型是最好的模型。现在我们假设存在一个潜在的概率分布，在该概率分布下，产生了专家轨迹。此时，已知条件为  \sum_{\zeta_i}​P(\zeta_i​)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最大熵逆向强化学习">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/14/最大熵逆向强化学习/index.html">
 <meta property="og:site_name" content="AMiFans’s Blogs">
+<meta property="og:description" content="基于最大边际的方法往往会产生歧义，比如许多不同的回报函数会导致相同的专家策略。在这种情况下，所学到的回报函数往往具有随机的偏好。最大熵方法就是为解决此问题提出的。 最大熵原理指出，在学习概率模型时，在所有满足约束的概率模型（分布）中，熵最大的模型是最好的模型。现在我们假设存在一个潜在的概率分布，在该概率分布下，产生了专家轨迹。此时，已知条件为  \sum_{\zeta_i}​P(\zeta_i​)">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-14T11:23:19.319Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AMiFans’s Blogs">
+<meta name="twitter:title" content="最大熵逆向强化学习">
+<meta name="twitter:description" content="基于最大边际的方法往往会产生歧义，比如许多不同的回报函数会导致相同的专家策略。在这种情况下，所学到的回报函数往往具有随机的偏好。最大熵方法就是为解决此问题提出的。 最大熵原理指出，在学习概率模型时，在所有满足约束的概率模型（分布）中，熵最大的模型是最好的模型。现在我们假设存在一个潜在的概率分布，在该概率分布下，产生了专家轨迹。此时，已知条件为  \sum_{\zeta_i}​P(\zeta_i​)">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/categories/生成对抗网络/">
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/14/最大熵逆向强化学习/">
 
 
 
@@ -140,7 +144,7 @@
   };
 </script>
 
-  <title>分类: 生成对抗网络 | AMiFans’s Blogs</title>
+  <title>最大熵逆向强化学习 | AMiFans’s Blogs</title>
   
 
 
@@ -188,7 +192,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -277,7 +281,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
 
     
     
@@ -336,83 +340,198 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>生成对抗网络<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/14/最大熵逆向强化学习/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AMiFans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AMiFans’s Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/03/02/CGAN/" itemprop="url">
-            
-              <span itemprop="name">CGAN 解读</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">最大熵逆向强化学习
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-02T18:08:31+08:00" content="2019-03-02">
-          03-02
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-14 14:42:24 / 修改时间：19:23:19" itemprop="dateCreated datePublished" datetime="2019-03-14T14:42:24+08:00">2019-03-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>基于最大边际的方法往往会产生歧义，比如许多不同的回报函数会导致相同的专家策略。在这种情况下，所学到的回报函数往往具有随机的偏好。最大熵方法就是为解决此问题提出的。</p>
+<p>最大熵原理指出，在学习概率模型时，在所有满足约束的概率模型（分布）中，熵最大的模型是最好的模型。现在我们假设存在一个潜在的概率分布，在该概率分布下，产生了专家轨迹。此时，已知条件为</p>
+<script type="math/tex; mode=display">
+\sum_{\zeta_i}​P(\zeta_i​)f=\tilde{f}</script><p>这里用$f$表示特征期望，$\tilde{f}$表示专家特征期望。在满足上述约束条件的所有概率分布中，熵最大的概率分布是除了约束外对其他任何位置信息没有做任何假设的分布。所以，最大熵的方法可以避免歧义性的问题。我们将该问题转化成为标准的优化问题并形式化为：</p>
+<script type="math/tex; mode=display">
+\max-p\log p \\ s.t.\sum_{\zeta_i}{P\left(\zeta_i\right)f_{\zeta_i}=\tilde{f}} \\ \varSigma P=1</script><p>利用拉格朗日乘子法，该优化问题可转化为：</p>
+<script type="math/tex; mode=display">
+\min L=\sum_{\zeta_i}{p\log p-\sum_{j=1}^n{\lambda_j\left(pf_j-\tilde{f}_j\right)}-\lambda_0\left(\varSigma p-1\right)}</script><p>将上式对概率$p$进行微分，并令其导数为0，可以得到：</p>
+<script type="math/tex; mode=display">
+\frac{\partial L}{\partial p}=\sum_{\zeta_i}{\log p+1-}\sum_{j=1}^n{\lambda_jf_j}-\lambda_0=0</script><p>最后得到拥有最大熵的概率为：</p>
+<script type="math/tex; mode=display">
+p=\frac{\exp\left(\sum_{j=1}^n{\lambda_jf_j}\right)}{\exp\left(1-\lambda_0\right)}=\frac{1}{Z}\exp\left(\sum_{j=1}^n{\lambda_jf_j}\right)</script><p>然后利用次梯度的方法求解</p>
+<script type="math/tex; mode=display">
+\nabla L\left(\lambda\right)=\tilde{f}-\sum_{\zeta}{P\left(\zeta |\lambda ,T\right)f_{\zeta}}</script>
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/13/最大熵/" rel="next" title="熵">
+                <i class="fa fa-chevron-left"></i> 熵
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -694,6 +813,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
 
   
 
@@ -705,6 +828,8 @@
   
 
 
+  
+
 
   
 
@@ -721,6 +846,53 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+</style>
+
+    
   
 
 

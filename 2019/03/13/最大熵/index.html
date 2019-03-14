@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="信息熵在概率论中，熵是不确定性的度量。不确定性越大，熵越大。在信息论中，平均自信息量又称为信息熵、信源熵，简称熵。熵的数学形式可描述为：  H(X)=-\sum_{i=1}^qp_i\log p_i=H(p_1,p_2,…,p_q)= H(p)其中，$q$为$X$的所有可能取值的个数。由概率空间的完备性和非负性，有$\sum_{i=1}^q p_i=1$和$0 ≤ p( x_i ) ≤ 1$熵的性">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-14T03:42:26.829Z">
+<meta property="og:updated_time" content="2019-03-14T11:24:02.630Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="熵">
 <meta name="twitter:description" content="信息熵在概率论中，熵是不确定性的度量。不确定性越大，熵越大。在信息论中，平均自信息量又称为信息熵、信源熵，简称熵。熵的数学形式可描述为：  H(X)=-\sum_{i=1}^qp_i\log p_i=H(p_1,p_2,…,p_q)= H(p)其中，$q$为$X$的所有可能取值的个数。由概率空间的完备性和非负性，有$\sum_{i=1}^q p_i=1$和$0 ≤ p( x_i ) ≤ 1$熵的性">
@@ -416,7 +416,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-14 11:42:26" itemprop="dateModified" datetime="2019-03-14T11:42:26+08:00">2019-03-14</time>
+                <time title="修改时间：2019-03-14 19:24:02" itemprop="dateModified" datetime="2019-03-14T19:24:02+08:00">2019-03-14</time>
               
             
           </span>
@@ -535,7 +535,7 @@ H(P)=-\sum_{x,y}\tilde{P}(x)P(y|x)\log p(y|x)</script><p>则模型集合$\mathca
 <script type="math/tex; mode=display">
 \max_{P\in\mathcal{C}}\  H(P)=-\sum_{x,y}\tilde{P}(x)P(y|x)\log p(y|x)\\
 s.t.\ \ \mathbf{E}_{\tilde{P}}(f_i)=\mathbf{E}_p(f_i),i＝1,2,…,n\\
-\sum_{y}^P(y|x)=1</script><p>讲求最大值问题转化为求最小值问题，即为：</p>
+\sum_{y}^P(y|x)=1</script><p>将求最大值问题转化为求最小值问题，即为：</p>
 <script type="math/tex; mode=display">
 \min_{P\in\mathcal{C}}\  -H(P)=\sum_{x,y}\tilde{P}(x)P(y|x)\log P(y|x)\\
 s.t.\ \ \mathbf{E}_{\tilde{P}}(f_i)=\mathbf{E}_p(f_i),i＝1,2,…,n\\
@@ -599,6 +599,10 @@ w^*=arg\max_w\varphi(w)</script><p>也就是说，最大熵模型的学习归结
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/14/最大熵逆向强化学习/" rel="prev" title="最大熵逆向强化学习">
+                最大熵逆向强化学习 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -669,7 +673,7 @@ w^*=arg\max_w\varphi(w)</script><p>也就是说，最大熵模型的学习归结
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -834,7 +838,7 @@ w^*=arg\max_w\varphi(w)</script><p>也就是说，最大熵模型的学习归结
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">10.6k</span> 字
+      博客全站共： <span class="post-count">11.1k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->
