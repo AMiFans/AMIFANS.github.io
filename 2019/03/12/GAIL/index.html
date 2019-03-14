@@ -117,20 +117,24 @@
 
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="AMiFans’s Blogs">
-<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/categories/生成对抗网络/index.html">
+  <meta name="description" content="摘要GAIL考虑从示例专家行为中学习策略，而无需与专家交互或访问强化信号。一种方法是通过逆强化学习来恢复专家的成本函数，然后通过强化学习从该成本函数中提取策略。这种方法是间接的，可能很慢。 我们提出了一个新的通用框架，用于直接从数据中提取策略，就好像它是先通过逆强化学习然后再通过强化学习获得的。 我们证明了我们框架的某种实例在模仿学习和生成对抗网络之间进行了类比，从中我们推导出一种无模型的模仿学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生成对抗模仿学习(GAIL)">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/12/GAIL/index.html">
 <meta property="og:site_name" content="AMiFans’s Blogs">
+<meta property="og:description" content="摘要GAIL考虑从示例专家行为中学习策略，而无需与专家交互或访问强化信号。一种方法是通过逆强化学习来恢复专家的成本函数，然后通过强化学习从该成本函数中提取策略。这种方法是间接的，可能很慢。 我们提出了一个新的通用框架，用于直接从数据中提取策略，就好像它是先通过逆强化学习然后再通过强化学习获得的。 我们证明了我们框架的某种实例在模仿学习和生成对抗网络之间进行了类比，从中我们推导出一种无模型的模仿学习">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-12T06:37:06.443Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AMiFans’s Blogs">
+<meta name="twitter:title" content="生成对抗模仿学习(GAIL)">
+<meta name="twitter:description" content="摘要GAIL考虑从示例专家行为中学习策略，而无需与专家交互或访问强化信号。一种方法是通过逆强化学习来恢复专家的成本函数，然后通过强化学习从该成本函数中提取策略。这种方法是间接的，可能很慢。 我们提出了一个新的通用框架，用于直接从数据中提取策略，就好像它是先通过逆强化学习然后再通过强化学习获得的。 我们证明了我们框架的某种实例在模仿学习和生成对抗网络之间进行了类比，从中我们推导出一种无模型的模仿学习">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/categories/生成对抗网络/">
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/12/GAIL/">
 
 
 
@@ -140,7 +144,7 @@
   };
 </script>
 
-  <title>分类: 生成对抗网络 | AMiFans’s Blogs</title>
+  <title>生成对抗模仿学习(GAIL) | AMiFans’s Blogs</title>
   
 
 
@@ -188,7 +192,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -277,7 +281,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
 
     
     
@@ -336,83 +340,193 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>生成对抗网络<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/12/GAIL/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AMiFans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AMiFans’s Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/03/02/CGAN/" itemprop="url">
-            
-              <span itemprop="name">CGAN 解读</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">生成对抗模仿学习(GAIL)
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-02T18:08:31+08:00" content="2019-03-02">
-          03-02
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-12 08:51:09 / 修改时间：14:37:06" itemprop="dateCreated datePublished" datetime="2019-03-12T08:51:09+08:00">2019-03-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>摘要</strong><br>GAIL考虑从示例专家行为中学习策略，而无需与专家交互或访问强化信号。一种方法是通过逆强化学习来恢复专家的成本函数，然后通过强化学习从该成本函数中提取策略。这种方法是间接的，可能很慢。 我们提出了一个新的通用框架，用于直接从数据中提取策略，就好像它是先通过逆强化学习然后再通过强化学习获得的。 我们证明了我们框架的某种实例在模仿学习和生成对抗网络之间进行了类比，从中我们推导出一种无模型的模仿学习算法，该算法在模拟大型复杂行为时，比现有的无模型方法获得显着的性能提升， 高维环境。<br><strong>简介</strong><br>我们感兴趣的是模仿学习的特定环境 - 学习从专家演示中执行任务的问题 - 其中学习者仅获得来自专家的轨迹样本，在训练时不允许向专家查询更多数据， 并未提供任何形式的强化信号。 有两种主要方法适用于此设置：行为克隆[20]，它将策略学习为来自专家轨迹的状态 - 动作对的监督学习问题; 和逆强化学习[25,18]，它找到了一个成本函数，在该成本函数下，专家是唯一最优的。<br>由于协变量偏移引起的复合误差，行为克隆虽然很有吸引力，但往往只能通过大量数据获得成功。 另一方面，逆向强化学习（IRL）学习成本函数，优先考虑整个轨迹优先于其他轨迹，因此复合误差——适合单步决策的方法的问题，不是问题。 因此，IRL成功地解决了各种各样的问题，从预测出租车司机的行为到规划四足机器人的脚步。<br>不幸的是，许多IRL算法的运行成本非常高，需要在内循环中进行强化学习。 因此，将IRL方法扩展到大型环境已成为最近工作的重点。 然而，从根本上说，IRL学习了一种成本函数，它解释了专家的行为，但没有直接告诉学习者如何行动。 鉴于学习者的真正目标通常是采取模仿专家的行动 - 事实上，许多IRL算法都是根据他们学到的成本的最优行动的质量进行评估 - 为什么我们必须学习成本函数，如果这样做可能会发生显着的计算费用却未能直接产生行动？<br>我们需要一种算法，通过直接学习策略明确告诉我们如何行动。 为了开发这样的算法，我们从第3节开始，在第3节中，我们通过在最大因果熵IRL学习的成本函数上运行强化学习来表征所给出的策略。 我们的特征描述引入了一个框架，用于直接从数据中学习策略，绕过任何中间IRL步骤。<br>然后，我们使用新的无模型学习算法在第4节和第5节中实例化我们的框架。 我们证明了我们得到的算法与生成对抗网络密切相关，这是一种来自深度学习社区的技术，最近在自然图像分布建模方面取得了成功：我们的算法利用生成性对抗性训练来适应状态分布和定义专家行为的行为。 我们在第6节中测试了我们的算法，在这里我们发现它在各种专家数据量的复杂，高维物理控制任务的训练策略中大大优于竞争方法。<br><strong>背景</strong></p>
+<p>反向强化学习假设我们有一个专家政策πE，我们希望通过IRL合理化。对于本文的其余部分，我们将采用最大因果熵IRL，它适合函数C族的成本函数和优化问题</p>
+<p>其中H（π），Eπ[ - logπ（a | s）]是策略π的γ折扣因果熵[3]。 在实践中，πE将仅作为通过在环境中执行πE而采样的一组轨迹来提供，因此等式中的πE的预期成本。 （1）使用这些样本估计。 最大因果熵IRL寻找成本函数c∈C，其为专家政策分配低成本并为其他政策分配高成本，从而允许通过某种强化学习过程找到专家政策：</p>
+<p>它将成本函数映射到最小化预期累积成本的高熵策略。</p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/08/PPO/" rel="next" title="近端策略优化算法(PPO)">
+                <i class="fa fa-chevron-left"></i> 近端策略优化算法(PPO)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/13/最大熵/" rel="prev" title="熵">
+                熵 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -694,6 +808,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
 
   
 
@@ -705,6 +823,8 @@
   
 
 
+  
+
 
   
 
@@ -721,6 +841,53 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+</style>
+
+    
   
 
 
