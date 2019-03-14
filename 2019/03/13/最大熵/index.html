@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="信息熵在概率论中，熵是不确定性的度量。不确定性越大，熵越大。在信息论中，平均自信息量又称为信息熵、信源熵，简称熵。熵的数学形式可描述为：  H(X)=-\sum_{i=1}^qp_i\log p_i=H(p_1,p_2,…,p_q)= H(p)其中，$q$为$X$的所有可能取值的个数。由概率空间的完备性和非负性，有$\sum_{i=1}^q p_i=1$和$0 ≤ p( x_i ) ≤ 1$熵的性">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-14T01:56:42.544Z">
+<meta property="og:updated_time" content="2019-03-14T03:35:45.439Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="熵">
 <meta name="twitter:description" content="信息熵在概率论中，熵是不确定性的度量。不确定性越大，熵越大。在信息论中，平均自信息量又称为信息熵、信源熵，简称熵。熵的数学形式可描述为：  H(X)=-\sum_{i=1}^qp_i\log p_i=H(p_1,p_2,…,p_q)= H(p)其中，$q$为$X$的所有可能取值的个数。由概率空间的完备性和非负性，有$\sum_{i=1}^q p_i=1$和$0 ≤ p( x_i ) ≤ 1$熵的性">
@@ -416,7 +416,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-14 09:56:42" itemprop="dateModified" datetime="2019-03-14T09:56:42+08:00">2019-03-14</time>
+                <time title="修改时间：2019-03-14 11:35:45" itemprop="dateModified" datetime="2019-03-14T11:35:45+08:00">2019-03-14</time>
               
             
           </span>
@@ -543,9 +543,22 @@ s.t.\ \ \mathbf{E}_{\tilde{P}}(f_i)=\mathbf{E}_p(f_i),i＝1,2,…,n\\
 <script type="math/tex; mode=display">
 L(P,w)=-H(P)+w_0(1-\sum_{y}^P(y|x))+\sum_{i=1}^n w_i(\mathbf{E}_{\tilde{P}}(f_i)-\mathbf{E}_p(f_i))\\
 =\sum_{x,y}\tilde{P}(x)P(y|x)\log P(y|x)+w_0(1-\sum_{y}^P(y|x))+\sum_{i=1}^n w_i(\sum_{x,y}\tilde{P}(x,y)f_i(x,y)-\sum_{x,y}\tilde{P}(x)P(y|x)f_i(x,y))</script><p>由于拉格朗日函数$L(P,w)$是$P$的凸函数，原始问题$\min_{P\in\mathcal{C}}\max<br>_w L(P,w)$的解等价于对偶问题$\max<br>_w \min_{P\in\mathcal{C}}L(P,w)$的解。</p>
+<p><strong>求解对偶问题内部的极小化问题</strong></p>
 <p>$\min_{P\in\mathcal{C}}L(P,w)$是w的函数，将其记作：</p>
 <script type="math/tex; mode=display">
-</script><p><strong>参考</strong><br>信息论基础教程—-李亦农<br>统计学习方法—-李航<br>数学之美—-吴军</p>
+\varphi(w)=\min_{P\in\mathcal{C}}L(P,w)</script><p>$\varphi(w)$为对偶函数，求$L(P,w)$对$P(Y|X)$的偏导数：</p>
+<script type="math/tex; mode=display">
+\cfrac{\partial L(P,w)}{\partial P(y|x)}=\sum_{x,y}\tilde{P}(x)(\log P(y|x)+1)-\sum_y w_0-\sum_{x,y}(\tilde{P}(x)\sum_{i=1}^nw_if_i(x,y))</script><p>令偏导数等于0，在$\tilde{P}(x)&gt;0$的情况下，解得</p>
+<script type="math/tex; mode=display">
+P(y|x)=exp(\sum_{i=1}^nw_if_i(x,y)+w_0-1)=\cfrac{exp(\sum_{i=1}^n w_if_i(x,y))}{exp(1-w_0)}</script><p>由于$\sum_{y}^P(y|x)=1$，得</p>
+<script type="math/tex; mode=display">
+P(y|x)=\cfrac{1}{Z_w(x)}exp(\sum_{i=1}^n w_if_i(x,y))</script><p>其中，$Z_w(x)=\sum_y exp(\sum_{i=1}^nw_if_i(x,y)$，$Zw(x)$称为规范化因子；$f_i(X,Y)$是特征函数；$w_i$是特征的权值。</p>
+<p><strong>求解对偶问题外部的极大化问题</strong><br>其形式为：</p>
+<script type="math/tex; mode=display">
+\max_w\varphi(w)</script><p>其解记为$w^*$</p>
+<script type="math/tex; mode=display">
+w^*arg\max_w\varphi(w)</script><p>也就是说，最大熵模型的学习归结为对偶函数$\varphi(w)$的极大化。</p>
+<p><strong>参考</strong><br>信息论基础教程—-李亦农<br>统计学习方法—-李航<br>数学之美—-吴军</p>
 
       
     </div>
@@ -820,7 +833,7 @@ L(P,w)=-H(P)+w_0(1-\sum_{y}^P(y|x))+\sum_{i=1}^n w_i(\mathbf{E}_{\tilde{P}}(f_i)
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">10.4k</span> 字
+      博客全站共： <span class="post-count">10.6k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->
