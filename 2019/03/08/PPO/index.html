@@ -126,7 +126,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://github.com/image/PPO.jpg">
 <meta property="og:image" content="https://github.com/image/PPOA.jpg">
-<meta property="og:updated_time" content="2019-03-15T01:39:20.536Z">
+<meta property="og:updated_time" content="2019-03-15T10:45:09.447Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="近端策略优化算法(PPO)">
 <meta name="twitter:description" content="首先我们回顾一下“策略梯度方法（PG）”和“信赖域策略优化（TRPO）”。1.策略梯度方法（PG）策略梯度方法通过计算策略梯度的估计并利用随机梯度上升算法来工作。 最常用的梯度估计形式为：  \hat{\mathbb{E}}_t\left[\nabla_\theta\log \pi_\theta(a_{t}|s_{t})\hat{A}_t\right]......(1)其中$\pi_\theta$">
@@ -419,7 +419,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-15 09:39:20" itemprop="dateModified" datetime="2019-03-15T09:39:20+08:00">2019-03-15</time>
+                <time title="修改时间：2019-03-15 18:45:09" itemprop="dateModified" datetime="2019-03-15T18:45:09+08:00">2019-03-15</time>
               
             
           </span>
@@ -477,7 +477,7 @@ L^{PG}(\theta)=\hat{\mathbb{E}}_t\left[\log \pi_\theta(a_{t}|s_{t})\hat{A}_t\rig
 <p>$TRPO$要优化的目标函数如下：</p>
 <script type="math/tex; mode=display">
  maximize_{\theta}\hat{\mathbb{E}}_t\left[\frac{\pi_{\theta}\left(a_t|s_t\right)}{\pi_{\theta_{old}}\left(a_t|s_t\right)}\hat{A}_t\right]......(3)</script><script type="math/tex; mode=display">
-\\ subject\ to\ \hat{\mathbb{E}}\left[D_{KL}\left(\pi_{\theta_{old}}\left(\cdot |s_t\right)||\pi_{\theta}\left(\cdot |s_t\right)\right)\right]\le\delta</script><p><strong>3.近端策略优化算法(PPO)</strong></p>
+\\ subject\ to\ \hat{\mathbb{E}}_t\left[KL\left[\pi_{\theta_{old}}\left(\cdot |s_t\right)||\pi_{\theta}\left(\cdot |s_t\right)\right]\right]\le\delta</script><p><strong>3.近端策略优化算法(PPO)</strong></p>
 <p><strong>PPO1：截断替代目标</strong></p>
 <p>首先，我们令$r_t(\theta)=\frac{\pi_{\theta}\left(a_t|s_t\right)}{\pi_{\theta_{old}}\left(a_t|s_t\right)}$，所以$r(\theta_{old})=1$。$TRPO$的替代目标为</p>
 <script type="math/tex; mode=display">
