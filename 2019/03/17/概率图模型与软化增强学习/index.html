@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-17T12:22:12.951Z">
+<meta property="og:updated_time" content="2019-03-17T12:29:12.954Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用概率图模型对次优行为建模">
 <meta name="twitter:description" content="首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以">
@@ -401,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-03-17 17:28:23 / 修改时间：20:22:12" itemprop="dateCreated datePublished" datetime="2019-03-17T17:28:23+08:00">2019-03-17</time>
+              <time title="创建时间：2019-03-17 17:28:23 / 修改时间：20:29:12" itemprop="dateCreated datePublished" datetime="2019-03-17T17:28:23+08:00">2019-03-17</time>
             
 
             
@@ -476,22 +476,16 @@ p(\tau|\mathcal{O}_{1:T})=\frac{p(\tau,\mathcal{O}_{1:T})}{p(\mathcal{O}_{1:T})}
 </ul>
 <p><strong>后向信息</strong></p>
 <script type="math/tex; mode=display">
-\begin{eqnarray}
-\beta_t(\mathbf{s}_t,\mathbf{a}_t)&=p(\mathcal{O}_{t:T}|\mathbf{s}_t,\mathbf{a}_t)\\
-&=\int p(\mathcal{O}_{t:T},\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_{t+1}\\
-&=\int p(\mathcal{O}_{t+1:T}|\mathbf{s}_{t+1})p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_{t+1}\\
-&=p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)}[\beta_{t+1}(\mathbf{s}_{t+1})]
-\end{eqnarray}</script><script type="math/tex; mode=display">
-\begin{eqnarray}
-\beta_t(\mathbf{s}_t)&=p(\mathcal{O}_{t:T}|\mathbf{s}_t)\\
-&=\int p(\mathcal{O}_{t:T}|\mathbf{s}_{t},\mathbf{a}_{t})p(\mathbf{a}_{t}|\mathbf{s}_{t})\mathrm{d}\mathbf{a}_{t}\\
-&=\mathbf{E}_{\mathbf{a}_t\sim p(\mathbf{a}_t|\mathbf{s}_t)}[\beta_t(\mathbf{s}_t,\mathbf{a}_t)]
-\end{eqnarray}</script><p>即：<br>$for \ t=T-1\ to\ 1$：</p>
+\beta_t(\mathbf{s}_t,\mathbf{a}_t)=p(\mathcal{O}_{t:T}|\mathbf{s}_t,\mathbf{a}_t)\\
+=\int p(\mathcal{O}_{t:T},\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_{t+1}\\
+=\int p(\mathcal{O}_{t+1:T}|\mathbf{s}_{t+1})p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_{t+1}\\
+=p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)}[\beta_{t+1}(\mathbf{s}_{t+1})]</script><script type="math/tex; mode=display">
+\beta_t(\mathbf{s}_t)=p(\mathcal{O}_{t:T}|\mathbf{s}_t)\\
+=\int p(\mathcal{O}_{t:T}|\mathbf{s}_{t},\mathbf{a}_{t})p(\mathbf{a}_{t}|\mathbf{s}_{t})\mathrm{d}\mathbf{a}_{t}\\
+=\mathbf{E}_{\mathbf{a}_t\sim p(\mathbf{a}_t|\mathbf{s}_t)}[\beta_t(\mathbf{s}_t,\mathbf{a}_t)]</script><p>即：<br>$for \ t=T-1\ to\ 1$：</p>
 <script type="math/tex; mode=display">
-\begin{eqnarray}
-&\beta_t(\mathbf{s}_t,\mathbf{a}_t)=p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)}[\beta_{t+1}(\mathbf{s}_{t+1})] \\
-&\beta_t(\mathbf{s}_t)=\mathbf{E}_{\mathbf{a}_t\sim p(\mathbf{a}_t|\mathbf{s}_t)}[\beta_t(\mathbf{s}_t,\mathbf{a}_t)]\tag{3}
-\end{eqnarray}</script>
+\beta_t(\mathbf{s}_t,\mathbf{a}_t)=p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)}[\beta_{t+1}(\mathbf{s}_{t+1})] \\
+\beta_t(\mathbf{s}_t)=\mathbf{E}_{\mathbf{a}_t\sim p(\mathbf{a}_t|\mathbf{s}_t)}[\beta_t(\mathbf{s}_t,\mathbf{a}_t)]</script>
       
     </div>
 
