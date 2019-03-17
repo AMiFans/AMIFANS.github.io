@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="最大熵基于最大边际的方法往往会产生歧义，比如许多不同的回报函数会导致相同的专家策略。在这种情况下，所学到的回报函数往往具有随机的偏好。最大熵方法就是为解决此问题提出的。 最大熵原理指出，在学习概率模型时，在所有满足约束的概率模型（分布）中，熵最大的模型是最好的模型。现在我们假设存在一个潜在的概率分布，在该概率分布下，产生了专家轨迹。此时，已知条件为  \sum_{\zeta_i}​P(\zeta_">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-17T07:48:17.890Z">
+<meta property="og:updated_time" content="2019-03-17T07:50:28.617Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="最大熵逆向强化学习">
 <meta name="twitter:description" content="最大熵基于最大边际的方法往往会产生歧义，比如许多不同的回报函数会导致相同的专家策略。在这种情况下，所学到的回报函数往往具有随机的偏好。最大熵方法就是为解决此问题提出的。 最大熵原理指出，在学习概率模型时，在所有满足约束的概率模型（分布）中，熵最大的模型是最好的模型。现在我们假设存在一个潜在的概率分布，在该概率分布下，产生了专家轨迹。此时，已知条件为  \sum_{\zeta_i}​P(\zeta_">
@@ -401,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-03-17 14:39:55 / 修改时间：15:48:17" itemprop="dateCreated datePublished" datetime="2019-03-17T14:39:55+08:00">2019-03-17</time>
+              <time title="创建时间：2019-03-17 14:39:55 / 修改时间：15:50:28" itemprop="dateCreated datePublished" datetime="2019-03-17T14:39:55+08:00">2019-03-17</time>
             
 
             
@@ -482,7 +482,7 @@ p(\tau|\mathcal{O}_{1:T},\psi)\propto p(\tau)\exp\left(\sum_tr_\psi(\mathbf{s}_t
 <script type="math/tex; mode=display">
 \nabla_\psi\mathcal{L}=\frac{1}{N}\sum_{i=1}^N\nabla_\psi r_\psi(\tau_i)-\int \frac{1}{Z}p(\tau)\exp(r_\psi(\tau))\nabla_\psi r_\psi(\tau)\mathrm{d}\tau......(11)</script><p>又$\frac{1}{Z}p(\tau)\exp(r_\psi(\tau))=p(\tau|\mathcal{O}_{1:T},\psi)$，化为期望的形式可表示为</p>
 <script type="math/tex; mode=display">
-\nabla_\psi\mathcal{L}=\mathbf{E}_{\tau\sim\pi^*(\tau)}[\nabla_\psi r_\psi(\tau)]-\mathbf{E}_{\tau\sim p(\tau|\mathcal{O}_{1:T},\psi)}[\nabla_\psi r_\psi(\tau)]......(12)</script><p>其中，<strong>$\pi^*(\tau)$可以用装甲样本评估，$p(\tau|\mathcal{O}_{1:T},\psi)$是当前奖赏下的软优化策略</strong>。<br>将第二块期望的轨迹收益按照时间拆开，</p>
+\nabla_\psi\mathcal{L}=\mathbf{E}_{\tau\sim\pi^*(\tau)}[\nabla_\psi r_\psi(\tau)]-\mathbf{E}_{\tau\sim p(\tau|\mathcal{O}_{1:T},\psi)}[\nabla_\psi r_\psi(\tau)]......(12)</script><p>其中，<strong>$\pi^*(\tau)$可以用专家样本评估，$p(\tau|\mathcal{O}_{1:T},\psi)$是当前奖赏下的软优化策略</strong>。<br>将第二块期望的轨迹收益按照时间拆开，</p>
 <script type="math/tex; mode=display">
 \mathbf{E}_{\tau\sim p(\tau|\mathcal{O}_{1:T},\psi)}\left[\nabla_\psi\sum_{t=1}^Tr_\psi(\mathbf{s}_t,\mathbf{a}_t)\right]=\sum_{t=1}^T \mathbf{E}_{(\mathbf{s}_t,\mathbf{a}_t)\sim p(\mathbf{s}_t,\mathbf{a}_t|\mathcal{O}_{1:T},\psi)}[\nabla_\psi r_\psi(\mathbf{s}_t,\mathbf{a}_t)]......(13)</script><p>其中状态动作对$(s_t,a_t)$的分布$p(\mathbf{s}_t,\mathbf{a}_t|\mathcal{O}_{1:T},\psi)=p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{1:T},\psi)p(\mathbf{s}_t|\mathcal{O}_{1:T},\psi)$。<br>根据$p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{1:T},\psi)=\frac{\beta(\mathbf{s}_t,\mathbf{a}_t)}{\beta(\mathbf{s}_t)}，p(\mathbf{s}_t|\mathcal{O}_{1:T},\psi)\propto\alpha(\mathbf{s}_t)\beta(\mathbf{s}_t)$，可得</p>
 <script type="math/tex; mode=display">
