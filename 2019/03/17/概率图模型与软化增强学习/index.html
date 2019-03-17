@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-17T03:24:41.465Z">
+<meta property="og:updated_time" content="2019-03-17T12:16:40.370Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用概率图模型对次优行为建模">
 <meta name="twitter:description" content="首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以">
@@ -401,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-03-17 17:28:23 / 修改时间：11:24:41" itemprop="dateCreated datePublished" datetime="2019-03-17T17:28:23+08:00">2019-03-17</time>
+              <time title="创建时间：2019-03-17 17:28:23 / 修改时间：20:16:40" itemprop="dateCreated datePublished" datetime="2019-03-17T17:28:23+08:00">2019-03-17</time>
             
 
             
@@ -457,8 +457,41 @@
 
       
         <p>首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以的但是不能达到目标的路径是不行的”这个界限，并且刻画这个随机行为。</p>
-<p>现在我们的目的是使用概率图模型刻画一个策略，使得不仅只采用最优行为，也需要让一些次优行为有非零概率存在。为了对猴子的意图进行建模，我们加入了$\mathcal{O}$元素来代表最优性</p>
-
+<p>现在我们的目的是使用概率图模型刻画一个策略，使得不仅只采用最优行为，而且也可以采用一些次优行为。为了对猴子的意图进行建模，我们加入了$\mathcal{O}$来代表最优性变量。那么某一条轨迹$\tau=(\mathbf{s}_{1:T},\mathbf{a}_{1:T})$出现的概率为$p(\tau|\mathcal{O}_{1:T})$，我们的目的便是找到此轨迹概率。</p>
+<p>首先有一个重要假设是$p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\propto\exp(r(\mathbf{s}_t,\mathbf{a}_t))$，那么条件概率为</p>
+<script type="math/tex; mode=display">
+p(\tau|\mathcal{O}_{1:T})=\frac{p(\tau,\mathcal{O}_{1:T})}{p(\mathcal{O}_{1:T})}\propto p(\tau)\prod_t\exp(r(\mathbf{s}_t,\mathbf{a}_t))=p(\tau)\exp\left(\sum_tr(\mathbf{s}_t,\mathbf{a}_t)\right)</script><p>因此，收益最大的轨迹就变得可能性最大；如果另有一条轨迹收益也一样大，物理可能性相同，那么它同样也很可能发生；如有多条它们将平分可能性。在这个模型中，收益最高的行为是最有可能的，当收益下降的时候它的可能性指数下降。有些轨迹虽然可能发生，但是可能性非常低，因此智能体可能不愿意承担这个风险：因为想去最大化期望收益，智能体可能宁愿选择收益较低的但是可能性较高的轨迹。</p>
+<p>该模型的优势：</p>
+<ul>
+<li>可以对次优行为进行建模，这个在逆增强学习中非常有意义，用于观察他人的行为来揣测他的真实目标；</li>
+<li>可以使用一些推断算法来求解控制规划问题；</li>
+<li>可以对为什么会偏好随机行为（相较于确定性行为）给出解释。</li>
+</ul>
+<p>我们的推断 (inference) 问题是：<strong>如果执行最优策略，那么在当前状态下做出某个行动的概率是多少</strong>。</p>
+<p>为了解决推断问题，需要计算三类问题：</p>
+<ul>
+<li>计算后向信息$ (backward messages)$ ：$\beta_t(\mathbf{s}_t,\mathbf{a}_t)=p(\mathcal{O}_{t:T}|\mathbf{s}_t,\mathbf{a}_t)$；</li>
+<li>计算策略$ (policy)$ ：$\pi(\mathbf{a}_t|\mathbf{s}_t)=p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{1:T})$；</li>
+<li>计算前向信息$ (forward messages) $:$\alpha_t(\mathbf{s}_t)=p(\mathbf{s}_t|\mathcal{O}_{1:t-1})$。</li>
+</ul>
+<p><strong>后向信息</strong></p>
+<script type="math/tex; mode=display">
+\begin{align}
+\beta_t(\mathbf{s}_t,\mathbf{a}_t)&=p(\mathcal{O}_{t:T}|\mathbf{s}_t,\mathbf{a}_t)\\
+&=\int p(\mathcal{O}_{t:T},\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_{t+1}\\
+&=\int p(\mathcal{O}_{t+1:T}|\mathbf{s}_{t+1})p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_{t+1}\\
+&=p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)}[\beta_{t+1}(\mathbf{s}_{t+1})]
+\end{align}</script><script type="math/tex; mode=display">
+\begin{align}
+\beta_t(\mathbf{s}_t)&=p(\mathcal{O}_{t:T}|\mathbf{s}_t)\\
+&=\int p(\mathcal{O}_{t:T}|\mathbf{s}_{t},\mathbf{a}_{t})p(\mathbf{a}_{t}|\mathbf{s}_{t})\mathrm{d}\mathbf{a}_{t}\\
+&=\mathbf{E}_{\mathbf{a}_t\sim p(\mathbf{a}_t|\mathbf{s}_t)}[\beta_t(\mathbf{s}_t,\mathbf{a}_t)]
+\end{align}</script><p>即：<br>$for &amp; t=T-1&amp;to&amp;1$：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+&\beta_t(\mathbf{s}_t,\mathbf{a}_t)=p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)}[\beta_{t+1}(\mathbf{s}_{t+1})] \\
+&\beta_t(\mathbf{s}_t)=\mathbf{E}_{\mathbf{a}_t\sim p(\mathbf{a}_t|\mathbf{s}_t)}[\beta_t(\mathbf{s}_t,\mathbf{a}_t)]\tag{3}
+\end{align}</script>
       
     </div>
 
@@ -710,7 +743,7 @@
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">11.1k</span> 字
+      博客全站共： <span class="post-count">11.9k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->
