@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="最大熵基于最大边际的方法往往会产生歧义，比如许多不同的回报函数会导致相同的专家策略。在这种情况下，所学到的回报函数往往具有随机的偏好。最大熵方法就是为解决此问题提出的。 最大熵原理指出，在学习概率模型时，在所有满足约束的概率模型（分布）中，熵最大的模型是最好的模型。现在我们假设存在一个潜在的概率分布，在该概率分布下，产生了专家轨迹。此时，已知条件为  \sum_{\zeta_i}​P(\zeta_">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-17T07:50:28.617Z">
+<meta property="og:updated_time" content="2019-03-17T09:06:47.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="最大熵逆向强化学习">
 <meta name="twitter:description" content="最大熵基于最大边际的方法往往会产生歧义，比如许多不同的回报函数会导致相同的专家策略。在这种情况下，所学到的回报函数往往具有随机的偏好。最大熵方法就是为解决此问题提出的。 最大熵原理指出，在学习概率模型时，在所有满足约束的概率模型（分布）中，熵最大的模型是最好的模型。现在我们假设存在一个潜在的概率分布，在该概率分布下，产生了专家轨迹。此时，已知条件为  \sum_{\zeta_i}​P(\zeta_">
@@ -401,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-03-17 14:39:55 / 修改时间：15:50:28" itemprop="dateCreated datePublished" datetime="2019-03-17T14:39:55+08:00">2019-03-17</time>
+              <time title="创建时间：2019-03-17 14:39:55 / 修改时间：17:06:47" itemprop="dateCreated datePublished" datetime="2019-03-17T14:39:55+08:00">2019-03-17</time>
             
 
             
@@ -488,7 +488,13 @@ p(\tau|\mathcal{O}_{1:T},\psi)\propto p(\tau)\exp\left(\sum_tr_\psi(\mathbf{s}_t
 <script type="math/tex; mode=display">
 p(\mathbf{s}_t,\mathbf{a}_t|\mathcal{O}_{1:T},\psi)\propto\beta(\mathbf{s}_t,\mathbf{a}_t)\alpha(\mathbf{s}_t)......(14)</script><p>即后向信息和前向信息之积。令$\mu_t(\mathbf{s}_t,\mathbf{a}_t)\propto\beta_t(\mathbf{s}_t,\mathbf{a}_t)\alpha_t(\mathbf{s}_t)$作为在 $t$ 时刻状态行动$(\mathbf{s}_t,\mathbf{a}_t)$的访问概率，则</p>
 <script type="math/tex; mode=display">
-\mathbf{E}_{\tau\sim p(\tau|\mathcal{O}_{1:T},\psi)}[\nabla_\psi r_\psi(\tau)]=\sum_{t=1}^T\int\int \mu_t(\mathbf{s}_t,\mathbf{a}_t)\nabla_\psi r_\psi(\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_t\mathrm{d}\mathbf{a}_t......(15)</script><p>这样便得到了一个<strong>最大熵逆增强学习</strong> $(MaxEnt IRL) $算法。</p>
+\mathbf{E}_{\tau\sim p(\tau|\mathcal{O}_{1:T},\psi)}[\nabla_\psi r_\psi(\tau)]=\sum_{t=1}^T\int\int \mu_t(\mathbf{s}_t,\mathbf{a}_t)\nabla_\psi r_\psi(\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_t\mathrm{d}\mathbf{a}_t......(15)</script><p>这样便得到了一个<strong>最大熵逆增强学习</strong> $(MaxEnt IRL) $算法。算法流程如下：</p>
+<ul>
+<li>给定$\psi$，求出对应的$\beta(\mathbf{s}_t,\mathbf{a}_t)$和$\alpha(\mathbf{s}_t)$；</li>
+<li>计算访问概率$\mu_t(\mathbf{s}_t,\mathbf{a}_t)\propto\beta_t(\mathbf{s}_t,\mathbf{a}_t)\alpha_t(\mathbf{s}_t)$；</li>
+<li>求梯度$\nabla_\psi\mathcal{L}=\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\nabla_\psi r_\psi(\mathbf{s}_{i,t},\mathbf{a}_{i,t})-\sum_{t=1}^T\int\int \mu_t(\mathbf{s}_t,\mathbf{a}_t)\nabla_\psi r_\psi(\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_t\mathrm{d}\mathbf{a}_t$；</li>
+<li>$\psi\leftarrow\psi+\eta\nabla_\psi\mathcal{L}$。</li>
+</ul>
 
       
     </div>
@@ -767,7 +773,7 @@ p(\mathbf{s}_t,\mathbf{a}_t|\mathcal{O}_{1:T},\psi)\propto\beta(\mathbf{s}_t,\ma
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">11k</span> 字
+      博客全站共： <span class="post-count">11.1k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->
