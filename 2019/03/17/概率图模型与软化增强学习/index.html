@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-17T12:29:12.954Z">
+<meta property="og:updated_time" content="2019-03-17T13:33:16.011Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用概率图模型对次优行为建模">
 <meta name="twitter:description" content="首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以">
@@ -401,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-03-17 17:28:23 / 修改时间：20:29:12" itemprop="dateCreated datePublished" datetime="2019-03-17T17:28:23+08:00">2019-03-17</time>
+              <time title="创建时间：2019-03-17 17:28:23 / 修改时间：21:33:16" itemprop="dateCreated datePublished" datetime="2019-03-17T17:28:23+08:00">2019-03-17</time>
             
 
             
@@ -485,7 +485,14 @@ p(\tau|\mathcal{O}_{1:T})=\frac{p(\tau,\mathcal{O}_{1:T})}{p(\mathcal{O}_{1:T})}
 =\mathbf{E}_{\mathbf{a}_t\sim p(\mathbf{a}_t|\mathbf{s}_t)}[\beta_t(\mathbf{s}_t,\mathbf{a}_t)]</script><p>即：<br>$for \ t=T-1\ to\ 1$：</p>
 <script type="math/tex; mode=display">
 \beta_t(\mathbf{s}_t,\mathbf{a}_t)=p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)}[\beta_{t+1}(\mathbf{s}_{t+1})] \\
-\beta_t(\mathbf{s}_t)=\mathbf{E}_{\mathbf{a}_t\sim p(\mathbf{a}_t|\mathbf{s}_t)}[\beta_t(\mathbf{s}_t,\mathbf{a}_t)]</script>
+\beta_t(\mathbf{s}_t)=\mathbf{E}_{\mathbf{a}_t\sim p(\mathbf{a}_t|\mathbf{s}_t)}[\beta_t(\mathbf{s}_t,\mathbf{a}_t)]</script><p>这个算法和值函数迭代算法类似，值函数迭代算法如下：</p>
+<script type="math/tex; mode=display">
+Q(\mathbf{s},\mathbf{a})\leftarrow (\mathbf{s},\mathbf{a})+\gamma\mathbf{E}\left[(V(s^{'})\right]\\
+V(s)\leftarrow\max_aQ(\mathbf{s},\mathbf{a})</script><p>为了更清楚地说明类似性，令 $V_t(\mathbf{s}_t)=\log \beta_t(\mathbf{s}_t)，Q_t(\mathbf{s}_t,\mathbf{a}_t)=\log \beta_t(\mathbf{s}_t,\mathbf{a}_t) $，则有</p>
+<script type="math/tex; mode=display">
+V_t(\mathbf{s}_t)=\log\int\exp(Q_t(\mathbf{s}_t,\mathbf{a}_t))\mathrm{d}\mathbf{a}_t\\
+Q_t(\mathbf{s}_t,\mathbf{a}_t)=r(\mathbf{s}_t,\mathbf{a}_t)+\log\mathbf{E}[\exp(V_{t+1}(\mathbf{s}_{t+1}))]</script><p>随着Q的值变大，显然会有$V_t(\mathbf{s}_t)\rightarrow\max_{\mathbf{a}_t}Q_t(\mathbf{s}_t,\mathbf{a}_t)$，因此前者的这种操作也被称为 $softmax$，是$max$函数的一个软化；如果状态转移是确定的，则$Q_t(\mathbf{s}_t,\mathbf{a}_t)=r(\mathbf{s}_t,\mathbf{a}_t)+V_{t+1}(\mathbf{s}_{t+1})$。</p>
+
       
     </div>
 
@@ -737,7 +744,7 @@ p(\tau|\mathcal{O}_{1:T})=\frac{p(\tau,\mathcal{O}_{1:T})}{p(\mathcal{O}_{1:T})}
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">11.9k</span> 字
+      博客全站共： <span class="post-count">12.1k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->
