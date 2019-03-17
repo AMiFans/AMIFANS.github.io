@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="最大熵基于最大边际的方法往往会产生歧义，比如许多不同的回报函数会导致相同的专家策略。在这种情况下，所学到的回报函数往往具有随机的偏好。最大熵方法就是为解决此问题提出的。 最大熵原理指出，在学习概率模型时，在所有满足约束的概率模型（分布）中，熵最大的模型是最好的模型。现在我们假设存在一个潜在的概率分布，在该概率分布下，产生了专家轨迹。此时，已知条件为  \sum_{\zeta_i}​P(\zeta_">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-17T07:35:21.235Z">
+<meta property="og:updated_time" content="2019-03-17T07:48:17.890Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="最大熵逆向强化学习">
 <meta name="twitter:description" content="最大熵基于最大边际的方法往往会产生歧义，比如许多不同的回报函数会导致相同的专家策略。在这种情况下，所学到的回报函数往往具有随机的偏好。最大熵方法就是为解决此问题提出的。 最大熵原理指出，在学习概率模型时，在所有满足约束的概率模型（分布）中，熵最大的模型是最好的模型。现在我们假设存在一个潜在的概率分布，在该概率分布下，产生了专家轨迹。此时，已知条件为  \sum_{\zeta_i}​P(\zeta_">
@@ -401,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-03-17 14:39:55 / 修改时间：15:35:21" itemprop="dateCreated datePublished" datetime="2019-03-17T14:39:55+08:00">2019-03-17</time>
+              <time title="创建时间：2019-03-17 14:39:55 / 修改时间：15:48:17" itemprop="dateCreated datePublished" datetime="2019-03-17T14:39:55+08:00">2019-03-17</time>
             
 
             
@@ -461,7 +461,8 @@
 <script type="math/tex; mode=display">
 \sum_{\zeta_i}​P(\zeta_i​)f=\tilde{f}......(1)</script><p>这里用$f$表示特征期望，$\tilde{f}$表示专家特征期望。在满足上述约束条件的所有概率分布中，熵最大的概率分布是除了约束外对其他任何位置信息没有做任何假设的分布。所以，最大熵的方法可以避免歧义性的问题。我们将该问题转化成为标准的优化问题并形式化为：</p>
 <script type="math/tex; mode=display">
-\max-p\log p \\ s.t.\sum_{\zeta_i}......(2){P\left(\zeta_i\right)f_{\zeta_i}=\tilde{f}} \\ \varSigma P=1</script><p>利用拉格朗日乘子法，该优化问题可转化为：</p>
+\max-p\log p ......(2)
+\\ s.t.\sum_{\zeta_i}{P\left(\zeta_i\right)f_{\zeta_i}=\tilde{f}} \\ \varSigma P=1</script><p>利用拉格朗日乘子法，该优化问题可转化为：</p>
 <script type="math/tex; mode=display">
 \min L=\sum_{\zeta_i}{p\log p-\sum_{j=1}^n{\lambda_j\left(pf_j-\tilde{f}_j\right)}-\lambda_0\left(\varSigma p-1\right)}......(3)</script><p>将上式对概率$p$进行微分，并令其导数为0，可以得到：</p>
 <script type="math/tex; mode=display">
@@ -469,7 +470,7 @@
 <script type="math/tex; mode=display">
 p=\frac{\exp\left(\sum_{j=1}^n{\lambda_jf_j}\right)}{\exp\left(1-\lambda_0\right)}=\frac{1}{Z}\exp\left(\sum_{j=1}^n{\lambda_jf_j}\right)......(5)</script><p>然后利用次梯度的方法求解</p>
 <script type="math/tex; mode=display">
-\nabla L\left(\lambda\right)=\tilde{f}-\sum_{\zeta}{P\left(\zeta |\lambda ,T\right)f_{\zeta}}......(6)</script><h4 id="最大熵逆向强化学习"><a href="#最大熵逆向强化学习" class="headerlink" title="最大熵逆向强化学习"></a><strong>最大熵逆向强化学习</strong></h4><p>最大熵逆向强化学习中，对人类次优行为使用概率图模型建模，使用人类行为数据进行拟合，并推测出收益函数。假设$p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\propto\exp(r(\mathbf{s}_t,\mathbf{a}_t))$，那么轨迹条件概率正比于该轨迹实际的发生的概率乘上轨迹总收益的自然指数，即</p>
+\nabla L\left(\lambda\right)=\tilde{f}-\sum_{\zeta}{P\left(\zeta |\lambda ,T\right)f_{\zeta}}......(6)</script><h4 id="最大熵逆向强化学习"><a href="#最大熵逆向强化学习" class="headerlink" title="最大熵逆向强化学习"></a><strong>最大熵逆向强化学习</strong></h4><p>逆向强化学习中，对人类次优行为使用概率图模型建模，使用人类行为数据进行拟合，并推测出收益函数。假设$p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\propto\exp(r(\mathbf{s}_t,\mathbf{a}_t))$，那么轨迹条件概率正比于该轨迹实际的发生的概率乘上轨迹总收益的自然指数，即</p>
 <script type="math/tex; mode=display">
 p(\tau|\mathcal{O}_{1:T})\propto p(\tau)\exp\left(\sum_tr(\mathbf{s}_t,\mathbf{a}_t)\right)......(7)</script><p>根据假设可以看出，我们使用这个模型去做逆向强化学习，本质上是去学习最优性变量$\mathcal{O}_t$的分布。将收益函数用$\psi$参数化，我们的假设变为$p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t,\psi)\propto\exp(r_\psi(\mathbf{s}_t,\mathbf{a}_t))$，相应地轨迹条件概率变为</p>
 <script type="math/tex; mode=display">
@@ -479,11 +480,15 @@ p(\tau|\mathcal{O}_{1:T},\psi)\propto p(\tau)\exp\left(\sum_tr_\psi(\mathbf{s}_t
 <script type="math/tex; mode=display">
 \max_\psi\frac{1}{N}\sum_{i=1}^Nr_\psi(\tau_i)-\log Z.......(10)</script><p>其中$Z=\int p(\tau)\exp(r_\psi(\tau))\mathrm{d}\tau$为归一化项，称为$partition function$。我们对公式（10）求关于参数$\psi$的梯度：</p>
 <script type="math/tex; mode=display">
-\nabla_\psi\mathcal{L}=\frac{1}{N}\sum_{i=1}^N\nabla_\psi r_\psi(\tau_i)-\int \frac{1}{Z}p(\tau)\exp(r_\psi(\tau))\nabla_\psi r_\psi(\tau)\mathrm{d}\tau</script><p>又$\frac{1}{Z}p(\tau)\exp(r_\psi(\tau))=p(\tau|\mathcal{O}_{1:T},\psi)$，化为期望的形式可表示为</p>
+\nabla_\psi\mathcal{L}=\frac{1}{N}\sum_{i=1}^N\nabla_\psi r_\psi(\tau_i)-\int \frac{1}{Z}p(\tau)\exp(r_\psi(\tau))\nabla_\psi r_\psi(\tau)\mathrm{d}\tau......(11)</script><p>又$\frac{1}{Z}p(\tau)\exp(r_\psi(\tau))=p(\tau|\mathcal{O}_{1:T},\psi)$，化为期望的形式可表示为</p>
 <script type="math/tex; mode=display">
-\nabla_\psi\mathcal{L}=\mathbf{E}_{\tau\sim\pi^*(\tau)}[\nabla_\psi r_\psi(\tau)]-\mathbf{E}_{\tau\sim p(\tau|\mathcal{O}_{1:T},\psi)}[\nabla_\psi r_\psi(\tau)]</script><p>其中，<strong>$pi^*(\tau)$可以用装甲样本评估，$p(\tau|\mathcal{O}_{1:T},\psi)$是当前奖赏下的软优化策略</strong>。<br>将第二块期望的轨迹收益按照时间拆开，$\mathbf{E}_{\tau\sim p(\tau|\mathcal{O}_{1:T},\psi)}\left[\nabla_\psi\sum_{t=1}^Tr_\psi(\mathbf{s}_t,\mathbf{a}_t)\right]=\sum_{t=1}^T \mathbf{E}_{(\mathbf{s}_t,\mathbf{a}_t)\sim p(\mathbf{s}_t,\mathbf{a}_t|\mathcal{O}_{1:T},\psi)}[\nabla_\psi r_\psi(\mathbf{s}_t,\mathbf{a}_t)]$，其中状态动作对$(s_t,a_t)$的分布$p(\mathbf{s}_t,\mathbf{a}_t|\mathcal{O}_{1:T},\psi)=p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{1:T},\psi)p(\mathbf{s}_t|\mathcal{O}_{1:T},\psi)$。<br>根据$p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{1:T},\psi)=\frac{\beta(\mathbf{s}_t,\mathbf{a}_t)}{\beta(\mathbf{s}_t)}，p(\mathbf{s}_t|\mathcal{O}_{1:T},\psi)\propto\alpha(\mathbf{s}_t)\beta(\mathbf{s}_t)$，可得$p(\mathbf{s}_t,\mathbf{a}_t|\mathcal{O}_{1:T},\psi)\propto\beta(\mathbf{s}_t,\mathbf{a}_t)\alpha(\mathbf{s}_t)$，即后向信息和前向信息之积。<br>令$\mu_t(\mathbf{s}_t,\mathbf{a}_t)\propto\beta_t(\mathbf{s}_t,\mathbf{a}_t)\alpha_t(\mathbf{s}_t)$作为在$t$时刻状态行动$(\mathbf{s}_t,\mathbf{a}_t)$访问概率，则</p>
+\nabla_\psi\mathcal{L}=\mathbf{E}_{\tau\sim\pi^*(\tau)}[\nabla_\psi r_\psi(\tau)]-\mathbf{E}_{\tau\sim p(\tau|\mathcal{O}_{1:T},\psi)}[\nabla_\psi r_\psi(\tau)]......(12)</script><p>其中，<strong>$\pi^*(\tau)$可以用装甲样本评估，$p(\tau|\mathcal{O}_{1:T},\psi)$是当前奖赏下的软优化策略</strong>。<br>将第二块期望的轨迹收益按照时间拆开，</p>
 <script type="math/tex; mode=display">
-\mathbf{E}_{\tau\sim p(\tau|\mathcal{O}_{1:T},\psi)}[\nabla_\psi r_\psi(\tau)]=\sum_{t=1}^T\int\int \mu_t(\mathbf{s}_t,\mathbf{a}_t)\nabla_\psi r_\psi(\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_t\mathrm{d}\mathbf{a}_t</script><p>这样便得到了一个<strong>最大熵逆增强学习</strong> $(MaxEnt IRL) $算法。</p>
+\mathbf{E}_{\tau\sim p(\tau|\mathcal{O}_{1:T},\psi)}\left[\nabla_\psi\sum_{t=1}^Tr_\psi(\mathbf{s}_t,\mathbf{a}_t)\right]=\sum_{t=1}^T \mathbf{E}_{(\mathbf{s}_t,\mathbf{a}_t)\sim p(\mathbf{s}_t,\mathbf{a}_t|\mathcal{O}_{1:T},\psi)}[\nabla_\psi r_\psi(\mathbf{s}_t,\mathbf{a}_t)]......(13)</script><p>其中状态动作对$(s_t,a_t)$的分布$p(\mathbf{s}_t,\mathbf{a}_t|\mathcal{O}_{1:T},\psi)=p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{1:T},\psi)p(\mathbf{s}_t|\mathcal{O}_{1:T},\psi)$。<br>根据$p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{1:T},\psi)=\frac{\beta(\mathbf{s}_t,\mathbf{a}_t)}{\beta(\mathbf{s}_t)}，p(\mathbf{s}_t|\mathcal{O}_{1:T},\psi)\propto\alpha(\mathbf{s}_t)\beta(\mathbf{s}_t)$，可得</p>
+<script type="math/tex; mode=display">
+p(\mathbf{s}_t,\mathbf{a}_t|\mathcal{O}_{1:T},\psi)\propto\beta(\mathbf{s}_t,\mathbf{a}_t)\alpha(\mathbf{s}_t)......(14)</script><p>即后向信息和前向信息之积。令$\mu_t(\mathbf{s}_t,\mathbf{a}_t)\propto\beta_t(\mathbf{s}_t,\mathbf{a}_t)\alpha_t(\mathbf{s}_t)$作为在 $t$ 时刻状态行动$(\mathbf{s}_t,\mathbf{a}_t)$的访问概率，则</p>
+<script type="math/tex; mode=display">
+\mathbf{E}_{\tau\sim p(\tau|\mathcal{O}_{1:T},\psi)}[\nabla_\psi r_\psi(\tau)]=\sum_{t=1}^T\int\int \mu_t(\mathbf{s}_t,\mathbf{a}_t)\nabla_\psi r_\psi(\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_t\mathrm{d}\mathbf{a}_t......(15)</script><p>这样便得到了一个<strong>最大熵逆增强学习</strong> $(MaxEnt IRL) $算法。</p>
 
       
     </div>
