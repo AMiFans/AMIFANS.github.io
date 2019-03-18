@@ -128,7 +128,7 @@
 <meta property="og:image" content="https://github.com/image/概率图模型1.jpg">
 <meta property="og:image" content="https://github.com/image/概率图模型1.jpg">
 <meta property="og:image" content="https://github.com/image/概率图模型2.jpg">
-<meta property="og:updated_time" content="2019-03-18T02:33:13.546Z">
+<meta property="og:updated_time" content="2019-03-18T03:24:42.783Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用概率图模型对次优行为建模">
 <meta name="twitter:description" content="首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以">
@@ -421,7 +421,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-18 10:33:13" itemprop="dateModified" datetime="2019-03-18T10:33:13+08:00">2019-03-18</time>
+                <time title="修改时间：2019-03-18 11:24:42" itemprop="dateModified" datetime="2019-03-18T11:24:42+08:00">2019-03-18</time>
               
             
           </span>
@@ -519,7 +519,7 @@ V_t(\mathbf{s}_t)=\log\int\exp(\tilde Q_t(\mathbf{s}_t,\mathbf{a}_t))\mathrm{d}\
 =p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{t:T})\\
 =\frac{p(\mathbf{a}_t,\mathbf{s}_t|\mathcal{O}_{t:T})}{p(\mathbf{s}_t|\mathcal{O}_{t:T})}
 =\frac{p(\mathcal{O}_{t:T}|\mathbf{a}_t,\mathbf{s}_t)p(\mathbf{a}_t,\mathbf{s}_t)/p(\mathcal{O}_{t:T})}{p(\mathcal{O}_{t:T}|\mathbf{s}_t)p(\mathbf{s}_t)/p(\mathcal{O}_{t:T})}\\
-=\frac{p(\mathcal{O}_{t:T}|\mathbf{a}_t,\mathbf{s}_t)}{p(\mathcal{O}_{t:T}|\mathbf{s}_t)}\frac{p(\mathbf{a}_t,\mathbf{s}_t)}{p(\mathbf{s}_t)}=\frac{p(\mathcal{O}_{t:T}|\mathbf{a}_t,\mathbf{s}_t)}{p(\mathcal{O}_{t:T}|\mathbf{s}_t)}p(\mathbf{a}_t|\mathbf{s}_t)</script><p>如果我们假设$p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)$是均匀分布，则其为常数，可以略去，则：</p>
+=\frac{p(\mathcal{O}_{t:T}|\mathbf{a}_t,\mathbf{s}_t)}{p(\mathcal{O}_{t:T}|\mathbf{s}_t)}\frac{p(\mathbf{a}_t,\mathbf{s}_t)}{p(\mathbf{s}_t)}=\frac{p(\mathcal{O}_{t:T}|\mathbf{a}_t,\mathbf{s}_t)}{p(\mathcal{O}_{t:T}|\mathbf{s}_t)}p(\mathbf{a}_t|\mathbf{s}_t)</script><p>如果我们假设$p(\mathbf{a}_t|\mathbf{s}_t)$是均匀分布，则其为常数，可以略去，则：</p>
 <script type="math/tex; mode=display">
 \pi(\mathbf{a}_t|\mathbf{s}_t)=\frac{\beta_t(\mathbf{s}_t,\mathbf{a}_t)}{\beta_t(\mathbf{s}_t)}</script><p>如果将$V_t(\mathbf{s}_t)=\log \beta_t(\mathbf{s}_t)，Q_t(\mathbf{s}_t,\mathbf{a}_t)=\log \beta_t(\mathbf{s}_t,\mathbf{a}_t) $ 带入上式，则有：</p>
 <script type="math/tex; mode=display">
