@@ -127,7 +127,7 @@
 <meta property="og:image" content="https://github.com/image/GAIL-鞍点.jpg">
 <meta property="og:image" content="https://github.com/image/GAIL结构图.png">
 <meta property="og:image" content="https://github.com/image/GAIL伪代码.jpg">
-<meta property="og:updated_time" content="2019-03-28T03:24:05.549Z">
+<meta property="og:updated_time" content="2019-03-28T03:31:10.249Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="生成对抗模仿学习(GAIL)(简单翻译，未完)">
 <meta name="twitter:description" content="Inverse reinforcement learning代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：  maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi">
@@ -420,7 +420,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-28 11:24:05" itemprop="dateModified" datetime="2019-03-28T11:24:05+08:00">2019-03-28</time>
+                <time title="修改时间：2019-03-28 11:31:10" itemprop="dateModified" datetime="2019-03-28T11:31:10+08:00">2019-03-28</time>
               
             
           </span>
@@ -539,7 +539,7 @@ where \; g(x)=\left\{\begin{array}{rcl}-x-\log(1-e^x) & \mbox{if} & x<0 \\+\inft
 \psi^{\ast}(\rho_\pi - \rho_{\pi_E})=\max_{D\in (0,1)^{\mathcal{S}\times \mathcal{A}
 }}\sum_{s,a}\rho_\pi(s,a)\log\left(D(s,a)\right)+\rho_{\pi_E}(s,a)\log\left(1-D(s,a)\right)\\
 =\max_{D\in (0,1)^{\mathcal{S}\times \mathcal{A}
-}}\mathbb{E}_\pi\log\left(D(s,a)\right)+\mathbb{E}_{\pi_E}\log\left(1-D(s,a)\right)</script><p>我们的目的是寻找一个策略，它的占用率测量接近于专家策略的占用率测量，即求 $\psi^{\ast}(\rho_\pi - \rho_{\pi_E})$ 的最小值，引入因果熵$H$作为策略正则项（由参数$\lambda&gt;0$控制），得到一个新的模仿学习算法，即：$GAIL$</p>
+}}\mathbb{E}_\pi\log\left(D(s,a)\right)+\mathbb{E}_{\pi_E}\log\left(1-D(s,a)\right)</script><p>我们的目的是寻找一个策略，它的占用率测量接近于专家策略的占用率测量，即求 $\psi^{\ast}(\rho_\pi - \rho_{\pi_E})$ 的最小值，引入因果熵$H$（由参数$\lambda&gt;0$控制），得到一个新的模仿学习算法，即：$GAIL$</p>
 <script type="math/tex; mode=display">
 \min_{\pi}imize\max_{D\in (0,1)^{\mathcal{S}\times \mathcal{A}
 }}\mathbb{E}_\pi\log\left(D(s,a)\right)+\mathbb{E}_{\pi_E}\log\left(1-D(s,a)\right)-\lambda H(\pi)</script><p>GAIL的结构图如下：</p>
