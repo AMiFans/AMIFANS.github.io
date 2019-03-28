@@ -357,6 +357,185 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/26/GAIL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AMiFans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AMiFans’s Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/26/GAIL/" class="post-title-link" itemprop="url">生成对抗模仿学习(GAIL)(简单翻译，未完)</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-26 15:05:35" itemprop="dateCreated datePublished" datetime="2019-03-26T15:05:35+08:00">2019-03-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                <time title="修改时间：2019-03-28 11:24:05" itemprop="dateModified" datetime="2019-03-28T11:24:05+08:00">2019-03-28</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              Inverse reinforcement learning代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：
+
+maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi)+\mathbb{E}_\pi\left[c(s,a)\right]\right)-\mathbb
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/26/GAIL/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/22/OpenAI Spinning Up/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -400,12 +579,22 @@
                 
               
 
-              <time title="创建时间：2019-03-22 21:17:56 / 修改时间：22:17:20" itemprop="dateCreated datePublished" datetime="2019-03-22T21:17:56+08:00">2019-03-22</time>
+              <time title="创建时间：2019-03-22 21:17:56" itemprop="dateCreated datePublished" datetime="2019-03-22T21:17:56+08:00">2019-03-22</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                <time title="修改时间：2019-03-23 09:31:22" itemprop="dateModified" datetime="2019-03-23T09:31:22+08:00">2019-03-23</time>
               
             
           </span>
@@ -460,12 +649,12 @@
             <p>
               Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。
 特点
-VPG是一种策略上的算法。
-VPG可用于具有离散或连续动作空间的环境。
+$VPG$是一种$on-police$的算法。
+$VPG$可用于具有离散或连续动作空间的环境。
 
-关键方程让我们用$\pi_{\theta}$表示一个带有参数$\theta$的策略，$J(\pi_{\theta})$表示该策略的预期有限未折扣回报，则$J(\pi_{\theta})$的梯度为
+关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的策略，$J(\pi_{\theta})$表示该策略的预期有限未折扣回报，则$J(\pi_{\theta})$的梯度为
 
-\nabla_{\theta}J(\pi_{\theta})=\ma
+\nabla_{\theta}J(\pi_{\th
               ...
             </p>
           <!--noindex-->
@@ -1923,186 +2112,6 @@ $\pi$是一个随机策略，$\rho_
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/02/CGAN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AMiFans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/timg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AMiFans’s Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/02/CGAN/" class="post-title-link" itemprop="url">CGAN 解读</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-02 18:08:31" itemprop="dateCreated datePublished" datetime="2019-03-02T18:08:31+08:00">2019-03-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                <time title="修改时间：2019-03-04 20:45:54" itemprop="dateModified" datetime="2019-03-04T20:45:54+08:00">2019-03-04</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/生成对抗网络/" itemprop="url" rel="index"><span itemprop="name">生成对抗网络</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              简称：CGAN论文名称：Conditional Generative Adversarial Nets论文作用：使生成的数据带有约束，如果约束为类别标签，则可以生成相应标签的数据论文解读：1.CGAN 的网络结构在 CGAN 中，生成器和判别器都增加额外信息 y 为条件, y 可以是任意信息,例如类别信息,或者其他模态的数据。如图所示，通过将额外信息 y 输送给判别模型和生成模型,作为输入层的一部分,从而实现条件 GAN。
-优化函数：
-
-\min_G \max_D V(D,G)=\mathbb{
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/02/CGAN/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2151,7 +2160,7 @@ $\pi$是一个随机策略，$\rho_
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2299,7 +2308,7 @@ $\pi$是一个随机策略，$\rho_
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">13.5k</span> 字
+      博客全站共： <span class="post-count">15.8k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->

@@ -117,26 +117,28 @@
 
 </script>
 
-  <meta name="description" content="Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。 特点 $VPG$是一种$on-police$的算法。 $VPG$可用于具有离散或连续动作空间的环境。  关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的策略，$J(\pi_{\theta})$表示该策略的预期有限未折扣回报">
+  <meta name="description" content="Inverse reinforcement learning代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：  maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenAI Spinning Up">
-<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/22/OpenAI Spinning Up/index.html">
+<meta property="og:title" content="生成对抗模仿学习(GAIL)(简单翻译，未完)">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/26/GAIL/index.html">
 <meta property="og:site_name" content="AMiFans’s Blogs">
-<meta property="og:description" content="Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。 特点 $VPG$是一种$on-police$的算法。 $VPG$可用于具有离散或连续动作空间的环境。  关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的策略，$J(\pi_{\theta})$表示该策略的预期有限未折扣回报">
+<meta property="og:description" content="Inverse reinforcement learning代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：  maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://github.com/image/VPG_Pseudocode.svg">
-<meta property="og:updated_time" content="2019-03-23T01:31:22.092Z">
+<meta property="og:image" content="https://github.com/image/GAIL-鞍点.jpg">
+<meta property="og:image" content="https://github.com/image/GAIL结构图.png">
+<meta property="og:image" content="https://github.com/image/GAIL伪代码.jpg">
+<meta property="og:updated_time" content="2019-03-28T03:24:05.549Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OpenAI Spinning Up">
-<meta name="twitter:description" content="Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。 特点 $VPG$是一种$on-police$的算法。 $VPG$可用于具有离散或连续动作空间的环境。  关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的策略，$J(\pi_{\theta})$表示该策略的预期有限未折扣回报">
-<meta name="twitter:image" content="https://github.com/image/VPG_Pseudocode.svg">
+<meta name="twitter:title" content="生成对抗模仿学习(GAIL)(简单翻译，未完)">
+<meta name="twitter:description" content="Inverse reinforcement learning代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：  maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi">
+<meta name="twitter:image" content="https://github.com/image/GAIL-鞍点.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/22/OpenAI Spinning Up/">
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/26/GAIL/">
 
 
 
@@ -146,7 +148,7 @@
   };
 </script>
 
-  <title>OpenAI Spinning Up | AMiFans’s Blogs</title>
+  <title>生成对抗模仿学习(GAIL)(简单翻译，未完) | AMiFans’s Blogs</title>
   
 
 
@@ -362,7 +364,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/22/OpenAI Spinning Up/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/26/GAIL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="AMiFans">
@@ -379,7 +381,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">OpenAI Spinning Up
+          <h1 class="post-title" itemprop="name headline">生成对抗模仿学习(GAIL)(简单翻译，未完)
 
               
             
@@ -403,7 +405,7 @@
                 
               
 
-              <time title="创建时间：2019-03-22 21:17:56" itemprop="dateCreated datePublished" datetime="2019-03-22T21:17:56+08:00">2019-03-22</time>
+              <time title="创建时间：2019-03-26 15:05:35" itemprop="dateCreated datePublished" datetime="2019-03-26T15:05:35+08:00">2019-03-26</time>
             
 
             
@@ -418,7 +420,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-23 09:31:22" itemprop="dateModified" datetime="2019-03-23T09:31:22+08:00">2019-03-23</time>
+                <time title="修改时间：2019-03-28 11:24:05" itemprop="dateModified" datetime="2019-03-28T11:24:05+08:00">2019-03-28</time>
               
             
           </span>
@@ -468,37 +470,83 @@
       
 
       
-        <h1 id="Vanilla-Policy-Gradient"><a href="#Vanilla-Policy-Gradient" class="headerlink" title="Vanilla Policy Gradient"></a><strong>Vanilla Policy Gradient</strong></h1><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a><strong>背景</strong></h3><p>策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。</p>
-<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a><strong>特点</strong></h3><ul>
-<li>$VPG$是一种$on-police$的算法。</li>
-<li>$VPG$可用于具有离散或连续动作空间的环境。</li>
-</ul>
-<h3 id="关键方程"><a href="#关键方程" class="headerlink" title="关键方程"></a><strong>关键方程</strong></h3><p>用$\pi_{\theta}$表示一个带有参数$\theta$的策略，$J(\pi_{\theta})$表示该策略的预期有限未折扣回报，则$J(\pi_{\theta})$的梯度为</p>
+        <h2 id="Inverse-reinforcement-learning"><a href="#Inverse-reinforcement-learning" class="headerlink" title="Inverse reinforcement learning"></a>Inverse reinforcement learning</h2><p>代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：</p>
 <script type="math/tex; mode=display">
-\nabla_{\theta}J(\pi_{\theta})=\mathbf{E}_{\tau\sim\pi_{\theta}}{\sum_{t=0}^{T}\nabla_{\theta}\log\pi_{\theta}(a_t|s_t)A^{\pi_{\theta}}(s_t,a_t)}</script><p>其中，$\tau$为轨迹，$A^{\pi_{\theta}}$是当前策略的优势函数。<br>策略梯度算法通过随机梯度上升来更新策略参数：</p>
+maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi)+\mathbb{E}_\pi\left[c(s,a)\right]\right)-\mathbb{E}_{\pi_E}\left[c(s,a)\right]</script><p>其中，$\mathbb{E}_\pi\left[c(s,a)\right]=\mathbb{E}\left[\sum_{t=0}^\infty \gamma^t c(s_t,a_t)\right]$，$H(\pi)=\mathbb{E}_\pi\left[-\log\pi(a|s)\right]$是一个 $\gamma$ 折扣累积熵。<br>最大因果熵逆向强化学习是想找到一个代价函数$c\in\mathcal{C}$，该代价函数 $c$ 分配给专家策略 $\pi_E$ 低的 $cost$ 而分配给其他策略高的 $cost$，从而可以通过某种 $RL$ 方法找到专家策略 $\pi_E$:</p>
 <script type="math/tex; mode=display">
-\theta_{k+1}=\theta_k+\alpha\nabla_{\theta}J(\pi_{\theta_k})</script><p>策略梯度的实施通常基于无限折扣回报来计算优势函数估计，尽管上述使用有限未折扣策略梯度公式。</p>
-<h3 id="探索和开发"><a href="#探索和开发" class="headerlink" title="探索和开发"></a><strong>探索和开发</strong></h3><p>$VPG$使用$on-police$的方式来训练随机策略。</p>
-<h3 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a><strong>伪代码</strong></h3><p><img src="\image\VPG_Pseudocode.svg" alt="VPG 伪代码"></p>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h3><ul>
-<li><a href="https://papers.nips.cc/paper/1713-policy-gradient-methods-for-reinforcement-learning-with-function-approximation.pdf" target="_blank" rel="noopener">Policy Gradient Methods for Reinforcement Learning with Function Approximation, Sutton et al. 2000</a></li>
-<li><a href="http://joschu.net/docs/thesis.pdf" target="_blank" rel="noopener">Optimizing Expectations: From Deep Reinforcement Learning to Stochastic Computation Graphs, Schulman 2016(a)</a></li>
-<li><a href="https://arxiv.org/pdf/1604.06778.pdf" target="_blank" rel="noopener">Benchmarking Deep Reinforcement Learning for Continuous Control, Duan et al. 2016</a></li>
-<li><a href="https://arxiv.org/pdf/1506.02438.pdf" target="_blank" rel="noopener">High Dimensional Continuous Control Using Generalized Advantage Estimation, Schulman et al. 2016(b)</a></li>
-</ul>
-<h1 id="Trust-Region-Policy-Optimization"><a href="#Trust-Region-Policy-Optimization" class="headerlink" title="Trust Region Policy Optimization"></a><strong>Trust Region Policy Optimization</strong></h1><h3 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a><strong>背景</strong></h3><p>$TRPO$通过采取能够提升性能的最大的步长，同时对新旧策略之间的接近程度有特殊的约束。该约束用$KL-Divergence$表示，$KL-Divergence$是概率分布之间的距离（类似但不完全）的度量。<br>$TRPO$和正常的策略梯度不同，它保持了新旧策略在参数空间彼此接近。但即使是参数空间中看似微小的差异也会在性能上产生很大的差异，因此一个不好的步长可能会破坏策略性能。这使得使用$VPG时$的大步长变得危险，从而损害其样本效率。$TRPO$很好地避免了这种崩溃，并且倾向于快速和单调地改善性能。</p>
-<h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a><strong>特点</strong></h3><ul>
-<li>$VPG$是一种$on-police$的算法。</li>
-<li>$VPG$可用于具有离散或连续动作空间的环境。</li>
-</ul>
-<h3 id="关键方程-1"><a href="#关键方程-1" class="headerlink" title="关键方程"></a><strong>关键方程</strong></h3><p>用$\pi_{\theta}$表示一个带有参数$\theta$的策略，则理论上$TRPO$的更新如下：</p>
+RL(c)=\arg\min_{\pi\in\prod}-H(\pi)+\mathbb{E}_\pi\left[c(s,a)\right]</script><p>可以看到，$IRL$ 过程中包含一个 $RL$ 过程，可解释为：将代价函数映射为具有高熵的函数然后最小化累计 $cost$ 期望。</p>
+<p>对于一个很大的集合 $\mathcal{C}$，当提供有限的数据集时 $IRL$ 很容易过拟合，因此在 $IRL$ 中加入凸的代价函数正则项 $\psi:\mathbb{R}^{\mathcal{S}\times \mathcal{A}}\rightarrow \overline{\mathbb{R}}$，函数 $\psi$ 必须在所有的 $\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$ 中的凸的，而不是在一个小的参数空间上时凸的。</p>
+<p>带有正则化项 $\psi$ 的最大因果熵逆向强化学习的目的是找到一个代价函数 $c$ 使得专家策略的效果优于其它所有策略（注意：cost 越小则代表效果越好）:</p>
 <script type="math/tex; mode=display">
-\theta_{k+1}=\arg\max_{\theta}\;\mathcal{L}(\theta_k,\theta)\\
-\text{s.t.}\;\bar{D}_{KL}(\theta||\theta_k)\leq\delta</script><p>其中，$\mathcal{L}(\theta_k,\theta)$是替代优势，测量了在使用来自旧策略$\pi_{\theta_k}$的数据时，新策略$\pi_{\theta}$相对与旧策略$\pi_{\theta_k}$的性能。</p>
+IRL_\psi(\pi_E)=\arg\max_{c\in\mathcal{C}}-\psi(c)+\left(\min_{\pi\in\prod}-  H(\pi)+\mathbb{E}_\pi\left[c(s,a)\right]\right)-\mathbb{E}_{\pi_E}\left[c(s,a)\right]</script><p>现在，通过$IRL$得到的代价函数 $\tilde{c} \in IRL_\psi(\pi_E)$，我们的目的是通过 $RL(\tilde{c})$ 找到一个策略。</p>
+<p>对于策略$\pi\in\prod$定义其占用率度量(occupancy measure) $\rho_\pi:\mathcal{S}\times \mathcal{A}\rightarrow\mathbb{R}$，可解释为使用策略 $\pi$ 时，状态-动作对的分布：<br>$\rho_\pi(s,a)=\pi(a|s)\sum_{t=0}^\infty\gamma^t P(s_t=s|\pi)$</p>
+<p>那么对于任意的代价函数 $c$，我们有：</p>
 <script type="math/tex; mode=display">
-{\mathcal L}(\theta_k,\theta)=\mathop{E}_{s,a\sim\pi_{\theta_k}}{\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)}A^{\pi_{\theta_k}}(s,a)}</script><p>并且$\bar{D}_{KL}(\theta||\theta_k)$是旧政策所访问的各状态策略之间的平均$KL-Divergence$：</p>
+\mathbb{E}_\pi\left[c(s,a)\right]=\mathbb{E}\left[\sum_{s,a}\rho_\pi(s,a)c(s,a)\right]</script><p>有效占用率度量( valid occupancy measures)集：$\mathcal{D} \triangleq \{\rho_\pi:\pi\in\prod\}$，可以写为：<br>$\mathcal{D}=\{\rho:\rho\geq 0 \;\;and \;\; \sum_a \rho(s,a)=p_0(s)+\gamma\sum_{s^{‘},a}P(s|s^{’},a)\rho(s^{’},a) \; \forall s\in\mathcal{S}\}$</p>
+<p><strong>命题 1 </strong><br>如果 $\rho\in\mathcal{D}$ ，那么 $\rho$ 是 $\pi_\rho(a|s)=\cfrac{\rho(s,a)}{\sum_{a^{’}}\rho(s,a^{’})}$ 的占用率测量，$\pi_\rho$ 是占用率测量为$\rho$时的唯一策略，即 $\pi_\rho$与$\rho$是一一对应的 。</p>
+<p><strong>命题 2 </strong><br>$RL\circ IRL_\psi(\pi_E)=\arg \min_{\pi\in\prod}-H(\pi)+\psi^{\ast}(\rho_\pi - \rho_{\pi_E})$</p>
+<p>Proposition 2 的证明主要依赖于最优的代价函数和最优策略形成一个鞍点。证明如下：</p>
+<p><img src="\image\GAIL-鞍点.jpg" alt="GAIL-鞍点"></p>
+<p>首先有两个引理：<br><strong>引理1</strong>（暂不作证明）：<br>令$\bar{H}(\rho)=-\sum_{s,a}\rho(s,a)\log\left(\cfrac{\rho(s,a)}{\sum_{a^{’}}\rho(s,a^{’})}\right)$，那么，$\bar{H}$ 是严格的凸的，并且对于任意的 $\pi\in\prod$ 和$\rho\in\mathcal{D}$，$H(\pi)=\bar{H}(\rho_\pi)$，$\bar{H}(\rho)=H(\pi_\rho)$。<br><strong>引理2</strong>（暂不作证明）：<br>如果$L(\pi,c)=-H(\pi)+\mathbb{E}\left[c(s,a)\right]$ 且 $\bar{L}(\rho,c)=-\bar{H}(\rho)+\sum_{s,a}\rho(s,a)c(s,a)$，那么，在所有的代价函数 $c$中，对于任意的策略$\pi\in\prod$，$L(\pi,c)=\bar{L}(\rho_\pi,c)$；对于任意的占用率测量 $\rho\in\mathcal{D}$，$\bar{L}(\rho,c)=L(\pi_\rho,c)$</p>
+<p>证明开始：<br>令$\tilde{c} \in IRL_\psi(\pi_E)$，$\tilde{\pi}\in RL(\tilde{c})=RL\circ IRL_\psi(\pi_E)$，且</p>
 <script type="math/tex; mode=display">
-\bar{D}_{KL}(\theta||\theta_k)=\mathop{E}_{s\sim\pi_{\theta_k}}{D_{KL}\left(\pi _{\theta}(\cdot|s )||\pi_{\theta_k}(\cdot|s)\right)}</script><h3 id="探索和开发-1"><a href="#探索和开发-1" class="headerlink" title="探索和开发"></a><strong>探索和开发</strong></h3><h3 id="伪代码-1"><a href="#伪代码-1" class="headerlink" title="伪代码"></a><strong>伪代码</strong></h3><h3 id="参考资料-1"><a href="#参考资料-1" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h3><h1 id="Proximal-Policy-Optimization"><a href="#Proximal-Policy-Optimization" class="headerlink" title="Proximal Policy Optimization"></a><strong>Proximal Policy Optimization</strong></h1><h3 id="背景-2"><a href="#背景-2" class="headerlink" title="背景"></a><strong>背景</strong></h3><h3 id="特点-2"><a href="#特点-2" class="headerlink" title="特点"></a><strong>特点</strong></h3><h3 id="关键方程-2"><a href="#关键方程-2" class="headerlink" title="关键方程"></a><strong>关键方程</strong></h3><h3 id="探索和开发-2"><a href="#探索和开发-2" class="headerlink" title="探索和开发"></a><strong>探索和开发</strong></h3><h3 id="伪代码-2"><a href="#伪代码-2" class="headerlink" title="伪代码"></a><strong>伪代码</strong></h3><h3 id="参考资料-2"><a href="#参考资料-2" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h3>
+\pi_A\in\arg \min_{\pi}-H(\pi)+\psi^{\ast}(\rho_\pi - \rho_{\pi_E})\\
+=\arg\min_\pi\max_c-H(\pi)-\psi(c)+\sum_{s,a}(\rho_\pi(s,a)-\rho_{\pi_E}(s,a))c(s,a)</script><p>我们令</p>
+<script type="math/tex; mode=display">
+\bar{L}(\rho,c)=-\bar{H}(\rho)-\psi(c)+\sum_{s,a}(\rho_\pi(s,a)-\rho_{\pi_E}(s,a))c(s,a)</script><p>由命题一下式成立：</p>
+<script type="math/tex; mode=display">
+\rho_A\in\arg\min_{\rho\in\mathcal{D}} \max_c \bar{L}(\rho,c)\\
+\tilde{c}\in\arg\max_c\min_{\rho\in\mathcal{D}}\bar{L}(\rho,c)\\
+\tilde{\rho}\in\arg\min_{\rho\in\mathcal{D}}\bar{L}(\rho,\tilde{c})</script><p>由于 $\bar{L}(\cdot,c)$ 是凸的，$\bar{L}(\rho,\cdot)$ 是凹的，因此有：</p>
+<script type="math/tex; mode=display">
+\min_{\rho\in\mathcal{D}}\max_{c\in\mathcal{C}}\bar{L}(\rho,c)=\max_{c\in\mathcal{C}}\min_{\rho\in\mathcal{D}}\bar{L}(\rho,c)</script><p>所以 $(\rho_A,\tilde{c})$ 和 $(\tilde{\rho},\tilde{c})$ 都是 $\bar{L}$ 的鞍点，由 $\bar{L}(\rho,.)$的凹性，其鞍点有且只有一个，并且是其最值点，所以：</p>
+<script type="math/tex; mode=display">
+\rho_A=\tilde{\rho}</script><p>根据命题1可知：</p>
+<script type="math/tex; mode=display">
+\pi_A=\tilde{\pi}</script><p>Proposition 2 暗示了 $\psi$ 正则化逆向强化学习寻找这样一个策略，它的占用率测量接近于专家策略的占用率测量，它们的接近程度由 $\psi^{\ast}$ 来衡量。<br>不同的 $\psi^{\ast}$ 会导致不同的模仿学习算法。$GAIL$ 便是取了一个特殊的 $\psi$ 而推导出来的。</p>
+<p><strong>推论 1 </strong><br>如果 $\psi$ 是常函数，$\tilde{c} \in IRL_\psi(\pi_E)$，$\tilde{\pi}\in RL(\tilde{c})$ ，那么 $\rho_{\tilde{\pi}}=\rho_{\pi_E}$<br>这个算法几乎没有用的，因为实际上，我们只会得到采样的轨迹，在大规模环境中，专家轨迹是有限的，此算法无法探索到所有的未出现的状态-动作对。</p>
+<h2 id="Generative-adversarial-imitation-learning"><a href="#Generative-adversarial-imitation-learning" class="headerlink" title="Generative adversarial imitation learning"></a>Generative adversarial imitation learning</h2><p>首先我们定义最小期望风险(minimum expected risks)$R_\phi(\rho_\pi,\rho_{\pi_E})$ 为：</p>
+<script type="math/tex; mode=display">
+R_\phi(\rho_\pi,\rho_{\pi_E})=\sum_{s,a}\min_{\gamma\in\mathbb{R}}\rho_\pi(s,a)\phi(\gamma)+\rho_{\pi_E}(s,a)\phi(-\gamma)</script><p>其中 $\phi$ 是任意实数值严格递减的凸函数</p>
+<p>然后，我们要将两个策略的占用率测量的接近程度用最小期望风险表示，即使得下式成立：</p>
+<script type="math/tex; mode=display">
+\psi^{\ast}(\rho_\pi - \rho_{\pi_E})=-R_\phi(\rho_\pi,\rho_{\pi_E})</script><p>为了达到这个目的，引入以下函数，其中我们让 $T$ 为$-\phi$ 的范围：</p>
+<script type="math/tex; mode=display">
+\psi_\phi(c)=\left\{\begin{array}{rcl}\sum_{s,a}\rho_{\pi_E}(s,a)g_\phi(c(s,a)) & \mbox{if}& c(s,a) \in T &\mbox{for} & all & s,a\\+\infty & \mbox{otherwise}
+           \end{array}\right.
+ where \  g_\phi(x)=\left\{\begin{array}{rcl}-x+\phi(-\phi^{-1}(-x)) & \mbox{if} & x \in T \\+\infty & \mbox{otherwise}
+           \end{array}\right.</script><p>那么，可以证明 $\psi_\phi$ 是闭合的、正的、凸的，并且 $RL\circ IRL_\psi(\pi_E)=\arg \min_{\pi}-H(\pi)-R_\phi(\rho_\pi,\rho_{\pi_E})$<br>接下来我们证明 $\psi^*(\rho_\pi - \rho_{\pi_E})=-R_\phi(\rho_\pi,\rho_{\pi_E})$：</p>
+<script type="math/tex; mode=display">
+\psi^{\ast}(\rho_\pi-\rho_{\pi_E})=\max_{c\in\mathcal{C}}\sum_{s,a}\left(\rho_\pi(s,a)-\rho_{\pi_E}(s,a)\right)c(s,a)-\sum_{s,a}\rho_{\pi_E}(s,a)g_\phi(c(s,a))\\
+=\sum_{s,a}\max_{c\in T}\left(\rho_\pi(s,a)-\rho_{\pi_E}(s,a)\right)c-\rho_{\pi_E}(s,a)\left[-c+\phi(-\phi^{-1}(-c))\right]\\
+=\sum_{s,a}\max_{c\in T}\rho_\pi(s,a)c-\rho_{\pi_E}(s,a)\phi(-\phi^{-1}(-c))\\
+=\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)(-\phi(\gamma))-\rho_{\pi_E}(s,a)\phi(-\phi^{-1}(\phi(\gamma)))\\
+=\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)(-\phi(\gamma))-\rho_{\pi_E}(s,a)\phi(-\gamma)\\
+=-R_\phi(\rho_\pi,\rho_{\pi_E})</script><p>在前文中我们让 $T$ 为$-\phi$ 的范围，因此在上式中我们对变量$c$做了调整：$c\rightarrow-\phi(\gamma)$。</p>
+<p>上述展示了如何从 $\phi$ 构造成本函数正则化项 $\psi$ ，作为推论，我们得到了逻辑损失的成本函数正则化项，其最优期望风险是J-S散度（达到常数）。</p>
+<p>如果令  $\phi(x)=\log(1+e^{-x})$，那么 $\psi_\phi(c)$ 将会减小到 $\psi_{GA}$：</p>
+<script type="math/tex; mode=display">
+\psi_{GA}(c)=\left\{\begin{array}{rcl}\mathbb{E}_{\pi_E}g(c(s,a)) & \mbox{if}& c<0 \\+\infty & \mbox{otherwise}
+           \end{array}\right.
+where \; g(x)=\left\{\begin{array}{rcl}-x-\log(1-e^x) & \mbox{if} & x<0 \\+\infty & \mbox{otherwise}
+           \end{array}\right.\\</script><p>则：</p>
+<script type="math/tex; mode=display">
+\psi^{\ast}(\rho_\pi - \rho_{\pi_E})=-R_\phi(\rho_\pi,\rho_{\pi_E})\\
+=\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)\log\left(\cfrac{1}{1+e^{-\gamma}}\right)+\rho_{\pi_E}(s,a)\log\left(\cfrac{1}{1+e^{\gamma}}\right)\\
+=\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)\log\left(\cfrac{1}{1+e^{-\gamma}}\right)+\rho_{\pi_E}(s,a)\log\left(1-\cfrac{1}{1+e^{-\gamma}}\right)\\
+=\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)\log\left(\sigma(\gamma)\right)+\rho_{\pi_E}(s,a)\log\left(1-\sigma(\gamma)\right)</script><p>其中，$\sigma(\gamma)=\cfrac{1}{1+e^{-\gamma}}$ 为  $sigmoid$ 函数，所以，可写为以下形式：</p>
+<script type="math/tex; mode=display">
+\psi^{\ast}(\rho_\pi - \rho_{\pi_E})=\max_{D\in (0,1)^{\mathcal{S}\times \mathcal{A}
+}}\sum_{s,a}\rho_\pi(s,a)\log\left(D(s,a)\right)+\rho_{\pi_E}(s,a)\log\left(1-D(s,a)\right)\\
+=\max_{D\in (0,1)^{\mathcal{S}\times \mathcal{A}
+}}\mathbb{E}_\pi\log\left(D(s,a)\right)+\mathbb{E}_{\pi_E}\log\left(1-D(s,a)\right)</script><p>我们的目的是寻找一个策略，它的占用率测量接近于专家策略的占用率测量，即求 $\psi^{\ast}(\rho_\pi - \rho_{\pi_E})$ 的最小值，引入因果熵$H$作为策略正则项（由参数$\lambda&gt;0$控制），得到一个新的模仿学习算法，即：$GAIL$</p>
+<script type="math/tex; mode=display">
+\min_{\pi}imize\max_{D\in (0,1)^{\mathcal{S}\times \mathcal{A}
+}}\mathbb{E}_\pi\log\left(D(s,a)\right)+\mathbb{E}_{\pi_E}\log\left(1-D(s,a)\right)-\lambda H(\pi)</script><p>GAIL的结构图如下：</p>
+<p><img src="\image\GAIL结构图.png" alt="GAIL结构图"></p>
+<p>GAIL的伪代码如下：</p>
+<p><img src="\image\GAIL伪代码.jpg" alt="GAIL伪代码"></p>
+
       
     </div>
 
@@ -528,8 +576,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/19/强化学习环境搭建中的一些技巧/" rel="next" title="强化学习环境搭建中的一些技巧">
-                <i class="fa fa-chevron-left"></i> 强化学习环境搭建中的一些技巧
+              <a href="/2019/03/22/OpenAI Spinning Up/" rel="next" title="OpenAI Spinning Up">
+                <i class="fa fa-chevron-left"></i> OpenAI Spinning Up
               </a>
             
           </div>
@@ -537,10 +585,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/26/GAIL/" rel="prev" title="生成对抗模仿学习(GAIL)(简单翻译，未完)">
-                生成对抗模仿学习(GAIL)(简单翻译，未完) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -711,7 +755,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vanilla-Policy-Gradient"><span class="nav-text">Vanilla Policy Gradient</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键方程"><span class="nav-text">关键方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索和开发"><span class="nav-text">探索和开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码"><span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-text">参考资料</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Trust-Region-Policy-Optimization"><span class="nav-text">Trust Region Policy Optimization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-1"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点-1"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键方程-1"><span class="nav-text">关键方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索和开发-1"><span class="nav-text">探索和开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码-1"><span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料-1"><span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Proximal-Policy-Optimization"><span class="nav-text">Proximal Policy Optimization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-2"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点-2"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键方程-2"><span class="nav-text">关键方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索和开发-2"><span class="nav-text">探索和开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码-2"><span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料-2"><span class="nav-text">参考资料</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Inverse-reinforcement-learning"><span class="nav-text">Inverse reinforcement learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generative-adversarial-imitation-learning"><span class="nav-text">Generative adversarial imitation learning</span></a></li></ol></div>
             
 
           </div>
