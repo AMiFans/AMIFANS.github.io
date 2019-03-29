@@ -126,7 +126,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://github.com/image/VPG_Pseudocode.svg">
 <meta property="og:image" content="https://github.com/image/TRPO_Pseudocode.svg">
-<meta property="og:updated_time" content="2019-03-29T02:19:25.540Z">
+<meta property="og:updated_time" content="2019-03-29T02:24:58.852Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenAI Spinning Up">
 <meta name="twitter:description" content="Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。 特点 $VPG$是一种$on-police$的算法。 $VPG$可用于具有离散或连续动作空间的环境。  关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的策略，$J(\pi_{\theta})$表示该策略的预期有限未折扣回报">
@@ -419,7 +419,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-29 10:19:25" itemprop="dateModified" datetime="2019-03-29T10:19:25+08:00">2019-03-29</time>
+                <time title="修改时间：2019-03-29 10:24:58" itemprop="dateModified" datetime="2019-03-29T10:24:58+08:00">2019-03-29</time>
               
             
           </span>
@@ -499,7 +499,7 @@
 <script type="math/tex; mode=display">
 {\mathcal L}(\theta_k,\theta)=\mathop{E}_{s,a\sim\pi_{\theta_k}}{\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)}A^{\pi_{\theta_k}}(s,a)}</script><p>并且$\bar{D}_{KL}(\theta||\theta_k)$是旧政策所访问的各状态策略之间的平均$KL-Divergence$：</p>
 <script type="math/tex; mode=display">
-\bar{D}_{KL}(\theta||\theta_k)=\mathop{E}_{s\sim\pi_{\theta_k}}{D_{KL}\left(\pi _{\theta}(\cdot|s )||\pi_{\theta_k}(\cdot|s)\right)}</script><p>理论的$TRPO$的更新不容易实现。所以为了快速得到答案对$TRPO$做一些近似.我们在$\theta_k$附近对目标函数和约束泰勒展开：</p>
+\bar{D}_{KL}(\theta||\theta_k)=\mathop{E}_{s\sim\pi_{\theta_k}}{D_{KL}\left(\pi _{\theta}(\cdot|s )||\pi_{\theta_k}(\cdot|s)\right)}</script><p>理论的$TRPO$的更新不容易实现。所以为了快速得到答案对$TRPO$做一些近似。我们在$\theta_k$附近对目标函数和约束泰勒展开：</p>
 <script type="math/tex; mode=display">
 \mathcal{L}(\theta_k,\theta)\approx g^T (\theta- \theta_k)\\
 \bar{D}_{KL}(\theta||\theta_k)\approx \cfrac{1}{2}(\theta-\theta_k)^T H (\theta-\theta_k)</script><p>这导致了近似优化问题：</p>
@@ -509,7 +509,7 @@
 <script type="math/tex; mode=display">
 \theta_{k + 1}=\theta_k+\sqrt{\frac{2\delta}{g^TH^{-1}g}}H^{-1}g</script><p>由于泰勒展开引入的近似误差，这可能不满足KL约束，或者实际上改善了替代优势。TRPO添加了对此更新规则的修改：回溯线搜索，</p>
 <script type="math/tex; mode=display">
-\theta_{k + 1}=\theta_k+\alpha^j\sqrt{\frac{2\delta}{g^TH^{-1}g}}H^{-1}g</script><p>其中$\alpha\in（0,1）$是回溯系数，并且$Ĵ$是最小的非负整数，$\pi_{\theta_{K+1}}$满足$KL$约束并产生正的替代优势。</p>
+\theta_{k + 1}=\theta_k+\alpha^j\sqrt{\frac{2\delta}{g^TH^{-1}g}}H^{-1}g</script><p>其中$\alpha\in（0,1）$是回溯系数，并且$j$是最小的非负整数，$\pi_{\theta_{K+1}}$满足$KL$约束并产生正的替代优势。</p>
 <p>当处理具有数千或数百万个参数的神经网络策略时，计算和存储矩阵逆$H^{-1}$，是非常昂贵的。$TRPO$回避了该问题通过使用共轭梯度算法解决$Hx=g$对于$x=H^{-1}g$，只需要一个可以计算矩阵矢量乘积的函数$HX$，而不是直接计算和存储整个矩阵$H$。</p>
 <script type="math/tex; mode=display">
 Hx =\nabla_{\theta}\left(\left(\nabla_{\theta}\bar{D}_{KL}(\theta||\theta_k)\right)^Tx\right)</script><p>上式给了我们正确的输出而不需要计算整个矩阵。</p>
