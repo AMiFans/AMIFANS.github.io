@@ -127,7 +127,7 @@
 <meta property="og:image" content="https://github.com/image/GAIL-鞍点.jpg">
 <meta property="og:image" content="https://github.com/image/GAIL结构图.png">
 <meta property="og:image" content="https://github.com/image/GAIL伪代码.jpg">
-<meta property="og:updated_time" content="2019-03-28T03:32:07.413Z">
+<meta property="og:updated_time" content="2019-03-29T00:51:12.583Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="生成对抗模仿学习(GAIL)">
 <meta name="twitter:description" content="Inverse reinforcement learning代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：  maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi">
@@ -420,7 +420,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-28 11:32:07" itemprop="dateModified" datetime="2019-03-28T11:32:07+08:00">2019-03-28</time>
+                <time title="修改时间：2019-03-29 08:51:12" itemprop="dateModified" datetime="2019-03-29T08:51:12+08:00">2019-03-29</time>
               
             
           </span>
@@ -503,7 +503,9 @@ IRL_\psi(\pi_E)=\arg\max_{c\in\mathcal{C}}-\psi(c)+\left(\min_{\pi\in\prod}-  H(
 <script type="math/tex; mode=display">
 \rho_A=\tilde{\rho}</script><p>根据命题1可知：</p>
 <script type="math/tex; mode=display">
-\pi_A=\tilde{\pi}</script><p>Proposition 2 暗示了 $\psi$ 正则化逆向强化学习寻找这样一个策略，它的占用率测量接近于专家策略的占用率测量，它们的接近程度由 $\psi^{\ast}$ 来衡量。<br>不同的 $\psi^{\ast}$ 会导致不同的模仿学习算法。$GAIL$ 便是取了一个特殊的 $\psi$ 而推导出来的。</p>
+\pi_A=\tilde{\pi}</script><p>所以</p>
+<script type="math/tex; mode=display">
+\tilde{\pi}\in\arg \min_{\pi}-H(\pi)+\psi^{\ast}(\rho_\pi - \rho_{\pi_E})</script><p>Proposition 2 暗示了 $\psi$ 正则化逆向强化学习寻找这样一个策略，它的占用率测量接近于专家策略的占用率测量，它们的接近程度由 $\psi^{\ast}$ 来衡量。<br>不同的 $\psi^{\ast}$ 会导致不同的模仿学习算法。$GAIL$ 便是取了一个特殊的 $\psi$ 而推导出来的。</p>
 <p><strong>推论 1 </strong><br>如果 $\psi$ 是常函数，$\tilde{c} \in IRL_\psi(\pi_E)$，$\tilde{\pi}\in RL(\tilde{c})$ ，那么 $\rho_{\tilde{\pi}}=\rho_{\pi_E}$<br>这个算法几乎没有用的，因为实际上，我们只会得到采样的轨迹，在大规模环境中，专家轨迹是有限的，此算法无法探索到所有的未出现的状态-动作对。</p>
 <h2 id="Generative-adversarial-imitation-learning"><a href="#Generative-adversarial-imitation-learning" class="headerlink" title="Generative adversarial imitation learning"></a>Generative adversarial imitation learning</h2><p>首先我们定义最小期望风险(minimum expected risks)$R_\phi(\rho_\pi,\rho_{\pi_E})$ 为：</p>
 <script type="math/tex; mode=display">
@@ -586,8 +588,8 @@ where \; g(x)=\left\{\begin{array}{rcl}-x-\log(1-e^x) & \mbox{if} & x<0 \\+\inft
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/28/DAC in AIL/" rel="prev" title>
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/28/DAC in AIL/" rel="prev" title="Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差">
+                Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -824,7 +826,7 @@ where \; g(x)=\left\{\begin{array}{rcl}-x-\log(1-e^x) & \mbox{if} & x<0 \\+\inft
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">15.8k</span> 字
+      博客全站共： <span class="post-count">16.5k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->

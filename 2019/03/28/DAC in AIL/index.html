@@ -117,14 +117,17 @@
 
 </script>
 
-  <meta property="og:type" content="article">
-<meta property="og:title" content="AMiFans’s Blogs">
+  <meta name="description" content="摘要基于对抗性优化的模仿学习算法，例如生成性对抗模仿学习$(GAIL)$和对抗性逆向强化学习$(AIRL)$，可以通过同时使用奖励和强化学习$(RL)$来有效地模拟示范的行为。然而，这种算法的应用受到$on-policy\;RL$的固有的不稳定性和差的样本效率的挑战。特别地，在$RL$环境的规范实现中，对吸收状态的不充分处理会导致这些算法所使用的奖励函数产生隐含偏差。虽然这些偏差可能适用于某些环境">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差">
 <meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/28/DAC in AIL/index.html">
 <meta property="og:site_name" content="AMiFans’s Blogs">
+<meta property="og:description" content="摘要基于对抗性优化的模仿学习算法，例如生成性对抗模仿学习$(GAIL)$和对抗性逆向强化学习$(AIRL)$，可以通过同时使用奖励和强化学习$(RL)$来有效地模拟示范的行为。然而，这种算法的应用受到$on-policy\;RL$的固有的不稳定性和差的样本效率的挑战。特别地，在$RL$环境的规范实现中，对吸收状态的不充分处理会导致这些算法所使用的奖励函数产生隐含偏差。虽然这些偏差可能适用于某些环境">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-28T06:32:15.979Z">
+<meta property="og:updated_time" content="2019-03-28T09:58:10.631Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AMiFans’s Blogs">
+<meta name="twitter:title" content="Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差">
+<meta name="twitter:description" content="摘要基于对抗性优化的模仿学习算法，例如生成性对抗模仿学习$(GAIL)$和对抗性逆向强化学习$(AIRL)$，可以通过同时使用奖励和强化学习$(RL)$来有效地模拟示范的行为。然而，这种算法的应用受到$on-policy\;RL$的固有的不稳定性和差的样本效率的挑战。特别地，在$RL$环境的规范实现中，对吸收状态的不充分处理会导致这些算法所使用的奖励函数产生隐含偏差。虽然这些偏差可能适用于某些环境">
 
 
 
@@ -141,7 +144,7 @@
   };
 </script>
 
-  <title> | AMiFans’s Blogs</title>
+  <title>Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差 | AMiFans’s Blogs</title>
   
 
 
@@ -374,7 +377,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差
 
               
             
@@ -398,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-03-28 14:17:20 / 修改时间：14:32:15" itemprop="dateCreated datePublished" datetime="2019-03-28T14:17:20+08:00">2019-03-28</time>
+              <time title="创建时间：2019-03-28 14:17:20 / 修改时间：17:58:10" itemprop="dateCreated datePublished" datetime="2019-03-28T14:17:20+08:00">2019-03-28</time>
             
 
             
@@ -453,7 +456,11 @@
       
 
       
-        
+        <h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>基于对抗性优化的模仿学习算法，例如生成性对抗模仿学习$(GAIL)$和对抗性逆向强化学习$(AIRL)$，可以通过同时使用奖励和强化学习$(RL)$来有效地模拟示范的行为。然而，这种算法的应用受到$on-policy\;RL$的固有的不稳定性和差的样本效率的挑战。特别地，在$RL$环境的规范实现中，对吸收状态的不充分处理会导致这些算法所使用的奖励函数产生隐含偏差。虽然这些偏差可能适用于某些环境，但它们会导致其他环境中的次优行为。此外，尽管这些算法能够从一些演示中学习，但它们需要大量与环境交互才能用于许多实际应用。为了解决这些问题，我们首先提出扩展环境$MDP$的吸收状态，这导致任务相互独立，更重要的是产生无偏差的奖励。其次，我们引入了一种$off-policy$学习算法，我们将其称为$Discriminator-Actor-Critic$。我们证明了正确处理吸收状态的有效性，同时凭经验将样本效率平均提高了10倍。</p>
+<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>对抗性模仿学习 $(AIL)$ 算法通过一系列专家演示、对抗性鉴别器和强化学习方法来学习一种强有力的模仿专家行为的策略。</p>
+<p>虽然GAIL需要少至200个专家帧转换（来自4个专家轨迹）来学习大多数MuJoCo 任务的强大奖励函数，但从环境中采样的策略帧转换的数量可以高达 2500万为了达到收敛。 如果使用PPO 代替TRPO ，可以改善样本的复杂性（例如，如图3所示，2500万步减少到大约1000万步）。但是，对于许多机器人或现实世界的应用来说，它仍然是难以处理的。 在这项工作中，我们通过结合一个off-policy RL算法（TD3（Fujimoto等，2018））和一个off-policy鉴别器来解决这个问题，从而将样本复杂度大幅降低了几个数量级。</p>
+<p>MDP中的吸收状态：在GAIL框架中（以及后续方法，如GM-MIL（Kim＆Park，2018），OptionGAN（Henderson等，2017a），AIRL和OpenAI Baselines广泛使用的GAIL实现 （Dhariwal et al。，2017）），对于某些基准测试，例如来自OpenAI Gym的MuJoCo运动任务，奖励函数r（s，a）根据任务的属性将奖励分配给中间状态。 同时，对这些MDP执行的策略会生成忽略吸收状态的转出。 随后，算法无法访问缓冲区中的这些吸收状态，无法学习正确的奖励，因此在终端状态之后不执行自举; 因此，隐含地为吸收状态分配0奖励</p>
+
       
     </div>
 
@@ -535,8 +542,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -643,6 +659,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引言"><span class="nav-text">引言</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -701,7 +734,7 @@
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">15.8k</span> 字
+      博客全站共： <span class="post-count">16.5k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->
