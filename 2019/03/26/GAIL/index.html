@@ -127,7 +127,7 @@
 <meta property="og:image" content="https://github.com/image/GAIL-鞍点.jpg">
 <meta property="og:image" content="https://github.com/image/GAIL结构图.png">
 <meta property="og:image" content="https://github.com/image/GAIL伪代码.jpg">
-<meta property="og:updated_time" content="2019-03-31T03:14:04.980Z">
+<meta property="og:updated_time" content="2019-03-31T05:32:20.340Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="生成对抗模仿学习(GAIL)">
 <meta name="twitter:description" content="Inverse reinforcement learning代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：  maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi">
@@ -420,7 +420,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-31 11:14:04" itemprop="dateModified" datetime="2019-03-31T11:14:04+08:00">2019-03-31</time>
+                <time title="修改时间：2019-03-31 13:32:20" itemprop="dateModified" datetime="2019-03-31T13:32:20+08:00">2019-03-31</time>
               
             
           </span>
@@ -529,10 +529,8 @@ g_\phi(x)=\left\{\begin{array}{rcl}-x+\phi(-\phi^{-1}(-x)) & if\;\;x\in T \\+\in
 <p>上述展示了如何从 $\phi$ 构造成本函数正则化项 $\psi$ ，作为推论，我们得到了逻辑损失的成本函数正则化项，其最优期望风险是J-S散度（达到常数）。</p>
 <p>如果令  $\phi(x)=\log(1+e^{-x})$，那么 $\psi_\phi(c)$ 将会减小到 $\psi_{GA}$：</p>
 <script type="math/tex; mode=display">
-\psi_{GA}(c)=\left\{\begin{array}{rcl}\mathbb{E}_{\pi_E}g(c(s,a)) & \mbox{if}& c<0 \\+\infty & \mbox{otherwise}
-           \end{array}\right.
-where \; g(x)=\left\{\begin{array}{rcl}-x-\log(1-e^x) & \mbox{if} & x<0 \\+\infty & \mbox{otherwise}
-           \end{array}\right.\\</script><p>则：</p>
+\psi_{GA}(c)=\left\{\begin{array}{rcl}\mathbb{E}_{\pi_E}g(c(s,a)) & if\;\; c<0 \\+\infty & otherwise\end{array}\right.
+where \; g(x)=\left\{\begin{array}{rcl}-x-\log(1-e^x) & if\;\;x<0 \\+\infty & otherwise\end{array}\right.\\</script><p>则：</p>
 <script type="math/tex; mode=display">
 \psi^{\ast}(\rho_\pi - \rho_{\pi_E})=-R_\phi(\rho_\pi,\rho_{\pi_E})\\
 =\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)\log\left(\cfrac{1}{1+e^{-\gamma}}\right)+\rho_{\pi_E}(s,a)\log\left(\cfrac{1}{1+e^{\gamma}}\right)\\
