@@ -117,19 +117,20 @@
 
 </script>
 
-  <meta name="description" content="Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。 特点 $VPG$是一种$on-police$的算法。 $VPG$可用于具有离散或连续动作空间的环境。  关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的策略，$J(\pi_{\theta})$表示该策略的预期有限未折扣回报">
+  <meta name="description" content="Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。 特点 $VPG$是一种$on-police$的算法。 $VPG$可用于具有离散或连续动作空间的环境。 $VPG$的$Spinning-Up$实现支持使用$MPI$并行化。  关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenAI Spinning Up">
 <meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/22/OpenAI Spinning Up/index.html">
 <meta property="og:site_name" content="AMiFans’s Blogs">
-<meta property="og:description" content="Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。 特点 $VPG$是一种$on-police$的算法。 $VPG$可用于具有离散或连续动作空间的环境。  关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的策略，$J(\pi_{\theta})$表示该策略的预期有限未折扣回报">
+<meta property="og:description" content="Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。 特点 $VPG$是一种$on-police$的算法。 $VPG$可用于具有离散或连续动作空间的环境。 $VPG$的$Spinning-Up$实现支持使用$MPI$并行化。  关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://github.com/image/VPG_Pseudocode.svg">
 <meta property="og:image" content="https://github.com/image/TRPO_Pseudocode.svg">
-<meta property="og:updated_time" content="2019-03-29T02:24:58.852Z">
+<meta property="og:image" content="https://github.com/image/PPO_Pseudocode.svg">
+<meta property="og:updated_time" content="2019-03-31T02:59:08.365Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenAI Spinning Up">
-<meta name="twitter:description" content="Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。 特点 $VPG$是一种$on-police$的算法。 $VPG$可用于具有离散或连续动作空间的环境。  关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的策略，$J(\pi_{\theta})$表示该策略的预期有限未折扣回报">
+<meta name="twitter:description" content="Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。 特点 $VPG$是一种$on-police$的算法。 $VPG$可用于具有离散或连续动作空间的环境。 $VPG$的$Spinning-Up$实现支持使用$MPI$并行化。  关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的">
 <meta name="twitter:image" content="https://github.com/image/VPG_Pseudocode.svg">
 
 
@@ -419,7 +420,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-29 10:24:58" itemprop="dateModified" datetime="2019-03-29T10:24:58+08:00">2019-03-29</time>
+                <time title="修改时间：2019-03-31 10:59:08" itemprop="dateModified" datetime="2019-03-31T10:59:08+08:00">2019-03-31</time>
               
             
           </span>
@@ -473,6 +474,7 @@
 <h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a><strong>特点</strong></h3><ul>
 <li>$VPG$是一种$on-police$的算法。</li>
 <li>$VPG$可用于具有离散或连续动作空间的环境。</li>
+<li>$VPG$的$Spinning-Up$实现支持使用$MPI$并行化。</li>
 </ul>
 <h3 id="关键方程"><a href="#关键方程" class="headerlink" title="关键方程"></a><strong>关键方程</strong></h3><p>用$\pi_{\theta}$表示一个带有参数$\theta$的策略，$J(\pi_{\theta})$表示该策略的预期有限未折扣回报，则$J(\pi_{\theta})$的梯度为</p>
 <script type="math/tex; mode=display">
@@ -483,14 +485,15 @@
 <h3 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a><strong>伪代码</strong></h3><p><img src="\image\VPG_Pseudocode.svg" alt="VPG 伪代码"></p>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h3><ul>
 <li><a href="https://papers.nips.cc/paper/1713-policy-gradient-methods-for-reinforcement-learning-with-function-approximation.pdf" target="_blank" rel="noopener">Policy Gradient Methods for Reinforcement Learning with Function Approximation, Sutton et al. 2000</a></li>
-<li><a href="http://joschu.net/docs/thesis.pdf" target="_blank" rel="noopener">Optimizing Expectations: From Deep Reinforcement Learning to Stochastic Computation Graphs, Schulman 2016(a)</a></li>
-<li><a href="https://arxiv.org/pdf/1604.06778.pdf" target="_blank" rel="noopener">Benchmarking Deep Reinforcement Learning for Continuous Control, Duan et al. 2016</a></li>
+<li><a href="http://joschu.net/docs/thesis.pdf" target="_blank" rel="noopener">Optimizing Expectations: From Deep Reinforcement Learning to Stochastic Computation Graphs</a></li>
+<li><a href="https://arxiv.org/pdf/1604.06778.pdf" target="_blank" rel="noopener">Benchmarking Deep Reinforcement Learning for Continuous Control, Duan et al. 2016, Schulman 2016(a)</a></li>
 <li><a href="https://arxiv.org/pdf/1506.02438.pdf" target="_blank" rel="noopener">High Dimensional Continuous Control Using Generalized Advantage Estimation, Schulman et al. 2016(b)</a></li>
 </ul>
 <h1 id="Trust-Region-Policy-Optimization"><a href="#Trust-Region-Policy-Optimization" class="headerlink" title="Trust Region Policy Optimization"></a><strong>Trust Region Policy Optimization</strong></h1><h3 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a><strong>背景</strong></h3><p>$TRPO$通过采取能够提升性能的最大的步长，同时对新旧策略之间的接近程度有特殊的约束。该约束用$KL-Divergence$表示，$KL-Divergence$是概率分布之间的距离（类似但不完全）的度量。<br>$TRPO$和正常的策略梯度不同，它保持了新旧策略在参数空间彼此接近。但即使是参数空间中看似微小的差异也会在性能上产生很大的差异，因此一个不好的步长可能会破坏策略性能。这使得使用$VPG时$的大步长变得危险，从而损害其样本效率。$TRPO$很好地避免了这种崩溃，并且倾向于快速和单调地改善性能。</p>
 <h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a><strong>特点</strong></h3><ul>
-<li>$VPG$是一种$on-police$的算法。</li>
-<li>$VPG$可用于具有离散或连续动作空间的环境。</li>
+<li>$TRPO$是一种$on-police$的算法。</li>
+<li>$TRPO$可用于具有离散或连续动作空间的环境。</li>
+<li>$TRPO$的$Spinning-Up$实现支持使用$MPI$并行化。</li>
 </ul>
 <h3 id="关键方程-1"><a href="#关键方程-1" class="headerlink" title="关键方程"></a><strong>关键方程</strong></h3><p>用$\pi_{\theta}$表示一个带有参数$\theta$的策略，则理论上$TRPO$的更新如下：</p>
 <script type="math/tex; mode=display">
@@ -510,12 +513,46 @@
 \theta_{k + 1}=\theta_k+\sqrt{\frac{2\delta}{g^TH^{-1}g}}H^{-1}g</script><p>由于泰勒展开引入的近似误差，这可能不满足KL约束，或者实际上改善了替代优势。TRPO添加了对此更新规则的修改：回溯线搜索，</p>
 <script type="math/tex; mode=display">
 \theta_{k + 1}=\theta_k+\alpha^j\sqrt{\frac{2\delta}{g^TH^{-1}g}}H^{-1}g</script><p>其中$\alpha\in（0,1）$是回溯系数，并且$j$是最小的非负整数，$\pi_{\theta_{K+1}}$满足$KL$约束并产生正的替代优势。</p>
-<p>当处理具有数千或数百万个参数的神经网络策略时，计算和存储矩阵逆$H^{-1}$，是非常昂贵的。$TRPO$回避了该问题通过使用共轭梯度算法解决$Hx=g$对于$x=H^{-1}g$，只需要一个可以计算矩阵矢量乘积的函数$HX$，而不是直接计算和存储整个矩阵$H$。</p>
+<p>当处理具有数千或数百万个参数的神经网络策略时，计算和存储矩阵逆$H^{-1}$，是非常昂贵的。$TRPO$回避了该问题通过使用共轭梯度算法解决$Hx=g$对于$x=H^{-1}g$，只需要一个可以计算矩阵矢量乘积的函数$Hx$，而不是直接计算和存储整个矩阵$H$。</p>
 <script type="math/tex; mode=display">
 Hx =\nabla_{\theta}\left(\left(\nabla_{\theta}\bar{D}_{KL}(\theta||\theta_k)\right)^Tx\right)</script><p>上式给了我们正确的输出而不需要计算整个矩阵。</p>
-<h3 id="探索和开发-1"><a href="#探索和开发-1" class="headerlink" title="探索和开发"></a><strong>探索和开发</strong></h3><p>TRPO用on-policy方式训练随机策略。这意味着它通过根据其随机策略的最新版本采样行动进行探索。动作选择中的随机性取决于初始条件和训练过程。在训练过程中，策略通常逐渐变得不那么随机，因为更新规则鼓励它利用它已经找到的奖励。这可能导致策略陷入局部最优。</p>
+<h3 id="探索和开发-1"><a href="#探索和开发-1" class="headerlink" title="探索和开发"></a><strong>探索和开发</strong></h3><p>$TRPO$用$on-policy$方式训练随机策略。这意味着它通过根据其随机策略的最新版本采样行动进行探索。动作选择中的随机性取决于初始条件和训练过程。在训练过程中，策略通常逐渐变得不那么随机，因为更新规则鼓励它利用它已经找到的奖励。这可能导致策略陷入局部最优。</p>
 <h3 id="伪代码-1"><a href="#伪代码-1" class="headerlink" title="伪代码"></a><strong>伪代码</strong></h3><p><img src="\image\TRPO_Pseudocode.svg" alt="TRPO 伪代码"></p>
-<h3 id="参考资料-1"><a href="#参考资料-1" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h3><h1 id="Proximal-Policy-Optimization"><a href="#Proximal-Policy-Optimization" class="headerlink" title="Proximal Policy Optimization"></a><strong>Proximal Policy Optimization</strong></h1><h3 id="背景-2"><a href="#背景-2" class="headerlink" title="背景"></a><strong>背景</strong></h3><h3 id="特点-2"><a href="#特点-2" class="headerlink" title="特点"></a><strong>特点</strong></h3><h3 id="关键方程-2"><a href="#关键方程-2" class="headerlink" title="关键方程"></a><strong>关键方程</strong></h3><h3 id="探索和开发-2"><a href="#探索和开发-2" class="headerlink" title="探索和开发"></a><strong>探索和开发</strong></h3><h3 id="伪代码-2"><a href="#伪代码-2" class="headerlink" title="伪代码"></a><strong>伪代码</strong></h3><h3 id="参考资料-2"><a href="#参考资料-2" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h3>
+<h3 id="参考资料-1"><a href="#参考资料-1" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h3><ul>
+<li><a href="https://arxiv.org/abs/1502.05477" target="_blank" rel="noopener">Trust Region Policy Optimization, Schulman et al. 2015</a></li>
+<li><a href="https://arxiv.org/abs/1506.02438" target="_blank" rel="noopener">High Dimensional Continuous Control Using Generalized Advantage Estimation, Schulman et al. 2016</a></li>
+<li><a href="https://people.eecs.berkeley.edu/~pabbeel/cs287-fa09/readings/KakadeLangford-icml2002.pdf" target="_blank" rel="noopener">Approximately Optimal Approximate Reinforcement Learning, Kakade and Langford 2002</a></li>
+</ul>
+<h1 id="Proximal-Policy-Optimization"><a href="#Proximal-Policy-Optimization" class="headerlink" title="Proximal Policy Optimization"></a><strong>Proximal Policy Optimization</strong></h1><h3 id="背景-2"><a href="#背景-2" class="headerlink" title="背景"></a><strong>背景</strong></h3><p>$PPO$的动机与$TRPO$一样：我们如何利用我们目前拥有的数据在策略上采取尽可能大的改进措施，而不会踩到我们不小心导致性能崩溃的情况。$TRPO$尝试使用复杂的二阶方法解决这个问题，而$PPO$是采用一系列一阶方法，它使用一些其他技巧来保持新旧策略接近。$PPO$方法实施起来非常简单，并且在经验上似乎至少与$TRPO$一样好。</p>
+<p>$PPO$有两种主要变体：$PPO-Penalty$和$PPO-Clip$。</p>
+<p><strong>PPO-Penalty</strong>：近似解决了像$TRPO$这样的$KL$约束更新，但惩罚目标函数中的$KL$散度不是一个硬约束，而是在训练过程中自动调整惩罚系数，以便适当缩放。</p>
+<p><strong>PPO-Clip</strong>：在目标中没有$KL$散度，也根本没有约束。相反，它依赖于目标函数中的专门裁剪来消除那些使新策略远离旧策略的诱因。</p>
+<p>在这里，我们将只关注$PPO-Clip$（$OpenAI$使用的主要变体）。</p>
+<h3 id="特点-2"><a href="#特点-2" class="headerlink" title="特点"></a><strong>特点</strong></h3><ul>
+<li>$PPO$是一种$on-police$的算法。</li>
+<li>$PPO$可用于具有离散或连续动作空间的环境。</li>
+<li>$PPO$的$Spinning-Up$实现支持使用$MPI$并行化。</li>
+</ul>
+<h3 id="关键方程-2"><a href="#关键方程-2" class="headerlink" title="关键方程"></a><strong>关键方程</strong></h3><p>$PPO-clip$通过下式更新策略：</p>
+<script type="math/tex; mode=display">
+\theta_{k+1}=\arg\max_{\theta}{\mathrm E}_{s,a\sim\pi_{\theta_k}}\left[L(s,a,\theta_k,\theta)\right]</script><p>通常采取多步骤（通常是小批量）$SGD$以最大化目标。$L$为如下形式：</p>
+<script type="math/tex; mode=display">
+L(s,a,\theta_k,\theta) = \min\left(\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)}  A^{\pi_{\theta_k}}(s,a), \;\;
+\text{clip}\left(\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)},1-\epsilon,1+\epsilon\right) A^{\pi_{\theta_k}}(s,a)\right)</script><p>其中$\eplison$是一个（小的）超参数，其大致说明新旧策略的最大距离是多少。<br>这个目标的简化版本如下：</p>
+<script type="math/tex; mode=display">
+L(s,a,\theta_k,\theta)=\min\left(\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)}A^{\pi_{\theta_k}}(s,a),\;\;g(\epsilon,A^{\pi_{\theta_k}}(s,a))\right)\;
+where\;
+g(\epsilon, A) = \left\{\begin{array}{ll}
+(1 + \epsilon) A & A \geq 0 \\
+(1 - \epsilon) A & A < 0.
+\end{array}\right.</script><h3 id="探索和开发-2"><a href="#探索和开发-2" class="headerlink" title="探索和开发"></a><strong>探索和开发</strong></h3><p>$PPO$用$on-policy$方式训练随机策略。这意味着它通过根据其随机策略的最新版本采样行动进行探索。动作选择中的随机性取决于初始条件和训练过程。在训练过程中，策略通常逐渐变得不那么随机，因为更新规则鼓励它利用它已经找到的奖励。这可能导致策略陷入局部最优。</p>
+<h3 id="伪代码-2"><a href="#伪代码-2" class="headerlink" title="伪代码"></a><strong>伪代码</strong></h3><p><img src="\image\PPO_Pseudocode.svg" alt="PPO 伪代码"></p>
+<h3 id="参考资料-2"><a href="#参考资料-2" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h3><ul>
+<li><a href="https://arxiv.org/abs/1707.06347" target="_blank" rel="noopener">Proximal Policy Optimization Algorithms, Schulman et al. 2017</a></li>
+<li><a href="https://arxiv.org/abs/1506.02438" target="_blank" rel="noopener">High Dimensional Continuous Control Using Generalized Advantage Estimation, Schulman et al. 2016</a></li>
+<li><a href="https://arxiv.org/abs/1707.02286" target="_blank" rel="noopener">Emergence of Locomotion Behaviours in Rich Environments, Heess et al. 2017</a></li>
+</ul>
+
       
     </div>
 
@@ -791,7 +828,7 @@ Hx =\nabla_{\theta}\left(\left(\nabla_{\theta}\bar{D}_{KL}(\theta||\theta_k)\rig
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">16.3k</span> 字
+      博客全站共： <span class="post-count">17k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->
