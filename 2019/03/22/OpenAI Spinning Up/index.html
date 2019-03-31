@@ -127,7 +127,7 @@
 <meta property="og:image" content="https://github.com/image/VPG_Pseudocode.svg">
 <meta property="og:image" content="https://github.com/image/TRPO_Pseudocode.svg">
 <meta property="og:image" content="https://github.com/image/PPO_Pseudocode.svg">
-<meta property="og:updated_time" content="2019-03-31T03:02:47.324Z">
+<meta property="og:updated_time" content="2019-03-31T03:04:12.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenAI Spinning Up">
 <meta name="twitter:description" content="Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。 特点 $VPG$是一种$on-police$的算法。 $VPG$可用于具有离散或连续动作空间的环境。 $VPG$的$Spinning-Up$实现支持使用$MPI$并行化。  关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的">
@@ -420,7 +420,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-31 11:02:47" itemprop="dateModified" datetime="2019-03-31T11:02:47+08:00">2019-03-31</time>
+                <time title="修改时间：2019-03-31 11:04:12" itemprop="dateModified" datetime="2019-03-31T11:04:12+08:00">2019-03-31</time>
               
             
           </span>
@@ -538,7 +538,7 @@ Hx =\nabla_{\theta}\left(\left(\nabla_{\theta}\bar{D}_{KL}(\theta||\theta_k)\rig
 \theta_{k+1}=\arg\max_{\theta}{\mathrm E}_{s,a\sim\pi_{\theta_k}}\left[L(s,a,\theta_k,\theta)\right]</script><p>通常采取多步骤（通常是小批量）$SGD$以最大化目标。$L$为如下形式：</p>
 <script type="math/tex; mode=display">
 L(s,a,\theta_k,\theta) = \min\left(\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)}  A^{\pi_{\theta_k}}(s,a), \;\;
-\text{clip}\left(\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)},1-\epsilon,1+\epsilon\right) A^{\pi_{\theta_k}}(s,a)\right)</script><p>其中$\eplison$是一个（小的）超参数，其大致说明新旧策略的最大距离是多少。<br>这个目标的简化版本如下：</p>
+\text{clip}\left(\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)},1-\epsilon,1+\epsilon\right) A^{\pi_{\theta_k}}(s,a)\right)</script><p>其中$\epsilon$是一个（小的）超参数，其大致说明新旧策略的最大距离是多少。<br>这个目标的简化版本如下：</p>
 <script type="math/tex; mode=display">
 L(s,a,\theta_k,\theta)=\min\left(\frac{\pi_{\theta}(a|s)}{\pi_{\theta_k}(a|s)}A^{\pi_{\theta_k}}(s,a),\;\;g(\epsilon,A^{\pi_{\theta_k}}(s,a))\right)\;
 where\;
