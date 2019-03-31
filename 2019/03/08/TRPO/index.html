@@ -124,7 +124,7 @@
 <meta property="og:site_name" content="AMiFans’s Blogs">
 <meta property="og:description" content="根据策略梯度方法，参数更新方程式为：  \theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。TRPO要解决的问题就是解决这">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-31T05:15:05.510Z">
+<meta property="og:updated_time" content="2019-03-31T05:22:37.162Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="信赖域策略优化(TRPO)">
 <meta name="twitter:description" content="根据策略梯度方法，参数更新方程式为：  \theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。TRPO要解决的问题就是解决这">
@@ -416,7 +416,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-31 13:15:05" itemprop="dateModified" datetime="2019-03-31T13:15:05+08:00">2019-03-31</time>
+                <time title="修改时间：2019-03-31 13:22:37" itemprop="dateModified" datetime="2019-03-31T13:22:37+08:00">2019-03-31</time>
               
             
           </span>
@@ -502,7 +502,7 @@ subject\ to~~~D_{KL}^{\max}\left(\theta_{old},\theta\right)\leqslant \delta.....
 maximize_{\theta}L_{\theta_{old}}\left(\theta\right)\\
 subject\ to~~~\bar{D}_{KL}^{\rho_{\theta_{old}}}\left(\theta_{old},\theta\right)\le\delta</script><p>也即：</p>
 <script type="math/tex; mode=display">
-maximize_{\theta}\sum_s{\rho_{\theta_{}old}\left(s\right)\sum_a{\pi_\theta\left(a|s\right)A_{\theta_{old}}\left(s,a\right)}}\\
+maximize_{\theta}\sum_s{\rho_{\theta_{old}}\left(s\right)\sum_a{\pi_\theta\left(a|s\right)A_{\theta_{old}}\left(s,a\right)}}\\
 subject\ to~~~\bar{D}_{KL}^{\rho_{\theta_{old}}}\left(\theta_{old},\theta\right)\le\delta......(13)</script><p>另外，我们同样也可以引入“重要性采样”，并作形式上的演化，最终的不等式化为</p>
 <script type="math/tex; mode=display">
  maximize_{\theta}E_{s~\pi_{\theta_{old}},a~\pi_{\theta_{old}}}\left[\frac{\pi_{\theta}\left(a|s\right)}{\pi_{\theta_{old}}\left(a|s\right)}A_{\theta_{old}}\left(s,a\right)\right] \\ subject\ to\ E_{s~\pi_{\theta_{old}}}\left[D_{KL}\left(\pi_{\theta_{old}}\left(\cdot |s\right)||\pi_{\theta}\left(\cdot |s\right)\right)\right]\le\delta......(14)</script><p>论文中提出，可以将$A_{\theta_{old}}\left(s,a\right)$用$Q_{\theta_{old}}\left(s,a\right)$代替。</p>
