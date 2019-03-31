@@ -127,7 +127,7 @@
 <meta property="og:image" content="https://github.com/image/VPG_Pseudocode.svg">
 <meta property="og:image" content="https://github.com/image/TRPO_Pseudocode.svg">
 <meta property="og:image" content="https://github.com/image/PPO_Pseudocode.svg">
-<meta property="og:updated_time" content="2019-03-31T02:59:08.365Z">
+<meta property="og:updated_time" content="2019-03-31T03:02:47.324Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenAI Spinning Up">
 <meta name="twitter:description" content="Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。 特点 $VPG$是一种$on-police$的算法。 $VPG$可用于具有离散或连续动作空间的环境。 $VPG$的$Spinning-Up$实现支持使用$MPI$并行化。  关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的">
@@ -420,7 +420,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-03-31 10:59:08" itemprop="dateModified" datetime="2019-03-31T10:59:08+08:00">2019-03-31</time>
+                <time title="修改时间：2019-03-31 11:02:47" itemprop="dateModified" datetime="2019-03-31T11:02:47+08:00">2019-03-31</time>
               
             
           </span>
@@ -523,7 +523,7 @@ Hx =\nabla_{\theta}\left(\left(\nabla_{\theta}\bar{D}_{KL}(\theta||\theta_k)\rig
 <li><a href="https://arxiv.org/abs/1506.02438" target="_blank" rel="noopener">High Dimensional Continuous Control Using Generalized Advantage Estimation, Schulman et al. 2016</a></li>
 <li><a href="https://people.eecs.berkeley.edu/~pabbeel/cs287-fa09/readings/KakadeLangford-icml2002.pdf" target="_blank" rel="noopener">Approximately Optimal Approximate Reinforcement Learning, Kakade and Langford 2002</a></li>
 </ul>
-<h1 id="Proximal-Policy-Optimization"><a href="#Proximal-Policy-Optimization" class="headerlink" title="Proximal Policy Optimization"></a><strong>Proximal Policy Optimization</strong></h1><h3 id="背景-2"><a href="#背景-2" class="headerlink" title="背景"></a><strong>背景</strong></h3><p>$PPO$的动机与$TRPO$一样：我们如何利用我们目前拥有的数据在策略上采取尽可能大的改进措施，而不会踩到我们不小心导致性能崩溃的情况。$TRPO$尝试使用复杂的二阶方法解决这个问题，而$PPO$是采用一系列一阶方法，它使用一些其他技巧来保持新旧策略接近。$PPO$方法实施起来非常简单，并且在经验上似乎至少与$TRPO$一样好。</p>
+<h1 id="Proximal-Policy-Optimization"><a href="#Proximal-Policy-Optimization" class="headerlink" title="Proximal Policy Optimization"></a><strong>Proximal Policy Optimization</strong></h1><h3 id="背景-2"><a href="#背景-2" class="headerlink" title="背景"></a><strong>背景</strong></h3><p>$PPO$的动机与$TRPO$一样：如何利用目前拥有的数据在策略上采取尽可能大的改进措施，而不会不小心导致性能崩溃。$TRPO$尝试使用复杂的二阶方法解决这个问题，而$PPO$是采用一系列一阶方法，它使用一些其他技巧来保持新旧策略接近。$PPO$方法实施起来非常简单，并且在经验上似乎至少与$TRPO$一样好。</p>
 <p>$PPO$有两种主要变体：$PPO-Penalty$和$PPO-Clip$。</p>
 <p><strong>PPO-Penalty</strong>：近似解决了像$TRPO$这样的$KL$约束更新，但惩罚目标函数中的$KL$散度不是一个硬约束，而是在训练过程中自动调整惩罚系数，以便适当缩放。</p>
 <p><strong>PPO-Clip</strong>：在目标中没有$KL$散度，也根本没有约束。相反，它依赖于目标函数中的专门裁剪来消除那些使新策略远离旧策略的诱因。</p>
