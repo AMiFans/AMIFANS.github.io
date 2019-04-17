@@ -117,28 +117,21 @@
 
 </script>
 
-  <meta name="description" content="Inverse reinforcement learning代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：  maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi">
-<meta property="og:type" content="article">
-<meta property="og:title" content="生成对抗模仿学习(GAIL)">
-<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/26/GAIL/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Sample Efficient Imitation Learning for Continuous Control">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/17/Sample Efficient Imitation Learning For Continuous Control/index.html">
 <meta property="og:site_name" content="AMiFans’s Blogs">
-<meta property="og:description" content="Inverse reinforcement learning代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：  maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://github.com/image/GAIL-鞍点.jpg">
-<meta property="og:image" content="https://github.com/image/GAIL结构图.png">
-<meta property="og:image" content="https://github.com/image/GAIL伪代码.jpg">
-<meta property="og:updated_time" content="2019-03-31T12:51:29.976Z">
+<meta property="og:updated_time" content="2019-04-17T11:20:14.186Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="生成对抗模仿学习(GAIL)">
-<meta name="twitter:description" content="Inverse reinforcement learning代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：  maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi">
-<meta name="twitter:image" content="https://github.com/image/GAIL-鞍点.jpg">
+<meta name="twitter:title" content="Sample Efficient Imitation Learning for Continuous Control">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/26/GAIL/">
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/17/Sample Efficient Imitation Learning For Continuous Control/">
 
 
 
@@ -148,7 +141,7 @@
   };
 </script>
 
-  <title>生成对抗模仿学习(GAIL) | AMiFans’s Blogs</title>
+  <title>Sample Efficient Imitation Learning for Continuous Control | AMiFans’s Blogs</title>
   
 
 
@@ -364,7 +357,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/03/26/GAIL/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/17/Sample Efficient Imitation Learning For Continuous Control/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="AMiFans">
@@ -381,7 +374,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">生成对抗模仿学习(GAIL)
+          <h1 class="post-title" itemprop="name headline">Sample Efficient Imitation Learning for Continuous Control
 
               
             
@@ -405,22 +398,12 @@
                 
               
 
-              <time title="创建时间：2019-03-26 15:05:35" itemprop="dateCreated datePublished" datetime="2019-03-26T15:05:35+08:00">2019-03-26</time>
+              <time title="创建时间：2019-04-17 19:16:36 / 修改时间：19:20:14" itemprop="dateCreated datePublished" datetime="2019-04-17T19:16:36+08:00">2019-04-17</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                <time title="修改时间：2019-03-31 20:51:29" itemprop="dateModified" datetime="2019-03-31T20:51:29+08:00">2019-03-31</time>
               
             
           </span>
@@ -470,85 +453,7 @@
       
 
       
-        <h2 id="Inverse-reinforcement-learning"><a href="#Inverse-reinforcement-learning" class="headerlink" title="Inverse reinforcement learning"></a>Inverse reinforcement learning</h2><p>代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：</p>
-<script type="math/tex; mode=display">
-maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi)+\mathbb{E}_\pi\left[c(s,a)\right]\right)-\mathbb{E}_{\pi_E}\left[c(s,a)\right]</script><p>其中，$\mathbb{E}_\pi\left[c(s,a)\right]=\mathbb{E}\left[\sum_{t=0}^\infty \gamma^t c(s_t,a_t)\right]$，$H(\pi)=\mathbb{E}_\pi\left[-\log\pi(a|s)\right]$是一个 $\gamma$ 折扣累积熵。<br>最大因果熵逆向强化学习是想找到一个代价函数$c\in\mathcal{C}$，该代价函数 $c$ 分配给专家策略 $\pi_E$ 低的 $cost$ 而分配给其他策略高的 $cost$，从而可以通过某种 $RL$ 方法找到专家策略 $\pi_E$:</p>
-<script type="math/tex; mode=display">
-RL(c)=\arg\min_{\pi\in\prod}-H(\pi)+\mathbb{E}_\pi\left[c(s,a)\right]</script><p>可以看到，$IRL$ 过程中包含一个 $RL$ 过程，可解释为：将代价函数映射为具有高熵的函数然后最小化累计 $cost$ 期望。</p>
-<p>对于一个很大的集合 $\mathcal{C}$，当提供有限的数据集时 $IRL$ 很容易过拟合，因此在 $IRL$ 中加入凸的代价函数正则项 $\psi:\mathbb{R}^{\mathcal{S}\times \mathcal{A}}\rightarrow \overline{\mathbb{R}}$，函数 $\psi$ 必须在所有的 $\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$ 中的凸的，而不是在一个小的参数空间上时凸的。</p>
-<p>带有正则化项 $\psi$ 的最大因果熵逆向强化学习的目的是找到一个代价函数 $c$ 使得专家策略的效果优于其它所有策略（注意：cost 越小则代表效果越好）:</p>
-<script type="math/tex; mode=display">
-IRL_\psi(\pi_E)=\arg\max_{c\in\mathcal{C}}-\psi(c)+\left(\min_{\pi\in\prod}-  H(\pi)+\mathbb{E}_\pi\left[c(s,a)\right]\right)-\mathbb{E}_{\pi_E}\left[c(s,a)\right]</script><p>现在，通过$IRL$得到的代价函数 $\tilde{c} \in IRL_\psi(\pi_E)$，我们的目的是通过 $RL(\tilde{c})$ 找到一个策略。</p>
-<p>对于策略$\pi\in\prod$定义其占用率度量(occupancy measure) $\rho_\pi:\mathcal{S}\times \mathcal{A}\rightarrow\mathbb{R}$，可解释为使用策略 $\pi$ 时，状态-动作对的分布：<br>$\rho_\pi(s,a)=\pi(a|s)\sum_{t=0}^\infty\gamma^t P(s_t=s|\pi)$</p>
-<p>那么对于任意的代价函数 $c$，我们有：</p>
-<script type="math/tex; mode=display">
-\mathbb{E}_\pi\left[c(s,a)\right]=\mathbb{E}\left[\sum_{s,a}\rho_\pi(s,a)c(s,a)\right]</script><p>有效占用率度量( valid occupancy measures)集：$\mathcal{D} \triangleq \{\rho_\pi:\pi\in\prod\}$，可以写为：<br>$\mathcal{D}=\{\rho:\rho\geq 0 \;\;and \;\; \sum_a \rho(s,a)=p_0(s)+\gamma\sum_{s^{‘},a}P(s|s^{’},a)\rho(s^{’},a) \; \forall s\in\mathcal{S}\}$</p>
-<p><strong>命题 1 </strong><br>如果 $\rho\in\mathcal{D}$ ，那么 $\rho$ 是 $\pi_\rho(a|s)=\cfrac{\rho(s,a)}{\sum_{a^{’}}\rho(s,a^{’})}$ 的占用率测量，$\pi_\rho$ 是占用率测量为$\rho$时的唯一策略，即 $\pi_\rho$与$\rho$是一一对应的 。</p>
-<p><strong>命题 2 </strong><br>$RL\circ IRL_\psi(\pi_E)=\arg \min_{\pi\in\prod}-H(\pi)+\psi^{\ast}(\rho_\pi - \rho_{\pi_E})$</p>
-<p>Proposition 2 的证明主要依赖于最优的代价函数和最优策略形成一个鞍点。证明如下：</p>
-<p><img src="\image\GAIL-鞍点.jpg" alt="GAIL-鞍点"></p>
-<p>首先有两个引理：<br><strong>引理1</strong>（暂不作证明）：<br>令$\bar{H}(\rho)=-\sum_{s,a}\rho(s,a)\log\left(\cfrac{\rho(s,a)}{\sum_{a^{’}}\rho(s,a^{’})}\right)$，那么，$\bar{H}$ 是严格的凸的，并且对于任意的 $\pi\in\prod$ 和$\rho\in\mathcal{D}$，$H(\pi)=\bar{H}(\rho_\pi)$，$\bar{H}(\rho)=H(\pi_\rho)$。<br><strong>引理2</strong>（暂不作证明）：<br>如果$L(\pi,c)=-H(\pi)+\mathbb{E}\left[c(s,a)\right]$ 且 $\bar{L}(\rho,c)=-\bar{H}(\rho)+\sum_{s,a}\rho(s,a)c(s,a)$，那么，在所有的代价函数 $c$中，对于任意的策略$\pi\in\prod$，$L(\pi,c)=\bar{L}(\rho_\pi,c)$；对于任意的占用率测量 $\rho\in\mathcal{D}$，$\bar{L}(\rho,c)=L(\pi_\rho,c)$</p>
-<p>证明开始：<br>令$\tilde{c} \in IRL_\psi(\pi_E)$，$\tilde{\pi}\in RL(\tilde{c})=RL\circ IRL_\psi(\pi_E)$，且</p>
-<script type="math/tex; mode=display">
-\pi_A\in\arg \min_{\pi}-H(\pi)+\psi^{\ast}(\rho_\pi - \rho_{\pi_E})\\
-=\arg\min_\pi\max_c-H(\pi)-\psi(c)+\sum_{s,a}(\rho_\pi(s,a)-\rho_{\pi_E}(s,a))c(s,a)</script><p>我们令</p>
-<script type="math/tex; mode=display">
-\bar{L}(\rho,c)=-\bar{H}(\rho)-\psi(c)+\sum_{s,a}(\rho_\pi(s,a)-\rho_{\pi_E}(s,a))c(s,a)</script><p>由命题一下式成立：</p>
-<script type="math/tex; mode=display">
-\rho_A\in\arg\min_{\rho\in\mathcal{D}} \max_c \bar{L}(\rho,c)\\
-\tilde{c}\in\arg\max_c\min_{\rho\in\mathcal{D}}\bar{L}(\rho,c)\\
-\tilde{\rho}\in\arg\min_{\rho\in\mathcal{D}}\bar{L}(\rho,\tilde{c})</script><p>由于 $\bar{L}(\cdot,c)$ 是凸的，$\bar{L}(\rho,\cdot)$ 是凹的，因此有：</p>
-<script type="math/tex; mode=display">
-\min_{\rho\in\mathcal{D}}\max_{c\in\mathcal{C}}\bar{L}(\rho,c)=\max_{c\in\mathcal{C}}\min_{\rho\in\mathcal{D}}\bar{L}(\rho,c)</script><p>所以 $(\rho_A,\tilde{c})$ 和 $(\tilde{\rho},\tilde{c})$ 都是 $\bar{L}$ 的鞍点，由 $\bar{L}(\rho,.)$的凹性，其鞍点有且只有一个，并且是其最值点，所以：</p>
-<script type="math/tex; mode=display">
-\rho_A=\tilde{\rho}</script><p>根据命题1可知：</p>
-<script type="math/tex; mode=display">
-\pi_A=\tilde{\pi}</script><p>所以</p>
-<script type="math/tex; mode=display">
-\tilde{\pi}\in\arg \min_{\pi}-H(\pi)+\psi^{\ast}(\rho_\pi - \rho_{\pi_E})</script><p>Proposition 2 暗示了 $\psi$ 正则化逆向强化学习寻找这样一个策略，它的占用率测量接近于专家策略的占用率测量，它们的接近程度由 $\psi^{\ast}$ 来衡量。<br>不同的 $\psi^{\ast}$ 会导致不同的模仿学习算法。$GAIL$ 便是取了一个特殊的 $\psi$ 而推导出来的。</p>
-<p><strong>推论 1 </strong><br>如果 $\psi$ 是常函数，$\tilde{c} \in IRL_\psi(\pi_E)$，$\tilde{\pi}\in RL(\tilde{c})$ ，那么 $\rho_{\tilde{\pi}}=\rho_{\pi_E}$<br>这个算法几乎没有用的，因为实际上，我们只会得到采样的轨迹，在大规模环境中，专家轨迹是有限的，此算法无法探索到所有的未出现的状态-动作对。</p>
-<h2 id="Generative-adversarial-imitation-learning"><a href="#Generative-adversarial-imitation-learning" class="headerlink" title="Generative adversarial imitation learning"></a>Generative adversarial imitation learning</h2><p>首先我们定义最小期望风险(minimum expected risks)$R_\phi(\rho_\pi,\rho_{\pi_E})$ 为：</p>
-<script type="math/tex; mode=display">
-R_\phi(\rho_\pi,\rho_{\pi_E})=\sum_{s,a}\min_{\gamma\in\mathbb{R}}\rho_\pi(s,a)\phi(\gamma)+\rho_{\pi_E}(s,a)\phi(-\gamma)</script><p>其中 $\phi$ 是任意实数值严格递减的凸函数</p>
-<p>然后，我们要将两个策略的占用率测量的接近程度用最小期望风险表示，即使得下式成立：</p>
-<script type="math/tex; mode=display">
-\psi^{\ast}(\rho_\pi - \rho_{\pi_E})=-R_\phi(\rho_\pi,\rho_{\pi_E})</script><p>为了达到这个目的，引入以下函数，其中我们让 $T$ 为$-\phi$ 的范围：</p>
-<script type="math/tex; mode=display">
-\psi_\phi(c)=\left\{\begin{array}{rcl}\sum_{s,a}\rho_{\pi_E}(s,a)g_\phi(c(s,a)) & if\;\; c(s,a)\in T \;\;for\;\;all\;\;s,a\\
-+\infty & otherwise \end{array}\right.
-\;\;where \;\;
-g_\phi(x)=\left\{\begin{array}{rcl}-x+\phi(-\phi^{-1}(-x)) & if\;\;x\in T \\+\infty & \mbox{otherwise}
-           \end{array}\right.</script><p>那么，可以证明 $\psi_\phi$ 是闭合的、正的、凸的，并且 $RL\circ IRL_\psi(\pi_E)=\arg \min_{\pi}-H(\pi)-R_\phi(\rho_\pi,\rho_{\pi_E})$<br>接下来我们证明 $\psi^*(\rho_\pi - \rho_{\pi_E})=-R_\phi(\rho_\pi,\rho_{\pi_E})$：</p>
-<script type="math/tex; mode=display">
-\psi^{\ast}(\rho_\pi-\rho_{\pi_E})=\max_{c\in\mathcal{C}}\sum_{s,a}\left(\rho_\pi(s,a)-\rho_{\pi_E}(s,a)\right)c(s,a)-\sum_{s,a}\rho_{\pi_E}(s,a)g_\phi(c(s,a))\\
-=\sum_{s,a}\max_{c\in T}\left(\rho_\pi(s,a)-\rho_{\pi_E}(s,a)\right)c-\rho_{\pi_E}(s,a)\left[-c+\phi(-\phi^{-1}(-c))\right]\\
-=\sum_{s,a}\max_{c\in T}\rho_\pi(s,a)c-\rho_{\pi_E}(s,a)\phi(-\phi^{-1}(-c))\\
-=\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)(-\phi(\gamma))-\rho_{\pi_E}(s,a)\phi(-\phi^{-1}(\phi(\gamma)))\\
-=\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)(-\phi(\gamma))-\rho_{\pi_E}(s,a)\phi(-\gamma)\\
-=-R_\phi(\rho_\pi,\rho_{\pi_E})</script><p>在前文中我们让 $T$ 为$-\phi$ 的范围，因此在上式中我们对变量$c$做了调整：$c\rightarrow-\phi(\gamma)$。</p>
-<p>上述展示了如何从 $\phi$ 构造成本函数正则化项 $\psi$ ，作为推论，我们得到了逻辑损失的成本函数正则化项，其最优期望风险是J-S散度（达到常数）。</p>
-<p>如果令  $\phi(x)=\log(1+e^{-x})$，那么 $\psi_\phi(c)$ 将会减小到 $\psi_{GA}$：</p>
-<script type="math/tex; mode=display">
-\psi_{GA}(c)=\left\{\begin{array}{rcl}\mathbb{E}_{\pi_E}g(c(s,a)) & if\;\; c<0 \\+\infty & otherwise\end{array}\right.
-where \; g(x)=\left\{\begin{array}{rcl}-x-\log(1-e^x) & if\;\;x<0 \\+\infty & otherwise\end{array}\right.\\</script><p>则：</p>
-<script type="math/tex; mode=display">
-\psi^{\ast}(\rho_\pi - \rho_{\pi_E})=-R_\phi(\rho_\pi,\rho_{\pi_E})\\
-=\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)\log\left(\cfrac{1}{1+e^{-\gamma}}\right)+\rho_{\pi_E}(s,a)\log\left(\cfrac{1}{1+e^{\gamma}}\right)\\
-=\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)\log\left(\cfrac{1}{1+e^{-\gamma}}\right)+\rho_{\pi_E}(s,a)\log\left(1-\cfrac{1}{1+e^{-\gamma}}\right)\\
-=\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)\log\left(\sigma(\gamma)\right)+\rho_{\pi_E}(s,a)\log\left(1-\sigma(\gamma)\right)</script><p>其中，$\sigma(\gamma)=\cfrac{1}{1+e^{-\gamma}}$ 为  $sigmoid$ 函数，所以，可写为以下形式：</p>
-<script type="math/tex; mode=display">
-\psi^{\ast}(\rho_\pi - \rho_{\pi_E})=\max_{D\in (0,1)^{\mathcal{S}\times \mathcal{A}
-}}\sum_{s,a}\rho_\pi(s,a)\log\left(D(s,a)\right)+\rho_{\pi_E}(s,a)\log\left(1-D(s,a)\right)\\
-=\max_{D\in (0,1)^{\mathcal{S}\times \mathcal{A}
-}}\mathbb{E}_\pi\log\left(D(s,a)\right)+\mathbb{E}_{\pi_E}\log\left(1-D(s,a)\right)</script><p>我们的目的是寻找一个策略，它的占用率测量接近于专家策略的占用率测量，即求 $\psi^{\ast}(\rho_\pi - \rho_{\pi_E})$ 的最小值，引入因果熵$H$（由参数$\lambda&gt;0$控制），得到一个新的模仿学习算法，即：$GAIL$</p>
-<script type="math/tex; mode=display">
-\min_{\pi}imize\max_{D\in (0,1)^{\mathcal{S}\times \mathcal{A}
-}}\mathbb{E}_\pi\log\left(D(s,a)\right)+\mathbb{E}_{\pi_E}\log\left(1-D(s,a)\right)-\lambda H(\pi)</script><p>GAIL的结构图如下：</p>
-<p><img src="\image\GAIL结构图.png" alt="GAIL结构图"></p>
-<p>GAIL的伪代码如下：</p>
-<p><img src="\image\GAIL伪代码.jpg" alt="GAIL伪代码"></p>
-<p>生成器：利用强化学习的算法产生样本轨迹；<br>判别器：根据专家轨迹与样本轨迹来训练判别器。</p>
-
+        
       
     </div>
 
@@ -578,8 +483,8 @@ where \; g(x)=\left\{\begin{array}{rcl}-x-\log(1-e^x) & if\;\;x<0 \\+\infty & ot
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/22/OpenAI Spinning Up/" rel="next" title="OpenAI Spinning Up">
-                <i class="fa fa-chevron-left"></i> OpenAI Spinning Up
+              <a href="/2019/03/28/DAC in AIL/" rel="next" title="Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差">
+                <i class="fa fa-chevron-left"></i> Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差
               </a>
             
           </div>
@@ -587,10 +492,6 @@ where \; g(x)=\left\{\begin{array}{rcl}-x-\log(1-e^x) & if\;\;x<0 \\+\infty & ot
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/28/DAC in AIL/" rel="prev" title="Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差">
-                Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -634,17 +535,8 @@ where \; g(x)=\left\{\begin{array}{rcl}-x-\log(1-e^x) & if\;\;x<0 \\+\infty & ot
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -748,23 +640,6 @@ where \; g(x)=\left\{\begin{array}{rcl}-x-\log(1-e^x) & if\;\;x<0 \\+\infty & ot
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Inverse-reinforcement-learning"><span class="nav-text">Inverse reinforcement learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generative-adversarial-imitation-learning"><span class="nav-text">Generative adversarial imitation learning</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
