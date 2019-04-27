@@ -117,20 +117,24 @@
 
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="AMiFans’s Blogs">
-<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/page/2/index.html">
+  <meta name="description" content="最大熵基于最大边际的方法往往会产生歧义，比如许多不同的回报函数会导致相同的专家策略。在这种情况下，所学到的回报函数往往具有随机的偏好。最大熵方法就是为解决此问题提出的。 最大熵原理指出，在学习概率模型时，在所有满足约束的概率模型（分布）中，熵最大的模型是最好的模型。现在我们假设存在一个潜在的概率分布，在该概率分布下，产生了专家轨迹。此时，已知条件为  \sum_{\zeta_i}​P(\zeta_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最大熵逆向强化学习">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/最大熵逆向强化学习/index.html">
 <meta property="og:site_name" content="AMiFans’s Blogs">
+<meta property="og:description" content="最大熵基于最大边际的方法往往会产生歧义，比如许多不同的回报函数会导致相同的专家策略。在这种情况下，所学到的回报函数往往具有随机的偏好。最大熵方法就是为解决此问题提出的。 最大熵原理指出，在学习概率模型时，在所有满足约束的概率模型（分布）中，熵最大的模型是最好的模型。现在我们假设存在一个潜在的概率分布，在该概率分布下，产生了专家轨迹。此时，已知条件为  \sum_{\zeta_i}​P(\zeta_">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-27T07:45:44.993Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AMiFans’s Blogs">
+<meta name="twitter:title" content="最大熵逆向强化学习">
+<meta name="twitter:description" content="最大熵基于最大边际的方法往往会产生歧义，比如许多不同的回报函数会导致相同的专家策略。在这种情况下，所学到的回报函数往往具有随机的偏好。最大熵方法就是为解决此问题提出的。 最大熵原理指出，在学习概率模型时，在所有满足约束的概率模型（分布）中，熵最大的模型是最好的模型。现在我们假设存在一个潜在的概率分布，在该概率分布下，产生了专家轨迹。此时，已知条件为  \sum_{\zeta_i}​P(\zeta_">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/page/2/">
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/最大熵逆向强化学习/">
 
 
 
@@ -140,7 +144,7 @@
   };
 </script>
 
-  <title>AMiFans’s Blogs</title>
+  <title>最大熵逆向强化学习 | AMiFans’s Blogs</title>
   
 
 
@@ -188,8 +192,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -340,9 +343,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -357,7 +360,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/TRPO/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/最大熵逆向强化学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="AMiFans">
@@ -374,10 +377,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/TRPO/" class="post-title-link" itemprop="url">信赖域策略优化(TRPO)</a>
+          <h1 class="post-title" itemprop="name headline">最大熵逆向强化学习
+
               
             
           </h1>
@@ -400,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-04-27 15:44:34 / 修改时间：15:44:38" itemprop="dateCreated datePublished" datetime="2019-04-27T15:44:34+08:00">2019-04-27</time>
+              <time title="创建时间：2019-04-27 15:45:42 / 修改时间：15:45:44" itemprop="dateCreated datePublished" datetime="2019-04-27T15:45:42+08:00">2019-04-27</time>
             
 
             
@@ -455,25 +456,46 @@
       
 
       
-        
-          
-            <p>
-              根据策略梯度方法，参数更新方程式为：
+        <h4 id="最大熵"><a href="#最大熵" class="headerlink" title="最大熵"></a><strong>最大熵</strong></h4><p>基于最大边际的方法往往会产生歧义，比如许多不同的回报函数会导致相同的专家策略。在这种情况下，所学到的回报函数往往具有随机的偏好。最大熵方法就是为解决此问题提出的。</p>
+<p>最大熵原理指出，在学习概率模型时，在所有满足约束的概率模型（分布）中，熵最大的模型是最好的模型。现在我们假设存在一个潜在的概率分布，在该概率分布下，产生了专家轨迹。此时，已知条件为</p>
+<script type="math/tex; mode=display">
+\sum_{\zeta_i}​P(\zeta_i​)f=\tilde{f}......(1)</script><p>这里用$f$表示特征期望，$\tilde{f}$表示专家特征期望。在满足上述约束条件的所有概率分布中，熵最大的概率分布是除了约束外对其他任何位置信息没有做任何假设的分布。所以，最大熵的方法可以避免歧义性的问题。我们将该问题转化成为标准的优化问题并形式化为：</p>
+<script type="math/tex; mode=display">
+\max-p\log p ......(2)
+\\ s.t.\sum_{\zeta_i}{P\left(\zeta_i\right)f_{\zeta_i}=\tilde{f}} \\ \varSigma P=1</script><p>利用拉格朗日乘子法，该优化问题可转化为：</p>
+<script type="math/tex; mode=display">
+\min L=\sum_{\zeta_i}{p\log p-\sum_{j=1}^n{\lambda_j\left(pf_j-\tilde{f}_j\right)}-\lambda_0\left(\varSigma p-1\right)}......(3)</script><p>将上式对概率$p$进行微分，并令其导数为0，可以得到：</p>
+<script type="math/tex; mode=display">
+\frac{\partial L}{\partial p}=\sum_{\zeta_i}{\log p+1-}\sum_{j=1}^n{\lambda_jf_j}-\lambda_0=0......(4)</script><p>最后得到拥有最大熵的概率为：</p>
+<script type="math/tex; mode=display">
+p=\frac{\exp\left(\sum_{j=1}^n{\lambda_jf_j}\right)}{\exp\left(1-\lambda_0\right)}=\frac{1}{Z}\exp\left(\sum_{j=1}^n{\lambda_jf_j}\right)......(5)</script><p>然后利用次梯度的方法求解</p>
+<script type="math/tex; mode=display">
+\nabla L\left(\lambda\right)=\tilde{f}-\sum_{\zeta}{P\left(\zeta |\lambda ,T\right)f_{\zeta}}......(6)</script><h4 id="最大熵逆向强化学习"><a href="#最大熵逆向强化学习" class="headerlink" title="最大熵逆向强化学习"></a><strong>最大熵逆向强化学习</strong></h4><p>逆向强化学习中，对人类次优行为使用概率图模型建模，使用人类行为数据进行拟合，并推测出收益函数。假设$p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\propto\exp(r(\mathbf{s}_t,\mathbf{a}_t))$，那么轨迹条件概率正比于该轨迹实际的发生的概率乘上轨迹总收益的自然指数，即</p>
+<script type="math/tex; mode=display">
+p(\tau|\mathcal{O}_{1:T})\propto p(\tau)\exp\left(\sum_tr(\mathbf{s}_t,\mathbf{a}_t)\right)......(7)</script><p>根据假设可以看出，我们使用这个模型去做逆向强化学习，本质上是去学习最优性变量$\mathcal{O}_t$的分布。将收益函数用$\psi$参数化，我们的假设变为$p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t,\psi)\propto\exp(r_\psi(\mathbf{s}_t,\mathbf{a}_t))$，相应地轨迹条件概率变为</p>
+<script type="math/tex; mode=display">
+p(\tau|\mathcal{O}_{1:T},\psi)\propto p(\tau)\exp\left(\sum_tr_\psi(\mathbf{s}_t,\mathbf{a}_t)\right)......(8)</script><p>逆向强化学习中，我们现有的数据是从最优策略下的轨迹分布$\pi^*(\tau)$中抽样得到的轨迹样本$\{\tau_i\}$。在这基础上做最大似然学习：</p>
+<script type="math/tex; mode=display">
+\max_\psi\frac{1}{N}\sum_{i=1}^N\log p(\tau_i|\mathcal{O}_{1:T},\psi)......(9)</script><p>令轨迹收益$r_\psi(\tau)=\sum_tr_\psi(\mathbf{s}_t,\mathbf{a}_t)$，则公式（9）变为：</p>
+<script type="math/tex; mode=display">
+\max_\psi\frac{1}{N}\sum_{i=1}^Nr_\psi(\tau_i)-\log Z.......(10)</script><p>其中$Z=\int p(\tau)\exp(r_\psi(\tau))\mathrm{d}\tau$为归一化项，称为$partition function$。我们对公式（10）求关于参数$\psi$的梯度：</p>
+<script type="math/tex; mode=display">
+\nabla_\psi\mathcal{L}=\frac{1}{N}\sum_{i=1}^N\nabla_\psi r_\psi(\tau_i)-\int \frac{1}{Z}p(\tau)\exp(r_\psi(\tau))\nabla_\psi r_\psi(\tau)\mathrm{d}\tau......(11)</script><p>又$\frac{1}{Z}p(\tau)\exp(r_\psi(\tau))=p(\tau|\mathcal{O}_{1:T},\psi)$，化为期望的形式可表示为</p>
+<script type="math/tex; mode=display">
+\nabla_\psi\mathcal{L}=\mathbf{E}_{\tau\sim\pi^*(\tau)}[\nabla_\psi r_\psi(\tau)]-\mathbf{E}_{\tau\sim p(\tau|\mathcal{O}_{1:T},\psi)}[\nabla_\psi r_\psi(\tau)]......(12)</script><p>其中，<strong>$\pi^*(\tau)$可以用专家样本评估，$p(\tau|\mathcal{O}_{1:T},\psi)$是当前奖赏下的软优化策略</strong>。<br>将第二块期望的轨迹收益按照时间拆开，</p>
+<script type="math/tex; mode=display">
+\mathbf{E}_{\tau\sim p(\tau|\mathcal{O}_{1:T},\psi)}\left[\nabla_\psi\sum_{t=1}^Tr_\psi(\mathbf{s}_t,\mathbf{a}_t)\right]=\sum_{t=1}^T \mathbf{E}_{(\mathbf{s}_t,\mathbf{a}_t)\sim p(\mathbf{s}_t,\mathbf{a}_t|\mathcal{O}_{1:T},\psi)}[\nabla_\psi r_\psi(\mathbf{s}_t,\mathbf{a}_t)]......(13)</script><p>其中状态动作对$(s_t,a_t)$的分布$p(\mathbf{s}_t,\mathbf{a}_t|\mathcal{O}_{1:T},\psi)=p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{1:T},\psi)p(\mathbf{s}_t|\mathcal{O}_{1:T},\psi)$。<br>根据$p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{1:T},\psi)=\frac{\beta(\mathbf{s}_t,\mathbf{a}_t)}{\beta(\mathbf{s}_t)}，p(\mathbf{s}_t|\mathcal{O}_{1:T},\psi)\propto\alpha(\mathbf{s}_t)\beta(\mathbf{s}_t)$，可得</p>
+<script type="math/tex; mode=display">
+p(\mathbf{s}_t,\mathbf{a}_t|\mathcal{O}_{1:T},\psi)\propto\beta(\mathbf{s}_t,\mathbf{a}_t)\alpha(\mathbf{s}_t)......(14)</script><p>即后向信息和前向信息之积。令$\mu_t(\mathbf{s}_t,\mathbf{a}_t)\propto\beta_t(\mathbf{s}_t,\mathbf{a}_t)\alpha_t(\mathbf{s}_t)$作为在 $t$ 时刻状态行动$(\mathbf{s}_t,\mathbf{a}_t)$的访问概率，则</p>
+<script type="math/tex; mode=display">
+\mathbf{E}_{\tau\sim p(\tau|\mathcal{O}_{1:T},\psi)}[\nabla_\psi r_\psi(\tau)]=\sum_{t=1}^T\int\int \mu_t(\mathbf{s}_t,\mathbf{a}_t)\nabla_\psi r_\psi(\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_t\mathrm{d}\mathbf{a}_t......(15)</script><p>这样便得到了一个<strong>最大熵逆增强学习</strong> $(MaxEnt IRL) $算法。算法流程如下：</p>
+<ul>
+<li>给定$\psi$，求出对应的$\beta(\mathbf{s}_t,\mathbf{a}_t)$和$\alpha(\mathbf{s}_t)$；</li>
+<li>计算访问概率$\mu_t(\mathbf{s}_t,\mathbf{a}_t)\propto\beta_t(\mathbf{s}_t,\mathbf{a}_t)\alpha_t(\mathbf{s}_t)$；</li>
+<li>求梯度$\nabla_\psi\mathcal{L}=\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\nabla_\psi r_\psi(\mathbf{s}_{i,t},\mathbf{a}_{i,t})-\sum_{t=1}^T\int\int \mu_t(\mathbf{s}_t,\mathbf{a}_t)\nabla_\psi r_\psi(\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_t\mathrm{d}\mathbf{a}_t$；</li>
+<li>$\psi\leftarrow\psi+\eta\nabla_\psi\mathcal{L}$。</li>
+</ul>
 
-\theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。TRPO要解决的问题就是解决这个问题，找到新的策略使得新的回报函数的值单调增，或单调不减。
-$\pi$是一个随机策略，$\rho_
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/TRPO/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
       
     </div>
 
@@ -496,181 +518,32 @@ $\pi$是一个随机策略，$\rho_
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/Actor-Critic/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AMiFans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/timg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AMiFans’s Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/Actor-Critic/" class="post-title-link" itemprop="url">演员-评论家方法(Actor-Critic)</a>
-              
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
+              <a href="/2019/04/27/熵/" rel="next" title="熵">
+                <i class="fa fa-chevron-left"></i> 熵
+              </a>
             
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/04/27/概率图模型与软化增强学习/" rel="prev" title="使用概率图模型对次优行为建模">
+                使用概率图模型对次优行为建模 <i class="fa fa-chevron-right"></i>
+              </a>
             
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-27 15:44:09 / 修改时间：15:44:13" itemprop="dateCreated datePublished" datetime="2019-04-27T15:44:09+08:00">2019-04-27</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>
-              策略梯度法引入值函数策略梯度法中梯度的基本形式为：
-
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t'=t}^Tr(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})\right]......(1)现在我们回顾一下状态-动作值函数$Q(\ma
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/Actor-Critic/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -680,339 +553,15 @@ $\pi$是一个随机策略，$\rho_
   </article>
 
 
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/PG/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AMiFans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/timg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AMiFans’s Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/PG/" class="post-title-link" itemprop="url">策略梯度方法(Policy Gradients)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-27 15:43:50 / 修改时间：15:43:58" itemprop="dateCreated datePublished" datetime="2019-04-27T15:43:50+08:00">2019-04-27</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。
-策略梯度方法推导策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望
-
-\theta^*=\max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\sum_tr(\mathbf{s}_t,\mathbf{a}_t)\right].
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/PG/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AMiFans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/timg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AMiFans’s Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-27 15:35:50 / 修改时间：15:43:36" itemprop="dateCreated datePublished" datetime="2019-04-27T15:35:50+08:00">2019-04-27</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              I love you
-              
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/hello-world/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -1032,8 +581,17 @@ $\pi$是一个随机策略，$\rho_
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1137,6 +695,23 @@ $\pi$是一个随机策略，$\rho_
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#最大熵"><span class="nav-text">最大熵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最大熵逆向强化学习"><span class="nav-text">最大熵逆向强化学习</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -1292,6 +867,10 @@ $\pi$是一个随机策略，$\rho_
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
 
   
 
@@ -1303,6 +882,8 @@ $\pi$是一个随机策略，$\rho_
   
 
 
+  
+
 
   
 
@@ -1317,18 +898,6 @@ $\pi$是一个随机策略，$\rho_
   
 
   
-  
-    
-      
-        
-      
-    
-      
-    
-      
-    
-      
-    
   
 
   

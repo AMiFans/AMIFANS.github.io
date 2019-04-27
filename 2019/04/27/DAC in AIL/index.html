@@ -117,20 +117,24 @@
 
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="AMiFans’s Blogs">
-<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/page/2/index.html">
+  <meta name="description" content="在许多模仿学习算法和逆向强化学习算法中，通常分配给吸收状态的奖赏为零，在一些标准的MDPs中，忽略了吸收状态和相应的转移过程。在算法中没有存储吸收状态，因此对奖励学习的过程产生了偏见。DAC算法能够分配给吸收状态潜在的非零奖励，正确处理学习奖励的算法的吸收状态是非常重要的。 背景在 RL 环境的规范实现中，对吸收状态的不充分处理会导致这些算法所使用的奖励函数产生隐含偏差。虽然这些偏差可能适用于某些">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/DAC in AIL/index.html">
 <meta property="og:site_name" content="AMiFans’s Blogs">
+<meta property="og:description" content="在许多模仿学习算法和逆向强化学习算法中，通常分配给吸收状态的奖赏为零，在一些标准的MDPs中，忽略了吸收状态和相应的转移过程。在算法中没有存储吸收状态，因此对奖励学习的过程产生了偏见。DAC算法能够分配给吸收状态潜在的非零奖励，正确处理学习奖励的算法的吸收状态是非常重要的。 背景在 RL 环境的规范实现中，对吸收状态的不充分处理会导致这些算法所使用的奖励函数产生隐含偏差。虽然这些偏差可能适用于某些">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-27T07:46:39.352Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AMiFans’s Blogs">
+<meta name="twitter:title" content="Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差">
+<meta name="twitter:description" content="在许多模仿学习算法和逆向强化学习算法中，通常分配给吸收状态的奖赏为零，在一些标准的MDPs中，忽略了吸收状态和相应的转移过程。在算法中没有存储吸收状态，因此对奖励学习的过程产生了偏见。DAC算法能够分配给吸收状态潜在的非零奖励，正确处理学习奖励的算法的吸收状态是非常重要的。 背景在 RL 环境的规范实现中，对吸收状态的不充分处理会导致这些算法所使用的奖励函数产生隐含偏差。虽然这些偏差可能适用于某些">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/page/2/">
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/DAC in AIL/">
 
 
 
@@ -140,7 +144,7 @@
   };
 </script>
 
-  <title>AMiFans’s Blogs</title>
+  <title>Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差 | AMiFans’s Blogs</title>
   
 
 
@@ -188,8 +192,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -340,9 +343,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -357,7 +360,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/TRPO/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/DAC in AIL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="AMiFans">
@@ -374,10 +377,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/TRPO/" class="post-title-link" itemprop="url">信赖域策略优化(TRPO)</a>
+          <h1 class="post-title" itemprop="name headline">Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差
+
               
             
           </h1>
@@ -400,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-04-27 15:44:34 / 修改时间：15:44:38" itemprop="dateCreated datePublished" datetime="2019-04-27T15:44:34+08:00">2019-04-27</time>
+              <time title="创建时间：2019-04-27 15:46:35 / 修改时间：15:46:39" itemprop="dateCreated datePublished" datetime="2019-04-27T15:46:35+08:00">2019-04-27</time>
             
 
             
@@ -455,25 +456,23 @@
       
 
       
-        
-          
-            <p>
-              根据策略梯度方法，参数更新方程式为：
+        <p>在许多模仿学习算法和逆向强化学习算法中，通常分配给吸收状态的奖赏为零，在一些标准的MDPs中，忽略了吸收状态和相应的转移过程。在算法中没有存储吸收状态，因此对奖励学习的过程产生了偏见。DAC算法能够分配给吸收状态潜在的非零奖励，正确处理学习奖励的算法的吸收状态是非常重要的。</p>
+<h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>在 RL 环境的规范实现中，对吸收状态的不充分处理会导致这些算法所使用的奖励函数产生隐含偏差。虽然这些偏差可能适用于某些环境，但它们会导致其他环境中的次优行为。<br>尽管这些算法能够从一些专家示例中学习，但它们需要大量与环境交互才能用于许多实际应用。</p>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><p>为了解决这些问题，论文作者提出如下方法</p>
+<ul>
+<li>提出具有吸收状态的扩展 MDP，这会使得任务之间相互独立，更重要的是产生无偏差的奖励。</li>
+<li>引入一种称为 Discriminator-Actor-Critic 的 off-policy 学习算法。</li>
+</ul>
+<p>实验结果证明了正确处理吸收状态的有效性，同时凭经验将样本效率平均提高了 10 倍。</p>
+<h4 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h4><p>对抗性模仿学习（AIL）算法通过一系列专家示例、对抗性鉴别器和强化学习方法来学习一种强有力的模仿专家行为的策略。例如，生成对抗模仿学习（GAIL）算法使用鉴别器奖励和策略梯度算法来实现专家RL策略。类似地，对抗性逆强化学习（AIRL）算法利用修改的GAIL鉴别器来恢复奖励函数以执行逆强化学习（IRL）。此外，这种后续的密集奖励对于动态或环境属性的变化是强有力的。重要的是，当使用少量专家示例时，诸如 GAIL 和 AIRL 之类的 AIL 算法获得比监督行为克隆（BC）更高的性能；通过实验证明，AIL算法缓解了与 BC 相关的一些分布漂移问题。但是，这些 AIL 方法存在两个重要问题：<br>1）为了使策略收敛，需要与环境做大量的交互；<br>2）虽然原则上这些方法可以学习吸收状态的奖励，但原始实施方案遭受环境终端状态的不当处理。这引入了隐含的奖励先验，可以改善或降低政策绩效。<br>虽然 GAIL 需要少于200个专家帧转换（来自4个专家轨迹）来学习大多数MuJoCo 任务的强大奖励函数，但为了收敛从环境中采样的策略帧转换的数量可能高达2500万。如果使用PPO 代替TRPO ，可以改善样本的复杂性（例如，如图3所示，2500万步减少到大约1000万步）。但是，对于许多机器人或现实世界的应用来说，它仍然是难以处理的。 在这项工作中，我们通过结合一个 off-policy RL算法（TD3（Fujimoto等，2018））和一个 off-policy 鉴别器来解决这个问题，从而将样本复杂度大幅降低了几个数量级。</p>
+<p>在这项工作中，我们还说明了在实践中使用的AIL算法和MDP的具体设计选择会对具有吸收状态的环境的智能体的性能产生很大影响。 例如，正如我们将要证明的那样，如果为吸收状态分配零奖励，则严格的正的奖励函数可以阻止智能体以最少的步骤解决任务，而严格的负奖励函数则无法模拟生存奖励。 因此，必须对真实环境奖励有一定的了解，并结合这些先验为成功应用GAIL和AIRL选择合适的奖励功能。 我们将正式讨论这些问题，并提出一个简单但有效的解决方案，大大改善具有吸收状态的环境的策略性能; 我们通过学习这些与状态相关的奖励来明确地处理吸收状态转换。</p>
+<p>首先，我们提出了一种新算法，我们称之为Discriminator-Actor-Critic（DAC）（图1），它与GAIL和AIRL框架兼容，通过使用off-policy鉴别器和off-policy行为者 - 评论者强化学习算法来扩展它们。 然后，我们提出了一种处理反强化学习和奖励学习方法中的吸收状态的一般方法。 我们通过实验证明，这消除了由于我们的DAC算法的GAIL样和AIRL样变体中不正确的吸收状态处理引起的偏差。 在我们的实验中，我们证明DAC在许多困难的模仿学习任务中实现了最先进的AIL性能，其中正确处理终端状态对于在存在吸收状态时匹配专家性能是至关重要的。 更具体地说，在这项工作中我们：</p>
+<ul>
+<li>在AIL算法的背景下，识别并提出处理标准RL基准中的终端状态问题的解决方案。</li>
+<li>通过为AIL算法提供非策略变体来加速对示例的学习，从而显着减少代理与环境交互的数量。</li>
+<li>通过对非平凡机器人任务进行人体演示实验，说明DAC对嘈杂、多模态和受限制的专家示例的鲁棒性。</li>
+</ul>
 
-\theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。TRPO要解决的问题就是解决这个问题，找到新的策略使得新的回报函数的值单调增，或单调不减。
-$\pi$是一个随机策略，$\rho_
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/TRPO/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
       
     </div>
 
@@ -496,181 +495,32 @@ $\pi$是一个随机策略，$\rho_
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/Actor-Critic/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AMiFans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/timg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AMiFans’s Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/Actor-Critic/" class="post-title-link" itemprop="url">演员-评论家方法(Actor-Critic)</a>
-              
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
+              <a href="/2019/04/27/GAIL/" rel="next" title="生成对抗模仿学习(GAIL)">
+                <i class="fa fa-chevron-left"></i> 生成对抗模仿学习(GAIL)
+              </a>
             
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/04/27/Sample Efficient Imitation Learning For Continuous Control/" rel="prev" title="Sample Efficient Imitation Learning for Continuous Control">
+                Sample Efficient Imitation Learning for Continuous Control <i class="fa fa-chevron-right"></i>
+              </a>
             
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-27 15:44:09 / 修改时间：15:44:13" itemprop="dateCreated datePublished" datetime="2019-04-27T15:44:09+08:00">2019-04-27</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>
-              策略梯度法引入值函数策略梯度法中梯度的基本形式为：
-
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t'=t}^Tr(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})\right]......(1)现在我们回顾一下状态-动作值函数$Q(\ma
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/Actor-Critic/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -680,339 +530,15 @@ $\pi$是一个随机策略，$\rho_
   </article>
 
 
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/PG/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AMiFans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/timg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AMiFans’s Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/PG/" class="post-title-link" itemprop="url">策略梯度方法(Policy Gradients)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-27 15:43:50 / 修改时间：15:43:58" itemprop="dateCreated datePublished" datetime="2019-04-27T15:43:50+08:00">2019-04-27</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。
-策略梯度方法推导策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望
-
-\theta^*=\max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\sum_tr(\mathbf{s}_t,\mathbf{a}_t)\right].
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/PG/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AMiFans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/timg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AMiFans’s Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-27 15:35:50 / 修改时间：15:43:36" itemprop="dateCreated datePublished" datetime="2019-04-27T15:35:50+08:00">2019-04-27</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              I love you
-              
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/hello-world/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -1032,8 +558,17 @@ $\pi$是一个随机策略，$\rho_
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1137,6 +672,23 @@ $\pi$是一个随机策略，$\rho_
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法"><span class="nav-text">方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引言"><span class="nav-text">引言</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -1292,6 +844,10 @@ $\pi$是一个随机策略，$\rho_
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
 
   
 
@@ -1303,6 +859,8 @@ $\pi$是一个随机策略，$\rho_
   
 
 
+  
+
 
   
 
@@ -1317,18 +875,6 @@ $\pi$是一个随机策略，$\rho_
   
 
   
-  
-    
-      
-        
-      
-    
-      
-    
-      
-    
-      
-    
   
 
   

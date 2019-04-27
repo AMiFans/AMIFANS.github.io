@@ -117,20 +117,24 @@
 
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="AMiFans’s Blogs">
-<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/page/2/index.html">
+  <meta name="description" content="信息熵在概率论中，熵是不确定性的度量。不确定性越大，熵越大。在信息论中，平均自信息量又称为信息熵、信源熵，简称熵。熵的数学形式可描述为：  H(X)=-\sum_{i=1}^qp_i\log p_i=H(p_1,p_2,…,p_q)= H(p)其中，$q$为$X$的所有可能取值的个数。由概率空间的完备性和非负性，有$\sum_{i=1}^q p_i=1$和$0 ≤ p( x_i ) ≤ 1$熵的性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="熵">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/熵/index.html">
 <meta property="og:site_name" content="AMiFans’s Blogs">
+<meta property="og:description" content="信息熵在概率论中，熵是不确定性的度量。不确定性越大，熵越大。在信息论中，平均自信息量又称为信息熵、信源熵，简称熵。熵的数学形式可描述为：  H(X)=-\sum_{i=1}^qp_i\log p_i=H(p_1,p_2,…,p_q)= H(p)其中，$q$为$X$的所有可能取值的个数。由概率空间的完备性和非负性，有$\sum_{i=1}^q p_i=1$和$0 ≤ p( x_i ) ≤ 1$熵的性">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-27T07:45:33.246Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AMiFans’s Blogs">
+<meta name="twitter:title" content="熵">
+<meta name="twitter:description" content="信息熵在概率论中，熵是不确定性的度量。不确定性越大，熵越大。在信息论中，平均自信息量又称为信息熵、信源熵，简称熵。熵的数学形式可描述为：  H(X)=-\sum_{i=1}^qp_i\log p_i=H(p_1,p_2,…,p_q)= H(p)其中，$q$为$X$的所有可能取值的个数。由概率空间的完备性和非负性，有$\sum_{i=1}^q p_i=1$和$0 ≤ p( x_i ) ≤ 1$熵的性">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/page/2/">
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/熵/">
 
 
 
@@ -140,7 +144,7 @@
   };
 </script>
 
-  <title>AMiFans’s Blogs</title>
+  <title>熵 | AMiFans’s Blogs</title>
   
 
 
@@ -188,8 +192,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -340,9 +343,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -357,7 +360,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/TRPO/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/熵/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="AMiFans">
@@ -374,10 +377,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/TRPO/" class="post-title-link" itemprop="url">信赖域策略优化(TRPO)</a>
+          <h1 class="post-title" itemprop="name headline">熵
+
               
             
           </h1>
@@ -400,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-04-27 15:44:34 / 修改时间：15:44:38" itemprop="dateCreated datePublished" datetime="2019-04-27T15:44:34+08:00">2019-04-27</time>
+              <time title="创建时间：2019-04-27 15:45:29 / 修改时间：15:45:33" itemprop="dateCreated datePublished" datetime="2019-04-27T15:45:29+08:00">2019-04-27</time>
             
 
             
@@ -420,7 +421,7 @@
               </span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/信息论与概率论/" itemprop="url" rel="index"><span itemprop="name">信息论与概率论</span></a></span>
 
                 
                 
@@ -455,25 +456,101 @@
       
 
       
-        
-          
-            <p>
-              根据策略梯度方法，参数更新方程式为：
+        <h4 id="信息熵"><a href="#信息熵" class="headerlink" title="信息熵"></a><strong>信息熵</strong></h4><p>在概率论中，熵是不确定性的度量。不确定性越大，熵越大。在信息论中，平均自信息量又称为信息熵、信源熵，简称熵。熵的数学形式可描述为：</p>
+<script type="math/tex; mode=display">
+H(X)=-\sum_{i=1}^qp_i\log p_i=H(p_1,p_2,…,p_q)= H(p)</script><p>其中，$q$为$X$的所有可能取值的个数。<br>由概率空间的完备性和非负性，有$\sum_{i=1}^q p_i=1$和$0 ≤ p( x_i ) ≤ 1$<br><strong>熵的性质</strong></p>
+<ul>
+<li><p>对称性：</p>
+<script type="math/tex; mode=display">
+H(p_1,p_2,…,p_q)= H(p_2,p_1, …,p_q)= …=H(p_q,p_1, …,p_{q-1})</script></li>
+<li><p>确定性：</p>
+<script type="math/tex; mode=display">
+H(1,0)=H(1,0,0) = H(1,0,0,0)= …= H(1,0,…,0)=0</script></li>
+<li><p>非负性：</p>
+<script type="math/tex; mode=display">
+H(p)=H(p_1,p_2,…,p_q)≥0</script></li>
+<li><p>扩展性：</p>
+<script type="math/tex; mode=display">
+\lim_{\epsilon→0}
+H_{q+1}(p_1,p_2,…,p_q-\epsilon,\epsilon)= H_q(p_1,p_2…,p_q)</script><p>这是因为$lim_{\epsilon→0}\epsilon\log\epsilon=0$<br>这个性质的含义是：增加一个基本不会出现的小概率事件，信源的熵保持不变。虽然小概率事件出现给予收信者的信息量很大，但在熵的计算中，它占的比重很小，可以忽略不计，这也是熵的总体平均性的体现。</p>
+</li>
+<li>连续性：<script type="math/tex; mode=display">
+\lim_{\epsilon→0}
+H(p_1,p_2,…,p_{q-1}-\epsilon,p_q+\epsilon)= H_q(p_1,p_2…,p_q)</script>即信源概率空间中概率分量的微小波动，不会引起熵的变化。</li>
+<li><p>递增性：</p>
+</li>
+<li><p>极值性：</p>
+<script type="math/tex; mode=display">
+H(p_1,p_2,…,p_n)≤ H(\cfrac1n,\cfrac1n,…,\cfrac1n)=\log n</script><p>极值性表明离散信源中各消息等概率出现时熵最大，这就是最大离散熵定理。连续信源的最大熵则还与约束条件有关。</p>
+</li>
+<li>上凸性：<br>$H(p)$是严格的上凸函数。</li>
+</ul>
+<h4 id="联合熵与相对熵"><a href="#联合熵与相对熵" class="headerlink" title="联合熵与相对熵"></a><strong>联合熵与相对熵</strong></h4><p>一个随机变量的不确定性可以用熵来表示，这一概念可以方便地推广到多个随机变量。<br><strong>联合熵</strong><br>二维随机变量$XY$的联合熵定义为联合自信息的数学期望，它是二维随机变量$XY$的不确定性的度量。</p>
+<script type="math/tex; mode=display">
+H(XY)=\sum_{i=1}^n\sum_{j=1}^m p(x_iy_j) I(x_i y_j )=-\sum_{i=1}^n\sum_{j=1}^m
+p(x_iy_j)\log p(x_iy_j)</script><p><strong>相对熵</strong><br>在给定 $X=x_i $的条件下，随机变量$Y$的不确定性为</p>
+<script type="math/tex; mode=display">
+H(Y|x_i)=-\sum_jp(y_j|x_i)logp(y_j|x_i)</script><p>由于不同的$x_i $，$H(Y|x_i )$是变化的, 对$H( Y|x_i) $的所有可能值进行统计平均，就得出给定$X$时，$Y$ 的条件熵$H(Y|X)$：</p>
+<script type="math/tex; mode=display">
+H(Y|X)=\sum_ip(x_i)H(Y|x_i)=-\sum_i\sum_jp(x_i)p(y_j|x_i)\log p(y_j|x_i)
+=-\sum_i\sum_jp(x_i,y_j)\log p(y_j|x_i)</script><p>同理</p>
+<script type="math/tex; mode=display">
+H(X|Y)=-\sum_i\sum_jp(x_i,y_j)\log p(x_i|y_j)</script><p><strong>联合熵与信息熵、条件熵的关系</strong></p>
+<script type="math/tex; mode=display">
+H(XY)=H(X)+H(Y|X)</script><h4 id="最大熵"><a href="#最大熵" class="headerlink" title="最大熵"></a><strong>最大熵</strong></h4><p><strong>最大熵原理</strong><br>最大熵的原理很简单，即为：保留全部的不确定性，将风险降到最小。<br>最大熵原理指出，对一个随机事件的概率分布进行预测时，我们的预测应当满足全部的已知条件，而对未知的情况不要做任何主观假设。（不做主观假设这点很重要）在这种情况下，概率分布最均匀，顶测的风险最小。<br><strong>最大熵模型的定义</strong><br>给定一个训练数据集</p>
+<script type="math/tex; mode=display">
+T=\{(x_1,y_1),(x_2,y_2),...,(x_N,y_N)\}</script><p>学习的目标是用最大熵原理选择最好的分类模型。</p>
+<p>从给定的训练数据集，可以确定联合分布$P(X,Y)$的经验分布$ \tilde{P}(X,Y)$和边缘分布$P(X)$的经验分布$\tilde{P}(X)$，即：</p>
+<script type="math/tex; mode=display">
+\tilde{P}(X=x,Y=y)=\cfrac{v(X=x,Y=y)}{N}</script><script type="math/tex; mode=display">
+\tilde{P}(X=x)=\cfrac{v(X=x)}{N}</script><p>其中，$v(X＝x,Y＝y)$表示训练数据中样本$(X,Y)$出现的频数，$v(X＝x)$表示训练数据中$x$出现的频数，$N$表示训练样本容量。<br>用特征函数$f(X,Y)$描述输入$x$和输出$y$之间的某一个事实。其定义是</p>
+<script type="math/tex; mode=display">
+f(X,Y)=\left\{ \begin{array}{rcl}
+1\ ,&\ x与y满足某一事实
+\\
+0\ ,&\ 否则
+\end{array}\right.</script><p>特征函数$f(X,Y)$关于经验分布$\tilde{P}(X,Y)$的期望值为$\mathbf{E}_{\tilde{P}}(f)$，</p>
+<script type="math/tex; mode=display">
+\mathbf{E}_{\tilde{P}}(f)=\sum_{x,y}\tilde{P}(x,y)f(x,y)</script><p>特征函数$f(X,Y)$关于模型$P(Y|X)$与经验分布$\tilde{P}(X)$的期望值$\mathbf{E}_p(f)$，</p>
+<script type="math/tex; mode=display">
+\mathbf{E}_p(f)=\sum_{x,y}\tilde{P}(x)P(y|x)f(x,y)</script><p>如果模型能够获取训练数据中的信息，那么就可以假设这两个期望值相等，</p>
+<script type="math/tex; mode=display">
+\mathbf{E}_{\tilde{P}}(f)=\mathbf{E}_p(f)</script><script type="math/tex; mode=display">
+\sum_{x,y}\tilde{P}(x,y)f(x,y)=\sum_{x,y}\tilde{P}(x)P(y|x)f(x,y)</script><p>假如有$n$个特征函数$f_i(x,y)，i＝1,2,…,n$，那么就有$n$个约束条件。<br>接下来便可以定义最大熵模型：<br>假设满足所有约束条件的模型集合为</p>
+<script type="math/tex; mode=display">
+\mathcal{C}\equiv\{P\in\mathcal{P}|\mathbf{E}_{\tilde{P}}(f_i)=\mathbf{E}_p(f_i),i＝1,2,…,n\}</script><p>定义在条件概率分布$P(Y|X)$上的条件熵为</p>
+<script type="math/tex; mode=display">
+H(P)=-\sum_{x,y}\tilde{P}(x)P(y|x)\log p(y|x)</script><p>则模型集合$\mathcal{C}$中条件熵$H(P)$最大的模型称为<strong>最大熵模型</strong>。</p>
+<p><strong>最大熵模型的学习</strong><br>将最大熵模型的学习等价于约束最优化问题，即为：</p>
+<script type="math/tex; mode=display">
+\max_{P\in\mathcal{C}}\  H(P)=-\sum_{x,y}\tilde{P}(x)P(y|x)\log p(y|x)\\
+s.t.\ \ \mathbf{E}_{\tilde{P}}(f_i)=\mathbf{E}_p(f_i),i＝1,2,…,n\\
+\sum_{y}^P(y|x)=1</script><p>将求最大值问题转化为求最小值问题，即为：</p>
+<script type="math/tex; mode=display">
+\min_{P\in\mathcal{C}}\  -H(P)=\sum_{x,y}\tilde{P}(x)P(y|x)\log P(y|x)\\
+s.t.\ \ \mathbf{E}_{\tilde{P}}(f_i)=\mathbf{E}_p(f_i),i＝1,2,…,n\\
+\sum_{y}^P(y|x)=1</script><p>首先，引进拉格朗日乘子$w_0,w_1,w_2,…,w_n$，定义拉格朗日函数$L(P,w)$：</p>
+<script type="math/tex; mode=display">
+L(P,w)=-H(P)+w_0(1-\sum_{y}^P(y|x))+\sum_{i=1}^n w_i(\mathbf{E}_{\tilde{P}}(f_i)-\mathbf{E}_p(f_i))\\
+=\sum_{x,y}\tilde{P}(x)P(y|x)\log P(y|x)+w_0(1-\sum_{y}^P(y|x))+\sum_{i=1}^n w_i(\sum_{x,y}\tilde{P}(x,y)f_i(x,y)-\sum_{x,y}\tilde{P}(x)P(y|x)f_i(x,y))</script><p>由于拉格朗日函数$L(P,w)$是$P$的凸函数，原始问题$\min_{P\in\mathcal{C}}\max<br>_w L(P,w)$的解等价于对偶问题$\max<br>_w \min_{P\in\mathcal{C}}L(P,w)$的解。</p>
+<p><strong>求解对偶问题内部的极小化问题</strong></p>
+<p>$\min_{P\in\mathcal{C}}L(P,w)$是w的函数，将其记作：</p>
+<script type="math/tex; mode=display">
+\varphi(w)=\min_{P\in\mathcal{C}}L(P,w)</script><p>$\varphi(w)$为对偶函数，求$L(P,w)$对$P(Y|X)$的偏导数：</p>
+<script type="math/tex; mode=display">
+\cfrac{\partial L(P,w)}{\partial P(y|x)}=\sum_{x,y}\tilde{P}(x)(\log P(y|x)+1)-\sum_y w_0-\sum_{x,y}(\tilde{P}(x)\sum_{i=1}^nw_if_i(x,y))</script><p>令偏导数等于0，在$\tilde{P}(x)&gt;0$的情况下，解得</p>
+<script type="math/tex; mode=display">
+P(y|x)=exp(\sum_{i=1}^nw_if_i(x,y)+w_0-1)=\cfrac{exp(\sum_{i=1}^n w_if_i(x,y))}{exp(1-w_0)}</script><p>由于$\sum_{y}^P(y|x)=1$，得</p>
+<script type="math/tex; mode=display">
+P(y|x)=\cfrac{1}{Z_w(x)}exp(\sum_{i=1}^n w_if_i(x,y))</script><p>其中，$Z_w(x)=\sum_y exp(\sum_{i=1}^nw_if_i(x,y))$，$Z_w(x)$称为规范化因子；$f_i(x,y)$是特征函数；$w_i$是特征的权值。</p>
+<p><strong>求解对偶问题外部的极大化问题</strong><br>其形式为：</p>
+<script type="math/tex; mode=display">
+\max_w\varphi(w)</script><p>其解记为$w^*$</p>
+<script type="math/tex; mode=display">
+w^*=arg\max_w\varphi(w)</script><p>也就是说，最大熵模型的学习归结为对偶函数$\varphi(w)$的极大化。</p>
+<p>最大熵模型将用于最大熵逆向强化学习，之后介绍最大熵逆向强化学习</p>
+<p><strong>参考</strong><br>信息论基础教程—-李亦农<br>统计学习方法—-李航<br>数学之美—-吴军</p>
 
-\theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。TRPO要解决的问题就是解决这个问题，找到新的策略使得新的回报函数的值单调增，或单调不减。
-$\pi$是一个随机策略，$\rho_
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/TRPO/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
       
     </div>
 
@@ -496,181 +573,32 @@ $\pi$是一个随机策略，$\rho_
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/Actor-Critic/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AMiFans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/timg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AMiFans’s Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/Actor-Critic/" class="post-title-link" itemprop="url">演员-评论家方法(Actor-Critic)</a>
-              
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
+              <a href="/2019/04/27/OpenAI Spinning Up/" rel="next" title="OpenAI Spinning Up">
+                <i class="fa fa-chevron-left"></i> OpenAI Spinning Up
+              </a>
             
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/04/27/最大熵逆向强化学习/" rel="prev" title="最大熵逆向强化学习">
+                最大熵逆向强化学习 <i class="fa fa-chevron-right"></i>
+              </a>
             
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-27 15:44:09 / 修改时间：15:44:13" itemprop="dateCreated datePublished" datetime="2019-04-27T15:44:09+08:00">2019-04-27</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>
-              策略梯度法引入值函数策略梯度法中梯度的基本形式为：
-
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t'=t}^Tr(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})\right]......(1)现在我们回顾一下状态-动作值函数$Q(\ma
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/Actor-Critic/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -680,339 +608,15 @@ $\pi$是一个随机策略，$\rho_
   </article>
 
 
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/PG/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AMiFans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/timg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AMiFans’s Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/PG/" class="post-title-link" itemprop="url">策略梯度方法(Policy Gradients)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-27 15:43:50 / 修改时间：15:43:58" itemprop="dateCreated datePublished" datetime="2019-04-27T15:43:50+08:00">2019-04-27</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。
-策略梯度方法推导策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望
-
-\theta^*=\max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\sum_tr(\mathbf{s}_t,\mathbf{a}_t)\right].
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/PG/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AMiFans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/timg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AMiFans’s Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-27 15:35:50 / 修改时间：15:43:36" itemprop="dateCreated datePublished" datetime="2019-04-27T15:35:50+08:00">2019-04-27</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              I love you
-              
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/hello-world/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -1032,8 +636,17 @@ $\pi$是一个随机策略，$\rho_
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1137,6 +750,23 @@ $\pi$是一个随机策略，$\rho_
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#信息熵"><span class="nav-text">信息熵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#联合熵与相对熵"><span class="nav-text">联合熵与相对熵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最大熵"><span class="nav-text">最大熵</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -1292,6 +922,10 @@ $\pi$是一个随机策略，$\rho_
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
 
   
 
@@ -1303,6 +937,8 @@ $\pi$是一个随机策略，$\rho_
   
 
 
+  
+
 
   
 
@@ -1317,18 +953,6 @@ $\pi$是一个随机策略，$\rho_
   
 
   
-  
-    
-      
-        
-      
-    
-      
-    
-      
-    
-      
-    
   
 
   

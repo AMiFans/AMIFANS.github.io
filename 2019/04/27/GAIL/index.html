@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://malizhi.cn'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+  <meta name="description" content="Inverse reinforcement learning代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：  maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生成对抗模仿学习(GAIL)">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/GAIL/index.html">
+<meta property="og:site_name" content="AMiFans’s Blogs">
+<meta property="og:description" content="Inverse reinforcement learning代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：  maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://github.com/image/GAIL-鞍点.jpg">
+<meta property="og:image" content="https://github.com/image/GAIL结构图.png">
+<meta property="og:image" content="https://github.com/image/GAIL伪代码.jpg">
+<meta property="og:updated_time" content="2019-04-27T07:46:25.969Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="生成对抗模仿学习(GAIL)">
+<meta name="twitter:description" content="Inverse reinforcement learning代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：  maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi">
+<meta name="twitter:image" content="https://github.com/image/GAIL-鞍点.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/GAIL/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>生成对抗模仿学习(GAIL) | AMiFans’s Blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AMiFans’s Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/GAIL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AMiFans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AMiFans’s Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">生成对抗模仿学习(GAIL)
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-27 15:46:21 / 修改时间：15:46:25" itemprop="dateCreated datePublished" datetime="2019-04-27T15:46:21+08:00">2019-04-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Inverse-reinforcement-learning"><a href="#Inverse-reinforcement-learning" class="headerlink" title="Inverse reinforcement learning"></a>Inverse reinforcement learning</h2><p>代价函数用 $c$ 表示，$c$ 的集合为 $\mathcal{C}=\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$，$\pi_E$ 为专家策略。最大因果熵逆向强化学习的优化问题：</p>
+<script type="math/tex; mode=display">
+maximize_{c\in\mathcal{C}}\left(\min_{\pi\in\prod}-  H(\pi)+\mathbb{E}_\pi\left[c(s,a)\right]\right)-\mathbb{E}_{\pi_E}\left[c(s,a)\right]</script><p>其中，$\mathbb{E}_\pi\left[c(s,a)\right]=\mathbb{E}\left[\sum_{t=0}^\infty \gamma^t c(s_t,a_t)\right]$，$H(\pi)=\mathbb{E}_\pi\left[-\log\pi(a|s)\right]$是一个 $\gamma$ 折扣累积熵。<br>最大因果熵逆向强化学习是想找到一个代价函数$c\in\mathcal{C}$，该代价函数 $c$ 分配给专家策略 $\pi_E$ 低的 $cost$ 而分配给其他策略高的 $cost$，从而可以通过某种 $RL$ 方法找到专家策略 $\pi_E$:</p>
+<script type="math/tex; mode=display">
+RL(c)=\arg\min_{\pi\in\prod}-H(\pi)+\mathbb{E}_\pi\left[c(s,a)\right]</script><p>可以看到，$IRL$ 过程中包含一个 $RL$ 过程，可解释为：将代价函数映射为具有高熵的函数然后最小化累计 $cost$ 期望。</p>
+<p>对于一个很大的集合 $\mathcal{C}$，当提供有限的数据集时 $IRL$ 很容易过拟合，因此在 $IRL$ 中加入凸的代价函数正则项 $\psi:\mathbb{R}^{\mathcal{S}\times \mathcal{A}}\rightarrow \overline{\mathbb{R}}$，函数 $\psi$ 必须在所有的 $\mathbb{R}^{\mathcal{S}\times \mathcal{A}}$ 中的凸的，而不是在一个小的参数空间上时凸的。</p>
+<p>带有正则化项 $\psi$ 的最大因果熵逆向强化学习的目的是找到一个代价函数 $c$ 使得专家策略的效果优于其它所有策略（注意：cost 越小则代表效果越好）:</p>
+<script type="math/tex; mode=display">
+IRL_\psi(\pi_E)=\arg\max_{c\in\mathcal{C}}-\psi(c)+\left(\min_{\pi\in\prod}-  H(\pi)+\mathbb{E}_\pi\left[c(s,a)\right]\right)-\mathbb{E}_{\pi_E}\left[c(s,a)\right]</script><p>现在，通过$IRL$得到的代价函数 $\tilde{c} \in IRL_\psi(\pi_E)$，我们的目的是通过 $RL(\tilde{c})$ 找到一个策略。</p>
+<p>对于策略$\pi\in\prod$定义其占用率度量(occupancy measure) $\rho_\pi:\mathcal{S}\times \mathcal{A}\rightarrow\mathbb{R}$，可解释为使用策略 $\pi$ 时，状态-动作对的分布：<br>$\rho_\pi(s,a)=\pi(a|s)\sum_{t=0}^\infty\gamma^t P(s_t=s|\pi)$</p>
+<p>那么对于任意的代价函数 $c$，我们有：</p>
+<script type="math/tex; mode=display">
+\mathbb{E}_\pi\left[c(s,a)\right]=\mathbb{E}\left[\sum_{s,a}\rho_\pi(s,a)c(s,a)\right]</script><p>有效占用率度量( valid occupancy measures)集：$\mathcal{D} \triangleq \{\rho_\pi:\pi\in\prod\}$，可以写为：<br>$\mathcal{D}=\{\rho:\rho\geq 0 \;\;and \;\; \sum_a \rho(s,a)=p_0(s)+\gamma\sum_{s^{‘},a}P(s|s^{’},a)\rho(s^{’},a) \; \forall s\in\mathcal{S}\}$</p>
+<p><strong>命题 1 </strong><br>如果 $\rho\in\mathcal{D}$ ，那么 $\rho$ 是 $\pi_\rho(a|s)=\cfrac{\rho(s,a)}{\sum_{a^{’}}\rho(s,a^{’})}$ 的占用率测量，$\pi_\rho$ 是占用率测量为$\rho$时的唯一策略，即 $\pi_\rho$与$\rho$是一一对应的 。</p>
+<p><strong>命题 2 </strong><br>$RL\circ IRL_\psi(\pi_E)=\arg \min_{\pi\in\prod}-H(\pi)+\psi^{\ast}(\rho_\pi - \rho_{\pi_E})$</p>
+<p>Proposition 2 的证明主要依赖于最优的代价函数和最优策略形成一个鞍点。证明如下：</p>
+<p><img src="\image\GAIL-鞍点.jpg" alt="GAIL-鞍点"></p>
+<p>首先有两个引理：<br><strong>引理1</strong>（暂不作证明）：<br>令$\bar{H}(\rho)=-\sum_{s,a}\rho(s,a)\log\left(\cfrac{\rho(s,a)}{\sum_{a^{’}}\rho(s,a^{’})}\right)$，那么，$\bar{H}$ 是严格的凸的，并且对于任意的 $\pi\in\prod$ 和$\rho\in\mathcal{D}$，$H(\pi)=\bar{H}(\rho_\pi)$，$\bar{H}(\rho)=H(\pi_\rho)$。<br><strong>引理2</strong>（暂不作证明）：<br>如果$L(\pi,c)=-H(\pi)+\mathbb{E}\left[c(s,a)\right]$ 且 $\bar{L}(\rho,c)=-\bar{H}(\rho)+\sum_{s,a}\rho(s,a)c(s,a)$，那么，在所有的代价函数 $c$中，对于任意的策略$\pi\in\prod$，$L(\pi,c)=\bar{L}(\rho_\pi,c)$；对于任意的占用率测量 $\rho\in\mathcal{D}$，$\bar{L}(\rho,c)=L(\pi_\rho,c)$</p>
+<p>证明开始：<br>令$\tilde{c} \in IRL_\psi(\pi_E)$，$\tilde{\pi}\in RL(\tilde{c})=RL\circ IRL_\psi(\pi_E)$，且</p>
+<script type="math/tex; mode=display">
+\pi_A\in\arg \min_{\pi}-H(\pi)+\psi^{\ast}(\rho_\pi - \rho_{\pi_E})\\
+=\arg\min_\pi\max_c-H(\pi)-\psi(c)+\sum_{s,a}(\rho_\pi(s,a)-\rho_{\pi_E}(s,a))c(s,a)</script><p>我们令</p>
+<script type="math/tex; mode=display">
+\bar{L}(\rho,c)=-\bar{H}(\rho)-\psi(c)+\sum_{s,a}(\rho_\pi(s,a)-\rho_{\pi_E}(s,a))c(s,a)</script><p>由命题一下式成立：</p>
+<script type="math/tex; mode=display">
+\rho_A\in\arg\min_{\rho\in\mathcal{D}} \max_c \bar{L}(\rho,c)\\
+\tilde{c}\in\arg\max_c\min_{\rho\in\mathcal{D}}\bar{L}(\rho,c)\\
+\tilde{\rho}\in\arg\min_{\rho\in\mathcal{D}}\bar{L}(\rho,\tilde{c})</script><p>由于 $\bar{L}(\cdot,c)$ 是凸的，$\bar{L}(\rho,\cdot)$ 是凹的，因此有：</p>
+<script type="math/tex; mode=display">
+\min_{\rho\in\mathcal{D}}\max_{c\in\mathcal{C}}\bar{L}(\rho,c)=\max_{c\in\mathcal{C}}\min_{\rho\in\mathcal{D}}\bar{L}(\rho,c)</script><p>所以 $(\rho_A,\tilde{c})$ 和 $(\tilde{\rho},\tilde{c})$ 都是 $\bar{L}$ 的鞍点，由 $\bar{L}(\rho,.)$的凹性，其鞍点有且只有一个，并且是其最值点，所以：</p>
+<script type="math/tex; mode=display">
+\rho_A=\tilde{\rho}</script><p>根据命题1可知：</p>
+<script type="math/tex; mode=display">
+\pi_A=\tilde{\pi}</script><p>所以</p>
+<script type="math/tex; mode=display">
+\tilde{\pi}\in\arg \min_{\pi}-H(\pi)+\psi^{\ast}(\rho_\pi - \rho_{\pi_E})</script><p>Proposition 2 暗示了 $\psi$ 正则化逆向强化学习寻找这样一个策略，它的占用率测量接近于专家策略的占用率测量，它们的接近程度由 $\psi^{\ast}$ 来衡量。<br>不同的 $\psi^{\ast}$ 会导致不同的模仿学习算法。$GAIL$ 便是取了一个特殊的 $\psi$ 而推导出来的。</p>
+<p><strong>推论 1 </strong><br>如果 $\psi$ 是常函数，$\tilde{c} \in IRL_\psi(\pi_E)$，$\tilde{\pi}\in RL(\tilde{c})$ ，那么 $\rho_{\tilde{\pi}}=\rho_{\pi_E}$<br>这个算法几乎没有用的，因为实际上，我们只会得到采样的轨迹，在大规模环境中，专家轨迹是有限的，此算法无法探索到所有的未出现的状态-动作对。</p>
+<h2 id="Generative-adversarial-imitation-learning"><a href="#Generative-adversarial-imitation-learning" class="headerlink" title="Generative adversarial imitation learning"></a>Generative adversarial imitation learning</h2><p>首先我们定义最小期望风险(minimum expected risks)$R_\phi(\rho_\pi,\rho_{\pi_E})$ 为：</p>
+<script type="math/tex; mode=display">
+R_\phi(\rho_\pi,\rho_{\pi_E})=\sum_{s,a}\min_{\gamma\in\mathbb{R}}\rho_\pi(s,a)\phi(\gamma)+\rho_{\pi_E}(s,a)\phi(-\gamma)</script><p>其中 $\phi$ 是任意实数值严格递减的凸函数</p>
+<p>然后，我们要将两个策略的占用率测量的接近程度用最小期望风险表示，即使得下式成立：</p>
+<script type="math/tex; mode=display">
+\psi^{\ast}(\rho_\pi - \rho_{\pi_E})=-R_\phi(\rho_\pi,\rho_{\pi_E})</script><p>为了达到这个目的，引入以下函数，其中我们让 $T$ 为$-\phi$ 的范围：</p>
+<script type="math/tex; mode=display">
+\psi_\phi(c)=\left\{\begin{array}{rcl}\sum_{s,a}\rho_{\pi_E}(s,a)g_\phi(c(s,a)) & if\;\; c(s,a)\in T \;\;for\;\;all\;\;s,a\\
++\infty & otherwise \end{array}\right.
+\;\;where \;\;
+g_\phi(x)=\left\{\begin{array}{rcl}-x+\phi(-\phi^{-1}(-x)) & if\;\;x\in T \\+\infty & \mbox{otherwise}
+           \end{array}\right.</script><p>那么，可以证明 $\psi_\phi$ 是闭合的、正的、凸的，并且 $RL\circ IRL_\psi(\pi_E)=\arg \min_{\pi}-H(\pi)-R_\phi(\rho_\pi,\rho_{\pi_E})$<br>接下来我们证明 $\psi^*(\rho_\pi - \rho_{\pi_E})=-R_\phi(\rho_\pi,\rho_{\pi_E})$：</p>
+<script type="math/tex; mode=display">
+\psi^{\ast}(\rho_\pi-\rho_{\pi_E})=\max_{c\in\mathcal{C}}\sum_{s,a}\left(\rho_\pi(s,a)-\rho_{\pi_E}(s,a)\right)c(s,a)-\sum_{s,a}\rho_{\pi_E}(s,a)g_\phi(c(s,a))\\
+=\sum_{s,a}\max_{c\in T}\left(\rho_\pi(s,a)-\rho_{\pi_E}(s,a)\right)c-\rho_{\pi_E}(s,a)\left[-c+\phi(-\phi^{-1}(-c))\right]\\
+=\sum_{s,a}\max_{c\in T}\rho_\pi(s,a)c-\rho_{\pi_E}(s,a)\phi(-\phi^{-1}(-c))\\
+=\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)(-\phi(\gamma))-\rho_{\pi_E}(s,a)\phi(-\phi^{-1}(\phi(\gamma)))\\
+=\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)(-\phi(\gamma))-\rho_{\pi_E}(s,a)\phi(-\gamma)\\
+=-R_\phi(\rho_\pi,\rho_{\pi_E})</script><p>在前文中我们让 $T$ 为$-\phi$ 的范围，因此在上式中我们对变量$c$做了调整：$c\rightarrow-\phi(\gamma)$。</p>
+<p>上述展示了如何从 $\phi$ 构造成本函数正则化项 $\psi$ ，作为推论，我们得到了逻辑损失的成本函数正则化项，其最优期望风险是J-S散度（达到常数）。</p>
+<p>如果令  $\phi(x)=\log(1+e^{-x})$，那么 $\psi_\phi(c)$ 将会减小到 $\psi_{GA}$：</p>
+<script type="math/tex; mode=display">
+\psi_{GA}(c)=\left\{\begin{array}{rcl}\mathbb{E}_{\pi_E}g(c(s,a)) & if\;\; c<0 \\+\infty & otherwise\end{array}\right.
+where \; g(x)=\left\{\begin{array}{rcl}-x-\log(1-e^x) & if\;\;x<0 \\+\infty & otherwise\end{array}\right.\\</script><p>则：</p>
+<script type="math/tex; mode=display">
+\psi^{\ast}(\rho_\pi - \rho_{\pi_E})=-R_\phi(\rho_\pi,\rho_{\pi_E})\\
+=\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)\log\left(\cfrac{1}{1+e^{-\gamma}}\right)+\rho_{\pi_E}(s,a)\log\left(\cfrac{1}{1+e^{\gamma}}\right)\\
+=\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)\log\left(\cfrac{1}{1+e^{-\gamma}}\right)+\rho_{\pi_E}(s,a)\log\left(1-\cfrac{1}{1+e^{-\gamma}}\right)\\
+=\sum_{s,a}\max_{\gamma\in\mathbb{R}}\rho_\pi(s,a)\log\left(\sigma(\gamma)\right)+\rho_{\pi_E}(s,a)\log\left(1-\sigma(\gamma)\right)</script><p>其中，$\sigma(\gamma)=\cfrac{1}{1+e^{-\gamma}}$ 为  $sigmoid$ 函数，所以，可写为以下形式：</p>
+<script type="math/tex; mode=display">
+\psi^{\ast}(\rho_\pi - \rho_{\pi_E})=\max_{D\in (0,1)^{\mathcal{S}\times \mathcal{A}
+}}\sum_{s,a}\rho_\pi(s,a)\log\left(D(s,a)\right)+\rho_{\pi_E}(s,a)\log\left(1-D(s,a)\right)\\
+=\max_{D\in (0,1)^{\mathcal{S}\times \mathcal{A}
+}}\mathbb{E}_\pi\log\left(D(s,a)\right)+\mathbb{E}_{\pi_E}\log\left(1-D(s,a)\right)</script><p>我们的目的是寻找一个策略，它的占用率测量接近于专家策略的占用率测量，即求 $\psi^{\ast}(\rho_\pi - \rho_{\pi_E})$ 的最小值，引入因果熵$H$（由参数$\lambda&gt;0$控制），得到一个新的模仿学习算法，即：$GAIL$</p>
+<script type="math/tex; mode=display">
+\min_{\pi}imize\max_{D\in (0,1)^{\mathcal{S}\times \mathcal{A}
+}}\mathbb{E}_\pi\log\left(D(s,a)\right)+\mathbb{E}_{\pi_E}\log\left(1-D(s,a)\right)-\lambda H(\pi)</script><p>GAIL的结构图如下：</p>
+<p><img src="\image\GAIL结构图.png" alt="GAIL结构图"></p>
+<p>GAIL的伪代码如下：</p>
+<p><img src="\image\GAIL伪代码.jpg" alt="GAIL伪代码"></p>
+<p>生成器：利用强化学习的算法产生样本轨迹；<br>判别器：根据专家轨迹与样本轨迹来训练判别器。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/27/强化学习环境搭建中的一些技巧/" rel="next" title="强化学习环境搭建中的一些技巧">
+                <i class="fa fa-chevron-left"></i> 强化学习环境搭建中的一些技巧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/27/DAC in AIL/" rel="prev" title="Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差">
+                Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/timg.jpg" alt="AMiFans">
+            
+              <p class="site-author-name" itemprop="name">AMiFans</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/yourname" title="GitHub &rarr; https://github.com/yourname"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://space.bilibili.com/30124592/dynamic" title="Bilibili &rarr; https://space.bilibili.com/30124592/dynamic" rel="noopener" target="_blank"><i class="fa fa-fw fa-simplybuilt"></i>Bilibili</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://mp.weixin.qq.com/mp/homepage?__biz=MzAwOTMyNTI2MQ==&hid=1&sn=7afcc009a1470a55d4c0ff25259af38c&scene=18#wechat_redirect" title="Wechat &rarr; http://mp.weixin.qq.com/mp/homepage?__biz=MzAwOTMyNTI2MQ==&hid=1&sn=7afcc009a1470a55d4c0ff25259af38c&scene=18#wechat_redirect" rel="noopener" target="_blank"><i class="fa fa-fw fa-wechat"></i>Wechat</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Inverse-reinforcement-learning"><span class="nav-text">Inverse reinforcement learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generative-adversarial-imitation-learning"><span class="nav-text">Generative adversarial imitation learning</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AMiFans</span>
+
+  
+
+  
+</div>
+<!--
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.1</div>
+
+-->
+
+
+
+
+<!-- 新增访客统计代码 -->
+
+<div class="busuanzi-count">
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">18.4k</span> 字
+    </span>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.1"></script>
+
+
+  
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

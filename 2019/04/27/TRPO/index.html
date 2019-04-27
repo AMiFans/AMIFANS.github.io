@@ -117,20 +117,24 @@
 
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="AMiFans’s Blogs">
-<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/page/2/index.html">
+  <meta name="description" content="根据策略梯度方法，参数更新方程式为：  \theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。TRPO要解决的问题就是解决这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="信赖域策略优化(TRPO)">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/TRPO/index.html">
 <meta property="og:site_name" content="AMiFans’s Blogs">
+<meta property="og:description" content="根据策略梯度方法，参数更新方程式为：  \theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。TRPO要解决的问题就是解决这">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-27T07:44:38.801Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AMiFans’s Blogs">
+<meta name="twitter:title" content="信赖域策略优化(TRPO)">
+<meta name="twitter:description" content="根据策略梯度方法，参数更新方程式为：  \theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。TRPO要解决的问题就是解决这">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/page/2/">
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/TRPO/">
 
 
 
@@ -140,7 +144,7 @@
   };
 </script>
 
-  <title>AMiFans’s Blogs</title>
+  <title>信赖域策略优化(TRPO) | AMiFans’s Blogs</title>
   
 
 
@@ -188,8 +192,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -340,9 +343,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -374,10 +377,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/TRPO/" class="post-title-link" itemprop="url">信赖域策略优化(TRPO)</a>
+          <h1 class="post-title" itemprop="name headline">信赖域策略优化(TRPO)
+
               
             
           </h1>
@@ -455,25 +456,54 @@
       
 
       
-        
-          
-            <p>
-              根据策略梯度方法，参数更新方程式为：
+        <p>根据策略梯度方法，参数更新方程式为：</p>
+<script type="math/tex; mode=display">
+\theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)</script><p>在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。<br>TRPO要解决的问题就是解决这个问题，找到新的策略使得新的回报函数的值单调增，或单调不减。</p>
+<p>$\pi$是一个随机策略，$\rho_0(s_0)$是初始状态$s_0$的分布。$\eta\left(\pi\right)$代表折扣奖赏的期望，定义如下：</p>
+<script type="math/tex; mode=display">
+\eta\left(\pi\right)=E_{s_0,a_0,\cdots ~}\left[\sum_{t=0}^{\infty}{\gamma^tA_{\pi}\left(s_t,a_t\right)}\right]......(2)
+\\ subject\ to~~~\ s_0∼\rho_0(s_0),a_t∼\pi(a_t|s_t),s_{t+1}∼P(s_{t+1}|s_t, a_t)</script><p>TRPO的目的是找到新的策略，使得回报函数单调不减。那么如果将新的策略所对应的回报函数可以用旧的策略所对应的回报函数与其他项之和(公式3)代替并保证新的策略所对应的其他项大于等于零，那么新的策略就能保证回报函数单调不减。</p>
+<script type="math/tex; mode=display">
+\eta\left(\tilde{\pi}\right)=\eta\left(\pi\right)+E_{s_0,a_0,\cdots ~\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^tA_{\pi}\left(s_t,a_t\right)}\right]......(3)\\
+其中, A_{\pi}\left(s,a\right)=Q_{\pi}\left(s,a\right)-V_{\pi}\left(s\right)......(4)</script><p>证明如下($\tilde{\pi}$为新策略，$\pi$为旧策略)：</p>
+<script type="math/tex; mode=display">
+E_{\tau |\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^tA_{\pi}\left(s_t,a_t\right)}\right] \\ =E_{\tau |\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^t\left(r\left(s\right)+\gamma V^{\pi}\left(s_{t+1}\right)-V^{\pi}\left(s_t\right)\right)}\right] \\ =E_{\tau |\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^t\left(r\left(s_t\right)\right)+\sum_{t=0}^{\infty}{\gamma^t\left(\gamma V^{\pi}\left(s_{t+1}\right)-V^{\pi}\left(s_t\right)\right)}}\right] \\ =E_{\tau |\tilde{\pi}}\left[\sum_{t=0}^{\infty}{\gamma^t\left(r\left(s_t\right)\right)}\right]+E_{s_0}\left[-V^{\pi}\left(s_0\right)\right] \\ =\eta\left(\tilde{\pi}\right)-\eta\left(\pi\right)</script><p>我们定义:</p>
+<script type="math/tex; mode=display">
+\rho_{\pi}\left(s\right)=P\left(s_0=s\right)+\gamma P\left(s_1=s\right)+\gamma^2P\left(s_2=s\right)+\cdots......(5)</script><p>为了出现策略项，我们可以利用公式（5）将公式（3）改写为</p>
+<script type="math/tex; mode=display">
+\eta\left(\tilde{\pi}\right)=\eta\left(\pi\right)+\sum_{t=0}^{\infty}{\sum_s{P\left(s_t=s|\tilde{\pi}\right)}}\sum_a{\tilde{\pi}\left(a|s\right)\gamma^tA_{\pi}\left(s,a\right)}=\eta\left(\pi\right)+\sum_s{\rho_{\tilde{\pi}}\left(s\right)\sum_a{\tilde{\pi}\left(a|s\right)A^{\pi}\left(s,a\right)}}......(6)</script><p>由于$\rho_{\tilde{\pi}}$严重的依赖于新的策略$\tilde{\pi}$，使得公式（6）很难去优化。因此，我们忽略因策略改变而产生的状态分布的改变，即令$\rho_{\pi}\approx \rho_{\tilde{\pi}}$，近似后的公式为</p>
+<script type="math/tex; mode=display">
+L_{\pi}\left(\tilde{\pi}\right)=\eta\left(\pi\right)+\sum_s{\rho_{\pi}\left(s\right)\sum_a{\tilde{\pi}\left(a|s\right)A^{\pi}\left(s,a\right)}}......(7)</script><p>对比公式（6）与公式（7），我们发现$L_{\pi}\left(\tilde{\pi}\right)\textrm{，}\eta\left(\tilde{\pi}\right)$在策略 $\pi_{\theta_{old}} $处一阶近似，即：</p>
+<script type="math/tex; mode=display">
+L_{\pi_{\theta_{old}}}\left(\pi_{\theta_{old}}\right)=\eta\left(\pi_{\theta_{old}}\right) \\ \nabla_{\theta}L_{\pi_{\theta_{old}}}\left(\pi_{\theta}\right)|_{\theta =\theta_{old}}=\nabla_{\theta}\eta\left(\pi_{\theta}\right)|_{\theta =\theta_{old}}......(8)</script><p>TRPO在“自然策略梯度”的基础上提出了如下的算法，</p>
+<script type="math/tex; mode=display">
+\eta\left(\tilde{\pi}\right)\geqslant L_{\pi}\left(\tilde{\pi}\right)-CD_{KL}^{\max}\left(\pi ,\tilde{\pi}\right) \\ subject\ to~~~\ C=\frac{2\varepsilon\gamma}{\left(1-\gamma\right)^2},\varepsilon=\max_{s,a}|A_{\pi}\left(s,a\right)|......(9)</script><p>该不等式带给我们重要的启示，那就是给出了$\eta\left(\tilde{\pi}\right)$的下界，我们定义这个下界为$M_i\left(\pi\right)=L_{\pi_i}\left(\pi\right)-CD_{KL}^{\max}\left(\pi_i,\pi\right)$</p>
+<p>利用这个下界我们可以证明策略的单调性：</p>
+<script type="math/tex; mode=display">
+\eta\left(\pi_{i+1}\right)\geqslant M_i\left(\pi_{i+1}\right)\\
+\eta\left(\pi_i\right)=M_i\left(\pi_i\right)\\
+则\ \eta\left(\pi_{i+1}\right)-\eta\left(\pi_i\right)\geqslant M_i\left(\pi_{i+1}\right)-M\left(\pi_i\right)......(10)</script><p>如果新的策略$\pi_{i+1}$能使得$M_i$最大，那么有不等式$M_i\left(\pi_{i+1}\right)-M\left(\pi_i\right)\geqslant 0 $，则$\eta\left(\pi_{i+1}\right)-\eta\left(\pi_i\right)\geqslant 0 $，那么我们的目标将转化为寻找使得$M_i$最大的新的策略。可形式化为</p>
+<script type="math/tex; mode=display">
+maximize_{\theta}\left[L_{\theta_{old}}\left(\theta\right)-CD_{KL}^{\max}\left(\theta_{old},\theta\right)\right]......(11)</script><p>然而在实际中，使用惩罚系数 C 会使得更新步伐非常小，因此，提出如下的形式</p>
+<script type="math/tex; mode=display">
+maximize_{\theta}L_{\theta_{old}}\left(\theta\right)\\
+subject\ to~~~D_{KL}^{\max}\left(\theta_{old},\theta\right)\leqslant \delta......(12)</script><p>但是，这个问题强加了一个约束，即KL散度在状态空间的每个点都有界限， 尽管理论上可行，但由于存在大量约束，这个问题难以解决。因此我们可以使用考虑平均KL散度来近似</p>
+<script type="math/tex; mode=display">
+maximize_{\theta}L_{\theta_{old}}\left(\theta\right)\\
+subject\ to~~~\bar{D}_{KL}^{\rho_{\theta_{old}}}\left(\theta_{old},\theta\right)\le\delta</script><p>也即：</p>
+<script type="math/tex; mode=display">
+maximize_{\theta}\sum_s{\rho_{\theta_{old}}\left(s\right)\sum_a{\pi_\theta\left(a|s\right)A_{\theta_{old}}\left(s,a\right)}}\\
+subject\ to~~~\bar{D}_{KL}^{\rho_{\theta_{old}}}\left(\theta_{old},\theta\right)\le\delta......(13)</script><p>另外，我们同样也可以引入“重要性采样”，并作形式上的演化，最终的不等式化为</p>
+<script type="math/tex; mode=display">
+ maximize_{\theta}\;E_{s~\pi_{\theta_{old}},a~\pi_{\theta_{old}}}\left[\frac{\pi_{\theta}\left(a|s\right)}{\pi_{\theta_{old}}\left(a|s\right)}A_{\theta_{old}}\left(s,a\right)\right] \\ subject\ to\;
+E_{s~\pi_{\theta_{old}}}\left[D_{KL}\left(\pi_{\theta_{old}}\left(\cdot |s\right)||\pi_{\theta}\left(\cdot |s\right)\right)\right]\le\delta......(14)</script><p>论文中提出，可以将$A_{\theta_{old}}\left(s,a\right)$用$Q_{\theta_{old}}\left(s,a\right)$代替。</p>
+<p>论文的部分技巧总结</p>
+<ul>
+<li>理论上证明了可通过优化替代目标$M_i\left(\pi\right)$并对KL散度进行惩罚来更新策略使得$\eta$单调递增。 然而，较大惩罚系数$C$会导致更新步伐过小，所以我们希望减小这个系数。实际上，很难有力地选择惩罚系数，因此我们使用硬约束$\delta$（KL散度的界限）而不是惩罚。</li>
+<li>$D_{KL}^{\max}\left(\theta_{old},\theta\right)$很难进行数值优化和估计，因此我们用$\bar{D}_{KL}^{\rho_{\theta_{old}}}\left(\theta_{old},\theta\right)$来代替。</li>
+<li>我们的理论忽略了优势函数的估计误差。 Kakade和Langford（2002）在他们的推导中考虑了这个误差，并且在本文的背景中也存在相同的论点，但是为了简单化我们省略了它。</li>
+</ul>
 
-\theta_{new}=\theta_{old}+\alpha\nabla_{\theta}J.....(1)在策略梯度方法中，合适的步长$\alpha$对于参数更新至关重要，当步长不合适时，更新的参数所对应的策略是一个更不好的策略，当利用这个更不好的策略进行采样学习时，再次更新的参数会更差，因此很容易导致越学越差，最后崩溃。TRPO要解决的问题就是解决这个问题，找到新的策略使得新的回报函数的值单调增，或单调不减。
-$\pi$是一个随机策略，$\rho_
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/TRPO/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
       
     </div>
 
@@ -496,181 +526,32 @@ $\pi$是一个随机策略，$\rho_
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/Actor-Critic/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AMiFans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/timg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AMiFans’s Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/Actor-Critic/" class="post-title-link" itemprop="url">演员-评论家方法(Actor-Critic)</a>
-              
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
+              <a href="/2019/04/27/Actor-Critic/" rel="next" title="演员-评论家方法(Actor-Critic)">
+                <i class="fa fa-chevron-left"></i> 演员-评论家方法(Actor-Critic)
+              </a>
             
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/04/27/PPO/" rel="prev" title="近端策略优化算法(PPO)">
+                近端策略优化算法(PPO) <i class="fa fa-chevron-right"></i>
+              </a>
             
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-27 15:44:09 / 修改时间：15:44:13" itemprop="dateCreated datePublished" datetime="2019-04-27T15:44:09+08:00">2019-04-27</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>
-              策略梯度法引入值函数策略梯度法中梯度的基本形式为：
-
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t'=t}^Tr(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})\right]......(1)现在我们回顾一下状态-动作值函数$Q(\ma
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/Actor-Critic/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -680,339 +561,15 @@ $\pi$是一个随机策略，$\rho_
   </article>
 
 
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/PG/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AMiFans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/timg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AMiFans’s Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/PG/" class="post-title-link" itemprop="url">策略梯度方法(Policy Gradients)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-27 15:43:50 / 修改时间：15:43:58" itemprop="dateCreated datePublished" datetime="2019-04-27T15:43:50+08:00">2019-04-27</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。
-策略梯度方法推导策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望
-
-\theta^*=\max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\sum_tr(\mathbf{s}_t,\mathbf{a}_t)\right].
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/PG/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AMiFans">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/timg.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AMiFans’s Blogs">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/27/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-27 15:35:50 / 修改时间：15:43:36" itemprop="dateCreated datePublished" datetime="2019-04-27T15:35:50+08:00">2019-04-27</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              I love you
-              
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/hello-world/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -1292,6 +849,10 @@ $\pi$是一个随机策略，$\rho_
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
 
   
 
@@ -1303,6 +864,8 @@ $\pi$是一个随机策略，$\rho_
   
 
 
+  
+
 
   
 
@@ -1317,18 +880,6 @@ $\pi$是一个随机策略，$\rho_
   
 
   
-  
-    
-      
-        
-      
-    
-      
-    
-      
-    
-      
-    
   
 
   

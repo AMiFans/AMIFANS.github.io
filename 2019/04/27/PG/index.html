@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://malizhi.cn'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+  <meta name="description" content="策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。 策略梯度方法推导策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望  \theta^*=\max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau">
+<meta property="og:type" content="article">
+<meta property="og:title" content="策略梯度方法(Policy Gradients)">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/PG/index.html">
+<meta property="og:site_name" content="AMiFans’s Blogs">
+<meta property="og:description" content="策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。 策略梯度方法推导策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望  \theta^*=\max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-27T07:43:58.690Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="策略梯度方法(Policy Gradients)">
+<meta name="twitter:description" content="策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。 策略梯度方法推导策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望  \theta^*=\max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau">
+
+
+
+
+
+
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/PG/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>策略梯度方法(Policy Gradients) | AMiFans’s Blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AMiFans’s Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/PG/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AMiFans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AMiFans’s Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">策略梯度方法(Policy Gradients)
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-27 15:43:50 / 修改时间：15:43:58" itemprop="dateCreated datePublished" datetime="2019-04-27T15:43:50+08:00">2019-04-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>策略梯度方法（PG）是强化学习（RL）中经常使用的算法。基于值函数的DQN算法通过近似估算状态-动作值函数$Q(s,a)$来推断最优策略，而策略梯度方法则是直接优化策略。</p>
+<h3 id="策略梯度方法推导"><a href="#策略梯度方法推导" class="headerlink" title="策略梯度方法推导"></a><strong>策略梯度方法推导</strong></h3><p>策略梯度方法的目标是找到一组最优的神经网络参数$\theta^*$最大化总收益函数关于轨迹分布的期望</p>
+<script type="math/tex; mode=display">
+\theta^*=\max_\theta\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\sum_tr(\mathbf{s}_t,\mathbf{a}_t)\right]......(1)</script><p>首先，定义我们的目标函数为：</p>
+<script type="math/tex; mode=display">
+J(\theta)=\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\sum_tr(\mathbf{s}_t,\mathbf{a}_t)\right]......(2)</script><p>显然，直接求上式的梯度是不可能的，原因如下：</p>
+<ul>
+<li>参数蕴含在每一时刻的 $\pi_{\theta}(a_t|s_t)$ 中；</li>
+<li>策略会影响 $a_t$ 的概率分布，但不是直接的影响；</li>
+<li>$a_t$ 虽然具有概率分布，但是为了收获奖励，在实际环境中必须做出一个确定性的选择才行；</li>
+<li>奖励本身与参数没有关系，因为奖励对参数求导为零。</li>
+</ul>
+<p>因此，需要公式（2）变形，现在令轨迹的收益$r(\tau)=\sum_tr(\mathbf{s}_t,\mathbf{a}_t)$, 则目标函数可以写为</p>
+<script type="math/tex; mode=display">
+J(\theta)=\mathbf{E}_{\tau\sim p_\theta(\tau)}[r(\tau)]......(3)</script><p>我们假设$\tau$的分布函数$p_\theta(\tau)$是可微分的，那么根据期望的定义，</p>
+<script type="math/tex; mode=display">
+J(\theta)=\int p_\theta(\tau)r(\tau)\mathrm{d}\tau......(4)</script><p>它的梯度为</p>
+<script type="math/tex; mode=display">
+\nabla_\theta J(\theta)=\int \nabla_\theta p_\theta(\tau)r(\tau)\mathrm{d}\tau......(5)</script><p>存在下面的一个恒等式：</p>
+<script type="math/tex; mode=display">
+p_\theta(\tau)\nabla_\theta \log p_\theta(\tau)=p_\theta(\tau)\frac{\nabla_\theta p_\theta(\tau)}{p_\theta(\tau)}=\nabla_\theta p_\theta(\tau)......(6)</script><p>将该恒等式带入公式（5）得到</p>
+<script type="math/tex; mode=display">
+\nabla_\theta J(\theta)=\int p_\theta(\tau)\nabla_\theta \log p_\theta(\tau)r(\tau)\mathrm{d}\tau=\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)r(\tau)]......(7)</script><p>  </p><p style="color: red;">策略梯度可以表示为期望，这意味着我们可以使用抽样来近似它。</p>接下来我们谈谈如何计算$\nabla_\theta \log p_\theta(\tau)$<p></p>
+<p>由Markov性，一条轨迹$\tau$出现的概率是</p>
+<script type="math/tex; mode=display">
+p_\theta(\tau)=p(\mathbf{s}_1)\prod_{t=1}^T\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)......(8)</script><p>方程两边同时取对数，可得</p>
+<script type="math/tex; mode=display">
+\log p_\theta(\tau)=\log p(\mathbf{s}_1)+\sum_{t=1}^T[\log \pi_\theta(\mathbf{a}_t|\mathbf{s}_t)+\log p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)]......(9)</script><p>由于$\nabla_\theta \log p_\theta(\tau)$的值仅仅和带有参数$\theta$的项有关，那么</p>
+<script type="math/tex; mode=display">
+\nabla_\theta\log p_\theta(\tau)=\sum_{t=1}^T\nabla_\theta\log \pi_\theta(\mathbf{a}_t|\mathbf{s}_t)......(10)</script><p>最终，目标函数的梯度变为</p>
+<script type="math/tex; mode=display">
+\nabla_\theta J(\theta)=\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\left(\sum_{t=1}^T\nabla_\theta\log \pi_\theta(\mathbf{a}_t|\mathbf{s}_t)\right)\left(\sum_{t=1}^Tr(\mathbf{s}_t,\mathbf{a}_t)\right)\right]......(11)</script><p>在从实际系统中抽样时，我们用下面的式子进行估算</p>
+<script type="math/tex; mode=display">
+\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\left[\left(\sum_{t=1}^T\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\right)\left(\sum_{t=1}^Tr(\mathbf{s}_{i,t},\mathbf{a}_{i,t})\right)\right]......(12)</script><p>接下来，我们便可以使用 $\theta \leftarrow \theta + \alpha \nabla_\theta J(\theta)$ 来更新参数 $\theta$</p>
+<p>$\sum_{t=1}^T\nabla_\theta\log \pi_\theta(\mathbf{a}_t|\mathbf{s}_t)$是最大对数似然。在深度学习中，它衡量观察数据的可能性。在强化学习的背景下，它衡量了当前策略下轨迹的可能性。通过将其与奖励相乘，我们希望如果轨迹导致高的正奖励，则增加策略的出现可能性。相反，如果策略导致高的负奖励，我们希望降低该策略的出现可能性。</p>
+<h3 id="策略梯度方法改进"><a href="#策略梯度方法改进" class="headerlink" title="策略梯度方法改进"></a><strong>策略梯度方法改进</strong></h3><p><strong>策略梯度方法的高方差问题：</strong> 由于采样的轨迹千差万别，而且可能不同的 action 会带来一样的 Expected Reward。如果在分类任务中出现一个输入可以分为多个类的情况，梯度就会乱掉，因为网络不知道应该最大化哪个类别的输出概率。梯度很不稳定，就会带来收敛性很差的问题。为了解决这个问题，提出下面两种方法：<br><strong>1.修改因果关系：</strong> 因果关系指的是，当前时间点的策略不能影响该时间点之前的时间点的所带来的收益，这个在直觉上很好理解，今天老板看到你工作努力想给你奖赏，老板不会给你昨天的工资加倍，只会给你今天的工资或者未来的工资加倍。</p>
+<p>在公式（12）中便存在这样一个问题，在时间点 $t$ 的策略影响到了时间点 $t$ 之前的时间点 $t’$ 的收益。因此，对公式（12）做出如下调整</p>
+<script type="math/tex; mode=display">
+\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\left(\sum_{t'=t}^Tr(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})\right)\right]......(13)</script><p>其中，我们把$\hat{Q}_{i,t}=\sum_{t’=t}^Tr(\mathbf{s}_{i,t’},\mathbf{a}_{i,t’})$称作 <em>“reward-to-go”</em>，意为“之后的奖赏”。</p>
+<p><strong>2.引入基线：</strong> 首先，引入基线后的梯度的形式为</p>
+<script type="math/tex; mode=display">
+\nabla_\theta J(\theta)=\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)(r(\tau)-b)]......(14)</script><p>其中，$b$ 是一个常数。接下来在数学上证明其合理性</p>
+<ul>
+<li><p>计算期望：</p>
+<script type="math/tex; mode=display">
+\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)b]=\int p_\theta(\tau)\nabla_\theta \log p_\theta(\tau)b\mathrm{d}\tau=\int \nabla_\theta p_\theta(\tau)b\mathrm{d}\tau=b\nabla_\theta\int p_\theta(\tau)\mathrm{d}\tau=b\nabla_\theta1=0......(15)</script><p>因此，引入常数 $b$ 之后，$\nabla_\theta J(\theta)$ 的值不会改变。其中一个不错的基准线是</p>
+<script type="math/tex; mode=display">
+b_t=\frac{1}{N}\sum_iQ^\pi(\mathbf{s}_{i,t},\mathbf{a}_{i,t})</script></li>
+<li><p>计算方差<br>引入常数 $b$ 之后，尽管期望值没有发生变化，但是如何保证方差减小呢？<br>方差的表达式为 $\text{Var}[X]=\mathbf{E}[X^2]-\mathbf{E}[X]^2$。而$\nabla_\theta J(\theta)=\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)(r(\tau)-b)]$，其方差为：</p>
+<script type="math/tex; mode=display">
+\text{Var}=\mathbf{E}_{\tau\sim p_\theta(\tau)}[(\nabla_\theta \log p_\theta(\tau)(r(\tau)-b))^2]-\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)(r(\tau)-b)]^2=\mathbf{E}_{\tau\sim p_\theta(\tau)}[(\nabla_\theta \log p_\theta(\tau)(r(\tau)-b))^2]-\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)r(\tau)]^2......(16)</script><p>令$g(\tau):=\nabla_\theta \log p_\theta(\tau)$，并 使 $\text{Var}$ 对 $b$ 的一阶导数为0，则</p>
+<script type="math/tex; mode=display">
+\frac{\mathrm{d}\text{Var}}{\mathrm{d}b}=\frac{\mathrm{d}}{\mathrm{d}b}\mathbf{E}[g(\tau)^2(r(\tau)-b)^2]=\frac{\mathrm{d}}{\mathrm{d}b}\left(\mathbf{E}[g(\tau)^2 r(\tau)^2]-2b\mathbf{E}[g(\tau)^2 r(\tau)]+b^2\mathbf{E}[g(\tau)^2]\right)=0......(17)</script><p>化简后得到</p>
+<script type="math/tex; mode=display">
+-2\mathbf{E}[g(\tau)^2 r(\tau)]+2b^*\mathbf{E}[g(\tau)^2]=0......(18)</script><p>求解得到 $b$ 的最优值</p>
+<script type="math/tex; mode=display">
+b^*=\frac{\mathbf{E}[g(\tau)^2 r(\tau)]}{\mathbf{E}[g(\tau)^2]}......(19)</script></li>
+</ul>
+<p><strong>策略梯度方法的样本效率问题：</strong> 策略梯度法是一个在线 (on-policy) 算法，这是因为在计算策略梯度$\nabla_\theta J(\theta)=\mathbf{E}_{\tau\sim p_\theta(\tau)}[\nabla_\theta \log p_\theta(\tau)r(\tau)]$的时候所用的数据都是在新的策略下采样得到的，这就要求每次梯度更新之后就要根据新的策略全部重新采样，并把之前的在旧策略下采样到的样本全都丢弃，这种做法对数据的利用率非常低，使得收敛的速度也极低。那么如何有效利用旧的样本呢？这就需要引入<strong>重要性采样</strong> 的概念。</p>
+<ul>
+<li><p><strong>重要性采样（Importance Sampling）</strong> </p>
+<ul>
+<li>重要性采样的原理是<script type="math/tex; mode=display">
+\mathbf{E}_{x\sim p(x)}[f(x)]=\int p(x)f(x)\mathrm{d}x=\int q(x)\frac{p(x)}{q(x)}f(x)\mathrm{d}x=\mathbf{E}_{x\sim q(x)}\left[\frac{p(x)}{q(x)}f(x)\right]......(20)</script></li>
+</ul>
+</li>
+</ul>
+<p>将重要性采样的原理应用到我们的目标函数，则满足以下等式</p>
+<script type="math/tex; mode=display">
+J(\theta)=\mathbf{E}_{\tau\sim p_\theta(\tau)}[r(\tau)]=\mathbf{E}_{\tau\sim \bar{p}(\tau)}\left[\frac{p_\theta(\tau)}{\bar{p}(\tau)}r(\tau)\right]......(21)</script><p>由公式（8）可知</p>
+<script type="math/tex; mode=display">
+\frac{p_\theta(\tau)}{\bar{p}(\tau)}=\frac{p(\mathbf{s}_1)\prod_{t=1}^T\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)}{p(\mathbf{s}_1)\prod_{t=1}^T\bar{\pi}(\mathbf{a}_t|\mathbf{s}_t)p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)}=\frac{\prod_{t=1}^T\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)}{\prod_{t=1}^T\bar{\pi}(\mathbf{a}_t|\mathbf{s}_t)}</script><p>现在，我们求目标函数 $J(\theta’)=\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\frac{p_{\theta’}(\tau)}{p_{\theta}(\tau)}r(\tau)\right]$ 的梯度，</p>
+<script type="math/tex; mode=display">
+\nabla_{\theta'}J(\theta')=\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\frac{\nabla_{\theta'}p_{\theta'}(\tau)}{p_{\theta}(\tau)}r(\tau)\right]=\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\frac{p_{\theta'}(\tau)}{p_{\theta}(\tau)}\nabla_{\theta'}\log p_{\theta'}(\tau)r(\tau)\right]=\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\left(\prod_{t=1}^T\frac{\pi_{\theta'}(\mathbf{a}_t|\mathbf{s}_t)}{\pi_{\theta}(\mathbf{a}_t|\mathbf{s}_t)}\right)\left(\sum_{t=1}^T\nabla_{\theta'}\log \pi_{\theta'}(\mathbf{a}_t|\mathbf{s}_t)\right)\left(\sum_{t=1}^Tr(\mathbf{s}_t,\mathbf{a}_t)\right)\right]</script><p>最后像前文所述，通过修正因果关系和引入基线来减小方差</p>
+<script type="math/tex; mode=display">
+\nabla_{\theta'}J(\theta')=\mathbf{E}_{\tau\sim p_\theta(\tau)}\left[\sum_{t=1}^T\nabla_{\theta'}\log \pi_{\theta'}(\mathbf{a}_t|\mathbf{s}_t)\left(\prod_{t'=1}^t\frac{\pi_{\theta'}(\mathbf{a}_{t'}|\mathbf{s}_{t'})}{\pi_{\theta}(\mathbf{a}_{t'}|\mathbf{s}_{t'})}\right)\left(\sum_{t'=t}^Tr(\mathbf{s}_{t'},\mathbf{a}_{t'})-b\right)\right]</script><p>但是，这种形式也是存在问题的，上式中中间那块连乘部分的数值，是关于T指数增长的，如果每个数都略小于1，而时间轴非常长，这个乘积最终将非常接近于0，这样梯度效果就会很差了。</p>
+<p>为了解决这个问题，我们可以重写目标函数的形式，如下</p>
+<script type="math/tex; mode=display">
+J(\theta)=\sum_{t=1}^T\mathbf{E}_{(\mathbf{s}_t,\mathbf{a}_t)\sim p_\theta(\mathbf{s}_t,\mathbf{a}_t)}[r(\mathbf{s}_t,\mathbf{a}_t)]</script><p>进一步展开可得</p>
+<script type="math/tex; mode=display">
+J(\theta)=\sum_{t=1}^T\mathbf{E}_{\mathbf{s}_t\sim p_\theta(\mathbf{s}_t)}\left[\mathbf{E}_{\mathbf{a}_t\sim\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)}[r(\mathbf{s}_t,\mathbf{a}_t)]\right]</script><p>这样我们便可以在两个层面上做重要性抽样了，最终形式为</p>
+<script type="math/tex; mode=display">
+J(\theta')=\sum_{t=1}^T\mathbf{E}_{\mathbf{s}_t\sim p_\theta(\mathbf{s}_t)}\left[\frac{p_{\theta'}(\mathbf{s}_t)}{p_{\theta}(\mathbf{s}_t)}\mathbf{E}_{\mathbf{a}_t\sim\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)}\left[\frac{\pi_{\theta'}(\mathbf{a}_t|\mathbf{s}_t)}{\pi_{\theta}(\mathbf{a}_t|\mathbf{s}_t)}r(\mathbf{s}_t,\mathbf{a}_t)\right]\right]</script><p>但是同时又带来了一个新的问题，那就是需要知道在新的给定策略下某个时刻在某个状态的概率$p_{\theta’}(\mathbf{s}_t)$，我们一般将$\frac{p_{\theta’}(\mathbf{s}_t)}{p_{\theta}(\mathbf{s}_t)}$这一项忽略，因为当两个策略足够接近时，这个比值近似为1。</p>
+<h3 id="引入“折扣因子（Discount-Factor）”"><a href="#引入“折扣因子（Discount-Factor）”" class="headerlink" title="引入“折扣因子（Discount Factor）”"></a><strong>引入“折扣因子（Discount Factor）”</strong></h3><p>引入“折扣因子”的目的是让奖赏r有权重地相加，让最开始收获的奖励有最大的权重，越往后面权重越小，因为距离当前状态的越近，影响越大。前边的公式也将相应地做出调整。</p>
+<script type="math/tex; mode=display">
+\theta^* = \mathop{argmax}_\theta \mathop{E}_{\tau\sim p_\theta(\tau)} [\sum_t \gamma^t r(s_t, a_t)]</script><p>策略梯度地公式修改为：</p>
+<script type="math/tex; mode=display">
+\nabla_\theta J(\theta) =\cfrac{1}{N}\sum_{i=1}^N\sum_{t=1}^T \left[ \nabla_\theta\log \pi_\theta(a_{i,t}|s_{i,t}) [(\sum_{t'=t}^T \gamma^{t-t'}r(s_{i,t'}, a_{i,t'}))-b)\right]</script><p><strong>参考</strong></p>
+<ol>
+<li><a href="http://rail.eecs.berkeley.edu/deeprlcourse/" target="_blank" rel="noopener">CS 294-112 at UC Berkeley</a></li>
+<li><a href="https://sites.google.com/view/deep-rl-bootcamp/lectures" target="_blank" rel="noopener">UC Berkeley RL Bootcamp</a></li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/27/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/27/Actor-Critic/" rel="prev" title="演员-评论家方法(Actor-Critic)">
+                演员-评论家方法(Actor-Critic) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/timg.jpg" alt="AMiFans">
+            
+              <p class="site-author-name" itemprop="name">AMiFans</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/yourname" title="GitHub &rarr; https://github.com/yourname"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://space.bilibili.com/30124592/dynamic" title="Bilibili &rarr; https://space.bilibili.com/30124592/dynamic" rel="noopener" target="_blank"><i class="fa fa-fw fa-simplybuilt"></i>Bilibili</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://mp.weixin.qq.com/mp/homepage?__biz=MzAwOTMyNTI2MQ==&hid=1&sn=7afcc009a1470a55d4c0ff25259af38c&scene=18#wechat_redirect" title="Wechat &rarr; http://mp.weixin.qq.com/mp/homepage?__biz=MzAwOTMyNTI2MQ==&hid=1&sn=7afcc009a1470a55d4c0ff25259af38c&scene=18#wechat_redirect" rel="noopener" target="_blank"><i class="fa fa-fw fa-wechat"></i>Wechat</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#策略梯度方法推导"><span class="nav-text">策略梯度方法推导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略梯度方法改进"><span class="nav-text">策略梯度方法改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入“折扣因子（Discount-Factor）”"><span class="nav-text">引入“折扣因子（Discount Factor）”</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AMiFans</span>
+
+  
+
+  
+</div>
+<!--
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.1</div>
+
+-->
+
+
+
+
+<!-- 新增访客统计代码 -->
+
+<div class="busuanzi-count">
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">18.4k</span> 字
+    </span>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.1"></script>
+
+
+  
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+<script>
+    
+    window.onload = function(){
+        var path = 'https://malizhi.cn'; //这里要改成你博客的地址
+        var localhostItem = String(window.location).split(path)[1];
+        var LiNode = document.querySelectorAll('#menu > li > a')
+        
+        for(var i = 0; i< LiNode.length;i++){
+            var item = String(LiNode[i].href).split(path)[1];
+            if(item == localhostItem && item != undefined){
+                LiNode[i].setAttribute('style','border-bottom:1px solid black');
+            }
+        }
+    };
+
+</script>
+
+  <meta name="description" content="首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用概率图模型对次优行为建模">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/概率图模型与软化增强学习/index.html">
+<meta property="og:site_name" content="AMiFans’s Blogs">
+<meta property="og:description" content="首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://github.com/image/概率图模型1.jpg">
+<meta property="og:image" content="https://github.com/image/概率图模型1.jpg">
+<meta property="og:image" content="https://github.com/image/概率图模型1.jpg">
+<meta property="og:image" content="https://github.com/image/概率图模型2.jpg">
+<meta property="og:updated_time" content="2019-04-27T07:45:59.913Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用概率图模型对次优行为建模">
+<meta name="twitter:description" content="首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以">
+<meta name="twitter:image" content="https://github.com/image/概率图模型1.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/概率图模型与软化增强学习/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>使用概率图模型对次优行为建模 | AMiFans’s Blogs</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AMiFans’s Blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/概率图模型与软化增强学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AMiFans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AMiFans’s Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用概率图模型对次优行为建模
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-27 15:45:54 / 修改时间：15:45:59" itemprop="dateCreated datePublished" datetime="2019-04-27T15:45:54+08:00">2019-04-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以的但是不能达到目标的路径是不行的”这个界限，并且刻画这个随机行为。</p>
+<p>现在我们的目的是使用概率图模型刻画一个策略，使得不仅只采用最优行为，而且也可以采用一些次优行为。为了对猴子的意图进行建模，我们加入了$\mathcal{O}$来代表最优性变量。那么某一条轨迹$\tau=(\mathbf{s}_{1:T},\mathbf{a}_{1:T})$出现的概率为$p(\tau|\mathcal{O}_{1:T})$，我们的目的便是找到此轨迹概率。</p>
+<p><img src="\image\概率图模型1.jpg" alt="图1 概率图模型1"><br>首先有一个重要假设是$p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\propto\exp(r(\mathbf{s}_t,\mathbf{a}_t))$，那么条件概率为</p>
+<script type="math/tex; mode=display">
+p(\tau|\mathcal{O}_{1:T})=\frac{p(\tau,\mathcal{O}_{1:T})}{p(\mathcal{O}_{1:T})}\propto p(\tau)\prod_t\exp(r(\mathbf{s}_t,\mathbf{a}_t))=p(\tau)\exp\left(\sum_tr(\mathbf{s}_t,\mathbf{a}_t)\right)</script><p>因此，收益最大的轨迹就变得可能性最大；如果另有一条轨迹收益也一样大，物理可能性相同，那么它同样也很可能发生；如有多条它们将平分可能性。在这个模型中，收益最高的行为是最有可能的，当收益下降的时候它的可能性指数下降。有些轨迹虽然可能发生，但是可能性非常低，因此智能体可能不愿意承担这个风险：因为想去最大化期望收益，智能体可能宁愿选择收益较低的但是可能性较高的轨迹。</p>
+<p>该模型的优势：</p>
+<ul>
+<li>可以对次优行为进行建模，这个在逆增强学习中非常有意义，用于观察他人的行为来揣测他的真实目标；</li>
+<li>可以使用一些推断算法来求解控制规划问题；</li>
+<li>可以对为什么会偏好随机行为（相较于确定性行为）给出解释。</li>
+</ul>
+<p>我们的推断 $(inference)$ 问题是：<strong>如果执行最优策略，那么在当前状态下做出某个行动的概率是多少</strong>。</p>
+<p>为了解决推断问题，需要计算三类问题：</p>
+<ul>
+<li>后向信息$ (backward messages)$ ：$\beta_t(\mathbf{s}_t,\mathbf{a}_t)=p(\mathcal{O}_{t:T}|\mathbf{s}_t,\mathbf{a}_t)$；</li>
+<li>策略计算$ (policy computation)$ ：$\pi(\mathbf{a}_t|\mathbf{s}_t)=p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{1:T})$；</li>
+<li>前向信息$ (forward messages) $:$\alpha_t(\mathbf{s}_t)=p(\mathbf{s}_t|\mathcal{O}_{1:t-1})$。</li>
+</ul>
+<h4 id="后向信息"><a href="#后向信息" class="headerlink" title="后向信息"></a><strong>后向信息</strong></h4><p><img src="\image\概率图模型1.jpg" alt="图1 概率图模型1"></p>
+<script type="math/tex; mode=display">
+\beta_t(\mathbf{s}_t,\mathbf{a}_t)=p(\mathcal{O}_{t:T}|\mathbf{s}_t,\mathbf{a}_t)\\
+=\int p(\mathcal{O}_{t:T},\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_{t+1}\\
+=\int p(\mathcal{O}_{t+1:T}|\mathbf{s}_{t+1})p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_{t+1}</script><script type="math/tex; mode=display">
+\beta_t(\mathbf{s}_t)=p(\mathcal{O}_{t:T}|\mathbf{s}_t)\\
+=\int p(\mathcal{O}_{t:T}|\mathbf{s}_{t},\mathbf{a}_{t})p(\mathbf{a}_{t}|\mathbf{s}_{t})\mathrm{d}\mathbf{a}_{t}</script><p>（1）如果 $p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)$ 是均匀分布，则可得：<br>$for \ t=T-1\ to\ 1$：</p>
+<script type="math/tex; mode=display">
+\beta_t(\mathbf{s}_t,\mathbf{a}_t)=p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)}[\beta_{t+1}(\mathbf{s}_{t+1})] \\
+\beta_t(\mathbf{s}_t)=\mathbf{E}_{\mathbf{a}_t\sim p(\mathbf{a}_t|\mathbf{s}_t)}[\beta_t(\mathbf{s}_t,\mathbf{a}_t)]</script><p>这个算法和值函数迭代算法类似，值函数迭代算法如下：</p>
+<script type="math/tex; mode=display">
+Q(\mathbf{s},\mathbf{a})\leftarrow (\mathbf{s},\mathbf{a})+\gamma\mathbf{E}\left[(V(s^{'})\right]\\
+V(s)\leftarrow\max_aQ(\mathbf{s},\mathbf{a})</script><p>为了更清楚地说明类似性，令 $V_t(\mathbf{s}_t)=\log \beta_t(\mathbf{s}_t)，Q_t(\mathbf{s}_t,\mathbf{a}_t)=\log \beta_t(\mathbf{s}_t,\mathbf{a}_t) $，则有</p>
+<script type="math/tex; mode=display">
+V_t(\mathbf{s}_t)=\log\int\exp(Q_t(\mathbf{s}_t,\mathbf{a}_t))\mathrm{d}\mathbf{a}_t\\
+Q_t(\mathbf{s}_t,\mathbf{a}_t)=r(\mathbf{s}_t,\mathbf{a}_t)+\log\mathbf{E}[\exp(V_{t+1}(\mathbf{s}_{t+1}))]</script><p>随着$Q_t(\mathbf{s}_t,\mathbf{a}_t)$的值变大，显然会有$V_t(\mathbf{s}_t)\rightarrow\max_{\mathbf{a}_t}Q_t(\mathbf{s}_t,\mathbf{a}_t)$，因此前者的这种操作也被称为 $softmax$，是$max$函数的一个软化；如果状态转移是确定的，则$Q_t(\mathbf{s}_t,\mathbf{a}_t)=r(\mathbf{s}_t,\mathbf{a}_t)+V_{t+1}(\mathbf{s}_{t+1})$。</p>
+<p>（2）如果 $p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)$ 不是均匀分布，则：</p>
+<script type="math/tex; mode=display">
+V_t(\mathbf{s}_t)=\log\int\exp(Q_t(\mathbf{s}_t,\mathbf{a}_t)+\log p(\mathbf{a}_t|\mathbf{s}_t))\mathrm{d}\mathbf{a}_t\\
+Q_t(\mathbf{s}_t,\mathbf{a}_t)=r(\mathbf{s}_t,\mathbf{a}_t)+\mathbf{E}[V_{t+1}(\mathbf{s}_{t+1})]</script><p>我们重新定义一下$Q$函数：</p>
+<script type="math/tex; mode=display">
+\tilde{Q}_t(\mathbf{s}_t,\mathbf{a}_t)=r(\mathbf{s}_t,\mathbf{a}_t)+\mathbf{E}[V_{t+1}(\mathbf{s}_{t+1})]+\log p(\mathbf{a}_t|\mathbf{s}_t)</script><p>那么值函数则变为：</p>
+<script type="math/tex; mode=display">
+V_t(\mathbf{s}_t)=\log\int\exp(\tilde Q_t(\mathbf{s}_t,\mathbf{a}_t))\mathrm{d}\mathbf{a}_t</script><p>（1）（2）两种情况对比可发现，我们可以把$p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)$ 与奖赏$r(\mathbf{s}_t,\mathbf{a}_t)$ 视为一个整体，这样做并不失一般性。</p>
+<h4 id="策略计算"><a href="#策略计算" class="headerlink" title="策略计算"></a><strong>策略计算</strong></h4><p><img src="\image\概率图模型1.jpg" alt="图1 概率图模型1"></p>
+<script type="math/tex; mode=display">
+\pi(\mathbf{a}_t|\mathbf{s}_t)=p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{1:T})
+=p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{t:T})\\
+=\frac{p(\mathbf{a}_t,\mathbf{s}_t|\mathcal{O}_{t:T})}{p(\mathbf{s}_t|\mathcal{O}_{t:T})}
+=\frac{p(\mathcal{O}_{t:T}|\mathbf{a}_t,\mathbf{s}_t)p(\mathbf{a}_t,\mathbf{s}_t)/p(\mathcal{O}_{t:T})}{p(\mathcal{O}_{t:T}|\mathbf{s}_t)p(\mathbf{s}_t)/p(\mathcal{O}_{t:T})}\\
+=\frac{p(\mathcal{O}_{t:T}|\mathbf{a}_t,\mathbf{s}_t)}{p(\mathcal{O}_{t:T}|\mathbf{s}_t)}\frac{p(\mathbf{a}_t,\mathbf{s}_t)}{p(\mathbf{s}_t)}=\frac{p(\mathcal{O}_{t:T}|\mathbf{a}_t,\mathbf{s}_t)}{p(\mathcal{O}_{t:T}|\mathbf{s}_t)}p(\mathbf{a}_t|\mathbf{s}_t)</script><p>如果我们假设$p(\mathbf{a}_t|\mathbf{s}_t)$是均匀分布，则其为常数，可以略去，则：</p>
+<script type="math/tex; mode=display">
+\pi(\mathbf{a}_t|\mathbf{s}_t)=\frac{\beta_t(\mathbf{s}_t,\mathbf{a}_t)}{\beta_t(\mathbf{s}_t)}</script><p>如果将$V_t(\mathbf{s}_t)=\log \beta_t(\mathbf{s}_t)，Q_t(\mathbf{s}_t,\mathbf{a}_t)=\log \beta_t(\mathbf{s}_t,\mathbf{a}_t) $ 带入上式，则有：</p>
+<script type="math/tex; mode=display">
+\pi(\mathbf{a}_t|\mathbf{s}_t)=\frac{\beta_t(\mathbf{s}_t,\mathbf{a}_t)}{\beta_t(\mathbf{s}_t)}=\exp(Q_t(\mathbf{s}_t,\mathbf{a}_t)-V_t(\mathbf{s}_t))=\exp(A_t(\mathbf{s}_t,\mathbf{a}_t))</script><p>最终的形式变为<strong>优势函数的指数</strong></p>
+<p>如果加入折扣的因素，则策略变为：</p>
+<script type="math/tex; mode=display">
+\pi(\mathbf{a}_t|\mathbf{s}_t)=\exp(\frac{1}{\alpha}Q_t(\mathbf{s}_t,\mathbf{a}_t)-\frac{1}{\alpha}V_t(\mathbf{s}_t))=\exp(\frac{1}{\alpha}A_t(\mathbf{s}_t,\mathbf{a}_t))</script><p><strong>自然解释:</strong></p>
+<ul>
+<li>更有可能采取更好的行动</li>
+<li>随机打破平局</li>
+<li>类似于玻尔兹曼探索</li>
+<li>随着 $\alpha\rightarrow0$，趋紧贪婪策略</li>
+</ul>
+<h4 id="前向信息"><a href="#前向信息" class="headerlink" title="前向信息"></a><strong>前向信息</strong></h4><script type="math/tex; mode=display">
+\alpha_t(\mathbf{s}_t)=p(\mathbf{s}_t|\mathcal{O}_{1:t-1})
+=\int p(\mathbf{s}_t|\mathbf{s}_{t-1},\mathbf{a}_{t-1})p(\mathbf{a}_{t-1}|\mathbf{s}_{t-1},\mathcal{O}_{t-1})p(\mathbf{s}_{t-1}|\mathcal{O}_{1:t-2})\mathrm{d}\mathbf{s}_{t-1}\mathrm{d}\mathbf{a}_{t-1}</script><p>我们假设状态转移概率$p(\mathbf{s}_t|\mathbf{s}_{t-1},\mathbf{a}_{t-1})$是已知的，$p(\mathbf{s}_{t-1}|\mathcal{O}_{1:t-2})=\alpha_{t-1}(\mathbf{s}_{t-1})$，而</p>
+<script type="math/tex; mode=display">
+p(\mathbf{a}_{t-1}|\mathbf{s}_{t-1},\mathcal{O}_{t-1})=\frac{p(\mathcal{O}_{t-1}|\mathbf{s}_{t-1},\mathbf{a}_{t-1})p(\mathbf{a}_{t-1}|\mathbf{s}_{t-1})}{p(\mathcal{O}_{t-1}|\mathbf{s}_{t-1})}</script><p>其中$p(\mathcal{O}_{t-1}|\mathbf{s}_{t-1},\mathbf{a}_{t-1})\propto\exp(r(\mathbf{s}_{t-1},\mathbf{a}_{t-1}))$</p>
+<p>假设$p(\mathbf{a}_{t-1}|\mathbf{s}_{t-1})$是均匀分布，分母也是一个归一化常数，因此$p(\mathbf{a}_{t-1}|\mathbf{s}_{t-1},\mathcal{O}_{t-1})\propto\exp(r(\mathbf{s}_{t-1},\mathbf{a}_{t-1}))$。</p>
+<p>如果求 $p(\mathbf{s}_t|\mathcal{O}_{1:T})$，则</p>
+<script type="math/tex; mode=display">
+p(\mathbf{s}_t|\mathcal{O}_{1:T})=\frac{p(\mathbf{s}_t,\mathcal{O}_{1:T})}{p(\mathcal{O}_{1:T})}=\frac{p(\mathcal{O}_{t:T}|\mathbf{s}_t)p(\mathbf{s}_t,\mathcal{O}_{1:t-1})}{p(\mathcal{O}_{1:T})}\\
+=\frac{p(\mathcal{O}_{t:T}|\mathbf{s}_t)p(\mathbf{s}_t|\mathcal{O}_{1:t-1})p(\mathcal{O}_{1:t-1})}{p(\mathcal{O}_{1:T})}
+\propto\beta_t(\mathbf{s}_t)\alpha_t(\mathbf{s}_t)p(\mathcal{O}_{1:t-1})
+\propto\beta_t(\mathbf{s}_t)\alpha_t(\mathbf{s}_t)</script><p><img src="\image\概率图模型2.jpg" alt="图2 概率图模型2"></p>
+<script type="math/tex; mode=display">
+p(\mathbf{s}_t)\propto\beta_t(\mathbf{s}_t)\alpha_t(\mathbf{s}_t)</script><p>黄色区域是能够有高概率到达终点的状态，蓝色区域是有高概率从初始状态以高收益到达的状态。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/27/最大熵逆向强化学习/" rel="next" title="最大熵逆向强化学习">
+                <i class="fa fa-chevron-left"></i> 最大熵逆向强化学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/27/强化学习环境搭建中的一些技巧/" rel="prev" title="强化学习环境搭建中的一些技巧">
+                强化学习环境搭建中的一些技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/timg.jpg" alt="AMiFans">
+            
+              <p class="site-author-name" itemprop="name">AMiFans</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/yourname" title="GitHub &rarr; https://github.com/yourname"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://space.bilibili.com/30124592/dynamic" title="Bilibili &rarr; https://space.bilibili.com/30124592/dynamic" rel="noopener" target="_blank"><i class="fa fa-fw fa-simplybuilt"></i>Bilibili</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://mp.weixin.qq.com/mp/homepage?__biz=MzAwOTMyNTI2MQ==&hid=1&sn=7afcc009a1470a55d4c0ff25259af38c&scene=18#wechat_redirect" title="Wechat &rarr; http://mp.weixin.qq.com/mp/homepage?__biz=MzAwOTMyNTI2MQ==&hid=1&sn=7afcc009a1470a55d4c0ff25259af38c&scene=18#wechat_redirect" rel="noopener" target="_blank"><i class="fa fa-fw fa-wechat"></i>Wechat</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#后向信息"><span class="nav-text">后向信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#策略计算"><span class="nav-text">策略计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前向信息"><span class="nav-text">前向信息</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AMiFans</span>
+
+  
+
+  
+</div>
+<!--
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.1</div>
+
+-->
+
+
+
+
+<!-- 新增访客统计代码 -->
+
+<div class="busuanzi-count">
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">18.4k</span> 字
+    </span>
+</div>
+<!-- 新增访客统计代码 END-->
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.1"></script>
+
+
+  
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
