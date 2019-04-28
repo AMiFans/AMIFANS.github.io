@@ -737,12 +737,22 @@
                 
               
 
-              <time title="创建时间：2019-04-27 15:46:35 / 修改时间：15:46:39" itemprop="dateCreated datePublished" datetime="2019-04-27T15:46:35+08:00">2019-04-27</time>
+              <time title="创建时间：2019-04-27 15:46:35" itemprop="dateCreated datePublished" datetime="2019-04-27T15:46:35+08:00">2019-04-27</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                <time title="修改时间：2019-04-28 21:02:04" itemprop="dateModified" datetime="2019-04-28T21:02:04+08:00">2019-04-28</time>
               
             
           </span>
@@ -795,8 +805,7 @@
         
           
             <p>
-              在许多模仿学习算法和逆向强化学习算法中，通常分配给吸收状态的奖赏为零，在一些标准的MDPs中，忽略了吸收状态和相应的转移过程。在算法中没有存储吸收状态，因此对奖励学习的过程产生了偏见。DAC算法能够分配给吸收状态潜在的非零奖励，正确处理学习奖励的算法的吸收状态是非常重要的。
-背景在 RL 环境的规范实现中，对吸收状态的不充分处理会导致这些算法所使用的奖励函数产生隐含偏差。虽然这些偏差可能适用于某些环境，但它们会导致其他环境中的次优行为。尽管这些算法能够从一些专家示例中学习，但它们需要大量与环境交
+              奖励偏差吸收状态奖励偏差在 GAIL 框架中（以及后续方法，如GMMIL，OptionGAN，AIRL和OpenAI Baselines中广泛使用的GAIL实现），在对于一些基准任务（例如OpenAI Gym的MuJoCo运动任务）进行测试时，奖励函数r(s, a) 根据任务的属性将奖励分配给中间状态，然而最终的输出却忽略了吸收状态。随后，在算法实现的时候，无法访问缓冲区中的这些吸收状态，无法获得适当的奖励；因此，在终端状态之后不执行自举；因此，隐含地为吸收状态分配 0 奖励，对奖励学习的过程产
               ...
             </p>
           <!--noindex-->
@@ -2231,7 +2240,7 @@ $VPG$的$Spinning-Up$实现支持使用$MPI$并行化。
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">18.4k</span> 字
+      博客全站共： <span class="post-count">18.2k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->
