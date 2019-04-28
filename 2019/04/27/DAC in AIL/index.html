@@ -129,7 +129,7 @@
 <meta property="og:image" content="https://github.com/image/DAC_添加吸收状态.png">
 <meta property="og:image" content="https://github.com/image/DAC_实验结果.png">
 <meta property="og:image" content="https://github.com/image/DAC_伪代码.png">
-<meta property="og:updated_time" content="2019-04-28T13:13:16.144Z">
+<meta property="og:updated_time" content="2019-04-28T13:17:42.013Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差">
 <meta name="twitter:description" content="奖励偏差吸收状态奖励偏差在 GAIL 框架中（以及后续方法，如GMMIL，OptionGAN，AIRL和OpenAI Baselines中广泛使用的GAIL实现），在对于一些基准任务（例如OpenAI Gym的MuJoCo运动任务）进行测试时，奖励函数r(s, a) 根据任务的属性将奖励分配给中间状态，然而最终的输出却忽略了吸收状态。随后，在算法实现的时候，无法访问缓冲区中的这些吸收状态，无法获得">
@@ -422,7 +422,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-04-28 21:13:16" itemprop="dateModified" datetime="2019-04-28T21:13:16+08:00">2019-04-28</time>
+                <time title="修改时间：2019-04-28 21:17:42" itemprop="dateModified" datetime="2019-04-28T21:17:42+08:00">2019-04-28</time>
               
             
           </span>
@@ -482,8 +482,8 @@
 <h3 id="样本效率差"><a href="#样本效率差" class="headerlink" title="样本效率差"></a>样本效率差</h3><p>虽然GAIL在大多数 MuJoCo 任务中只需要用4条专家轨迹的200个steps就可以学习一个鲁棒的奖励函数，但是为了收敛，需要从环境中采样的steps的数量可能高达25M个。<br>如果使用PPO代替TRPO，可降到10M个，然而对于现实世界的环境来说，这个数量任然很庞大。</p>
 <h3 id="DAC-算法"><a href="#DAC-算法" class="headerlink" title="DAC 算法"></a>DAC 算法</h3><p><strong>1、添加吸收状态，并设置恰当的学习奖励</strong><br>当一个episode终止后，明确地给这个episode的最终状态添加一个到达吸收状态的转移过程$(s_T, s_a)$，和一个从吸收状态到它本身的转移过程$(s_a, s_a)$，如下图</p>
 <p><img src="\image\DAC_添加吸收状态.png" alt="DAC_添加吸收状态"></p>
-<p>将状态 $s_T$ 处的奖励由 $R_T = r(s_T , a_T) $ 设置为 $R_T = r(s_T , a_T ) + \sum_{t=T+1}^{a}\gamma^{t-T}r(s_a,.)$</p>
-<p>RL 算法将能够通过转换$(s_T; s_a)$和$(s_a; s_a)$ 并使用以下递归正确估计终端状态的值</p>
+<p>将状态 $s_T$ 处的奖励由 $R_T = r(s_T , a_T) $ 设置为 $R_T = r(s_T, a_T ) + \sum_{t=T+1}^{a}\gamma^{t-T}r(s_a,.)$</p>
+<p>RL 算法将能够通过转换$(s_T,s_a)$和$(s_a, s_a)$ 并使用以下递归正确估计终端状态的值</p>
 <script type="math/tex; mode=display">
 Q(s_T,s)=r(s_T,a)+\gamma Q(s_a,.)\\
 Q(s_a,.)=r(s_a,.)+\gamma Q(s_a,.)</script><p><strong>2、修改判别器奖赏</strong><br>将判别器奖赏由 $r(s, a)= -\log (1 - D(s, a))$ 修改为</p>
