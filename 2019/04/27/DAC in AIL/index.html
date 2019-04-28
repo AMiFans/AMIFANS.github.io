@@ -129,7 +129,7 @@
 <meta property="og:image" content="https://github.com/image/DAC_添加吸收状态.png">
 <meta property="og:image" content="https://github.com/image/DAC_实验结果.png">
 <meta property="og:image" content="https://github.com/image/DAC_伪代码.png">
-<meta property="og:updated_time" content="2019-04-28T13:02:04.477Z">
+<meta property="og:updated_time" content="2019-04-28T13:13:16.144Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Discriminator-Actor-Critic：解决对抗性模仿学习中的低样本效率和奖励偏差">
 <meta name="twitter:description" content="奖励偏差吸收状态奖励偏差在 GAIL 框架中（以及后续方法，如GMMIL，OptionGAN，AIRL和OpenAI Baselines中广泛使用的GAIL实现），在对于一些基准任务（例如OpenAI Gym的MuJoCo运动任务）进行测试时，奖励函数r(s, a) 根据任务的属性将奖励分配给中间状态，然而最终的输出却忽略了吸收状态。随后，在算法实现的时候，无法访问缓冲区中的这些吸收状态，无法获得">
@@ -422,7 +422,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-04-28 21:02:04" itemprop="dateModified" datetime="2019-04-28T21:02:04+08:00">2019-04-28</time>
+                <time title="修改时间：2019-04-28 21:13:16" itemprop="dateModified" datetime="2019-04-28T21:13:16+08:00">2019-04-28</time>
               
             
           </span>
@@ -472,24 +472,30 @@
       
 
       
-        <h3 id="奖励偏差"><a href="#奖励偏差" class="headerlink" title="奖励偏差"></a>奖励偏差</h3><h4 id="吸收状态奖励偏差"><a href="#吸收状态奖励偏差" class="headerlink" title="吸收状态奖励偏差"></a>吸收状态奖励偏差</h4><p>在 GAIL 框架中（以及后续方法，如GMMIL，OptionGAN，AIRL和OpenAI Baselines中广泛使用的GAIL实现），在对于一些基准任务（例如OpenAI Gym的MuJoCo运动任务）进行测试时，奖励函数r(s, a) 根据任务的属性将奖励分配给中间状态，然而最终的输出却忽略了吸收状态。随后，在算法实现的时候，无法访问缓冲区中的这些吸收状态，无法获得适当的奖励；因此，在终端状态之后不执行自举；因此，隐含地为吸收状态分配 0 奖励，对奖励学习的过程产生了偏见。<br><img src="\image\DAC_吸收状态偏差.png" alt="DAC_吸收状态偏差"><br>在上图中，我们使用具有正奖励函数的GAIL框架进行试验，可以看出吸收状态处理对 Kuka 环境的影响：考虑吸收状态会使得策略更快速的收敛至专家策略。</p>
-<h4 id="判别器奖励偏差"><a href="#判别器奖励偏差" class="headerlink" title="判别器奖励偏差"></a>判别器奖励偏差</h4><p>在需要生存奖金的环境中，agent 每走一步就会给予其正的奖励，这鼓励 agent 在环境中存活更长时间以收集更多奖励。一种常用的奖励函数形式为：$r(s, a)= -\log (1 - D(s, a))$ 。在MDP实现中，吸收状态为零奖励的隐含假设下，这种严格正的奖励估计器无法在需要 agent 尽快解决任务的环境中恢复真正的奖励函数。使用这种形式的奖励函数将导致次优解决方案，agent 会被激励进入循环或采取小动作（在连续动作空间中），使其接近专家轨迹中的状态。 agent 可能为了收集正的奖励不会真正尝试解决专家给予的示例任务。<br>另一个奖励公式是 $r(s, a)= \log(D(s; a))$ ，这通常用于需要每步都要进行惩罚的任务。<br><img src="\image\DAC_奖赏函数偏差.png" alt="DAC_奖赏函数偏差"><br>在上图中，不考虑吸收状态，使用固定的且未经训练的GAIL判别器D并使其输出为D=0.5。如果令奖赏为$r(s, a)= -\log (1 - D(s, a))$，在Hopper环境中能够达到大约1000的奖励，相当于专家表现的大约三分之一。没有任何奖励学习，也没有使用专家示例，agent 可以学习一种优于行为克隆的策略。 因此，特定奖励函数的选择可能已经提供了强有力的先验知识，其有助于RL算法朝着恢复专家策略的方向发展，而不管所学习的奖励的质量如何。</p>
-<p>因此，为了消除判别器奖励的影响，我们可以令奖赏为$r(s, a)= \log(D(s; a))-\log (1 - D(s, a))$，在Hopper环境中，agent 不能恢复专家策略（如上图所示）。</p>
+        <h3 id="奖励偏差"><a href="#奖励偏差" class="headerlink" title="奖励偏差"></a>奖励偏差</h3><h4 id="吸收状态奖励偏差"><a href="#吸收状态奖励偏差" class="headerlink" title="吸收状态奖励偏差"></a>吸收状态奖励偏差</h4><p>在 GAIL 框架中（以及后续方法，如GMMIL，OptionGAN，AIRL和OpenAI Baselines中广泛使用的GAIL实现），在对于一些基准任务（例如OpenAI Gym的MuJoCo运动任务）进行测试时，奖励函数r(s, a) 根据任务的属性将奖励分配给中间状态，然而最终的输出却忽略了吸收状态。随后，在算法实现的时候，无法访问缓冲区中的这些吸收状态，无法获得适当的奖励；因此，在终端状态之后不执行自举；因此，隐含地为吸收状态分配 0 奖励，对奖励学习的过程产生了偏见。</p>
+<p><img src="\image\DAC_吸收状态偏差.png" alt="DAC_吸收状态偏差"></p>
+<p>在上图中，我们使用具有正奖励函数的GAIL框架进行试验，可以看出吸收状态处理对 Kuka 环境的影响：考虑吸收状态会使得策略更快速的收敛至专家策略。</p>
+<h4 id="判别器奖励偏差"><a href="#判别器奖励偏差" class="headerlink" title="判别器奖励偏差"></a>判别器奖励偏差</h4><p>在需要生存奖金的环境中，agent 每走一步就会给予其正的奖励，这鼓励 agent 在环境中存活更长时间以收集更多奖励。一种常用的奖励函数形式为：$r(s, a)= -\log (1 - D(s, a))$ 。在MDP实现中，吸收状态为零奖励的隐含假设下，这种严格正的奖励估计器无法在需要 agent 尽快解决任务的环境中恢复真正的奖励函数。使用这种形式的奖励函数将导致次优解决方案，agent 会被激励进入循环或采取小动作（在连续动作空间中），使其接近专家轨迹中的状态。 agent 可能为了收集正的奖励不会真正尝试解决专家给予的示例任务。<br>另一个奖励公式是 $r(s, a)= \log(D(s; a))$ ，这通常用于需要每步都要进行惩罚的任务。</p>
+<p><img src="\image\DAC_奖赏函数偏差.png" alt="DAC_奖赏函数偏差"></p>
+<p>在上图中，不考虑吸收状态，使用固定的且未经训练的GAIL判别器D并使其输出为 $D=0.5$。如果令奖赏为 $r(s, a)= -\log (1 - D(s, a))$，在Hopper环境中能够达到大约1000的奖励，相当于专家表现的大约三分之一。没有任何奖励学习，也没有使用专家示例，agent 可以学习一种优于行为克隆的策略。 因此，特定奖励函数的选择可能已经提供了强有力的先验知识，其有助于RL算法朝着恢复专家策略的方向发展，而不管所学习的奖励的质量如何。</p>
+<p>因此，为了消除判别器奖励的影响，我们可以令奖赏为 $r(s, a)= \log(D(s; a))-\log (1 - D(s, a))$，在Hopper环境中，agent 不能恢复专家策略（如上图所示）。</p>
 <h3 id="样本效率差"><a href="#样本效率差" class="headerlink" title="样本效率差"></a>样本效率差</h3><p>虽然GAIL在大多数 MuJoCo 任务中只需要用4条专家轨迹的200个steps就可以学习一个鲁棒的奖励函数，但是为了收敛，需要从环境中采样的steps的数量可能高达25M个。<br>如果使用PPO代替TRPO，可降到10M个，然而对于现实世界的环境来说，这个数量任然很庞大。</p>
-<h3 id="DAC-算法"><a href="#DAC-算法" class="headerlink" title="DAC 算法"></a>DAC 算法</h3><p>1、添加吸收状态，并设置恰当的学习奖励<br>当一个episode终止后，明确地给这个episode的最终状态添加一个到达吸收状态的转移过程$(s_T, s_a)$，和一个从吸收状态到它本身的转移过程$(s_a, s_a)$，如下图<br><img src="\image\DAC_添加吸收状态.png" alt="DAC_添加吸收状态"></p>
+<h3 id="DAC-算法"><a href="#DAC-算法" class="headerlink" title="DAC 算法"></a>DAC 算法</h3><p><strong>1、添加吸收状态，并设置恰当的学习奖励</strong><br>当一个episode终止后，明确地给这个episode的最终状态添加一个到达吸收状态的转移过程$(s_T, s_a)$，和一个从吸收状态到它本身的转移过程$(s_a, s_a)$，如下图</p>
+<p><img src="\image\DAC_添加吸收状态.png" alt="DAC_添加吸收状态"></p>
 <p>将状态 $s_T$ 处的奖励由 $R_T = r(s_T , a_T) $ 设置为 $R_T = r(s_T , a_T ) + \sum_{t=T+1}^{a}\gamma^{t-T}r(s_a,.)$</p>
 <p>RL 算法将能够通过转换$(s_T; s_a)$和$(s_a; s_a)$ 并使用以下递归正确估计终端状态的值</p>
 <script type="math/tex; mode=display">
 Q(s_T,s)=r(s_T,a)+\gamma Q(s_a,.)\\
-Q(s_a,.)=r(s_a,.)+\gamma Q(s_a,.)</script><p>2、修改判别器奖赏<br>将判别器奖赏由 $r(s, a)= -\log (1 - D(s, a))$ 修改为</p>
+Q(s_a,.)=r(s_a,.)+\gamma Q(s_a,.)</script><p><strong>2、修改判别器奖赏</strong><br>将判别器奖赏由 $r(s, a)= -\log (1 - D(s, a))$ 修改为</p>
 <script type="math/tex; mode=display">
-r(s, a)= \log(D(s; a))-\log (1 - D(s, a))</script><p>3、使用 off-policy 训练（不直接从策略中采样轨迹，而是从 replay buffer 中采样）和 off-policy RL算法<br>① 采用off-policy RL算法：TD3<br>② 对GAIL的判别器进行off-policy训练</p>
+r(s, a)= \log(D(s; a))-\log (1 - D(s, a))</script><p><strong>3、使用 off-policy 训练（不直接从策略中采样轨迹，而是从 replay buffer 中采样）和 off-policy RL算法</strong><br>① 采用off-policy RL算法：TD3<br>② 对GAIL的判别器进行off-policy训练</p>
 <script type="math/tex; mode=display">
 \max_D\mathbb{E}_\mathcal{R}\left[\log\left(D(s,a)\right)\right]+\mathbb{E}_{\pi_E}\left[\log\left(1-D(s,a)\right)\right]-\lambda H(\pi)</script><p>为了恢复原始的on-policy期望，需要使用重要性采样，</p>
 <script type="math/tex; mode=display">
 \max_D\mathbb{E}_\mathcal{R}\left[\cfrac{p_{\pi_\theta}(s,a)}{p_\mathcal{R}(s,a)}\log\left(D(s,a)\right)\right]+\mathbb{E}_{\pi_E}\left[\log\left(1-D(s,a)\right)\right]-\lambda H(\pi)</script><p>然而，要正确估计这些密度是很有挑战性的，而且鉴别器更新可能有很大的方差。实验结果表明，在不考虑重要性权重的情况下，该算法依然具有良好的实用效果。</p>
 <h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p><img src="\image\DAC_实验结果.png" alt="DAC_实验结果"></p>
 <h3 id="算法伪代码"><a href="#算法伪代码" class="headerlink" title="算法伪代码"></a>算法伪代码</h3><p><img src="\image\DAC_伪代码.png" alt="DAC_伪代码"></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://openreview.net/forum?id=Hk4fpoA5Km" target="_blank" rel="noopener">Discriminator-Actor-Critic Addressing Sample Inefficiency and Reward Bias in Adversarial Imitation Learning</a></p>
 
       
     </div>
@@ -701,7 +707,7 @@ r(s, a)= \log(D(s; a))-\log (1 - D(s, a))</script><p>3、使用 off-policy 训�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#奖励偏差"><span class="nav-text">奖励偏差</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#吸收状态奖励偏差"><span class="nav-text">吸收状态奖励偏差</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判别器奖励偏差"><span class="nav-text">判别器奖励偏差</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#样本效率差"><span class="nav-text">样本效率差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DAC-算法"><span class="nav-text">DAC 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验结果"><span class="nav-text">实验结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法伪代码"><span class="nav-text">算法伪代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#奖励偏差"><span class="nav-text">奖励偏差</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#吸收状态奖励偏差"><span class="nav-text">吸收状态奖励偏差</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判别器奖励偏差"><span class="nav-text">判别器奖励偏差</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#样本效率差"><span class="nav-text">样本效率差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DAC-算法"><span class="nav-text">DAC 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验结果"><span class="nav-text">实验结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法伪代码"><span class="nav-text">算法伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
