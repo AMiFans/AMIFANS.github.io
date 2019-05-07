@@ -117,29 +117,24 @@
 
 </script>
 
-  <meta name="description" content="首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以">
+  <meta name="description" content="主要算法On-Policy算法 香草策略梯度（VPG） 信托区域策略优化（TRPO） 近端策略优化（PPO）  VPG 是深度 RL 空间中最基本的入门级算法，因为它完全超越了 DRL 的出现。VPG 的核心要素一直追溯到80年代末/ 90年代初。它开始了一系列的研究，最终导致了更强大的算法，如TRPO，然后很快PPO。 这一系列工作的一个关键特性是所有这些算法都是 On-Policy 的：即，它">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用概率图模型对次优行为建模">
-<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/概率图模型与软化增强学习/index.html">
+<meta property="og:title" content="Spinning Up">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/05/05/Spining up 总结/index.html">
 <meta property="og:site_name" content="AMiFans’s Blogs">
-<meta property="og:description" content="首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以">
+<meta property="og:description" content="主要算法On-Policy算法 香草策略梯度（VPG） 信托区域策略优化（TRPO） 近端策略优化（PPO）  VPG 是深度 RL 空间中最基本的入门级算法，因为它完全超越了 DRL 的出现。VPG 的核心要素一直追溯到80年代末/ 90年代初。它开始了一系列的研究，最终导致了更强大的算法，如TRPO，然后很快PPO。 这一系列工作的一个关键特性是所有这些算法都是 On-Policy 的：即，它">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://github.com/image/概率图模型1.jpg">
-<meta property="og:image" content="https://github.com/image/概率图模型1.jpg">
-<meta property="og:image" content="https://github.com/image/概率图模型1.jpg">
-<meta property="og:image" content="https://github.com/image/概率图模型2.jpg">
-<meta property="og:updated_time" content="2019-04-27T07:45:59.913Z">
+<meta property="og:updated_time" content="2019-05-05T11:03:52.309Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用概率图模型对次优行为建模">
-<meta name="twitter:description" content="首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以">
-<meta name="twitter:image" content="https://github.com/image/概率图模型1.jpg">
+<meta name="twitter:title" content="Spinning Up">
+<meta name="twitter:description" content="主要算法On-Policy算法 香草策略梯度（VPG） 信托区域策略优化（TRPO） 近端策略优化（PPO）  VPG 是深度 RL 空间中最基本的入门级算法，因为它完全超越了 DRL 的出现。VPG 的核心要素一直追溯到80年代末/ 90年代初。它开始了一系列的研究，最终导致了更强大的算法，如TRPO，然后很快PPO。 这一系列工作的一个关键特性是所有这些算法都是 On-Policy 的：即，它">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/概率图模型与软化增强学习/">
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/05/05/Spining up 总结/">
 
 
 
@@ -149,7 +144,7 @@
   };
 </script>
 
-  <title>使用概率图模型对次优行为建模 | AMiFans’s Blogs</title>
+  <title>Spinning Up | AMiFans’s Blogs</title>
   
 
 
@@ -365,7 +360,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/概率图模型与软化增强学习/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/05/05/Spining up 总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="AMiFans">
@@ -382,7 +377,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">使用概率图模型对次优行为建模
+          <h1 class="post-title" itemprop="name headline">Spinning Up
 
               
             
@@ -406,7 +401,7 @@
                 
               
 
-              <time title="创建时间：2019-04-27 15:45:54 / 修改时间：15:45:59" itemprop="dateCreated datePublished" datetime="2019-04-27T15:45:54+08:00">2019-04-27</time>
+              <time title="创建时间：2019-05-05 13:25:01 / 修改时间：19:03:52" itemprop="dateCreated datePublished" datetime="2019-05-05T13:25:01+08:00">2019-05-05</time>
             
 
             
@@ -461,82 +456,21 @@
       
 
       
-        <p>首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以的但是不能达到目标的路径是不行的”这个界限，并且刻画这个随机行为。</p>
-<p>现在我们的目的是使用概率图模型刻画一个策略，使得不仅只采用最优行为，而且也可以采用一些次优行为。为了对猴子的意图进行建模，我们加入了$\mathcal{O}$来代表最优性变量。那么某一条轨迹$\tau=(\mathbf{s}_{1:T},\mathbf{a}_{1:T})$出现的概率为$p(\tau|\mathcal{O}_{1:T})$，我们的目的便是找到此轨迹概率。</p>
-<p><img src="\image\概率图模型1.jpg" alt="图1 概率图模型1"><br>首先有一个重要假设是$p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\propto\exp(r(\mathbf{s}_t,\mathbf{a}_t))$，那么条件概率为</p>
-<script type="math/tex; mode=display">
-p(\tau|\mathcal{O}_{1:T})=\frac{p(\tau,\mathcal{O}_{1:T})}{p(\mathcal{O}_{1:T})}\propto p(\tau)\prod_t\exp(r(\mathbf{s}_t,\mathbf{a}_t))=p(\tau)\exp\left(\sum_tr(\mathbf{s}_t,\mathbf{a}_t)\right)</script><p>因此，收益最大的轨迹就变得可能性最大；如果另有一条轨迹收益也一样大，物理可能性相同，那么它同样也很可能发生；如有多条它们将平分可能性。在这个模型中，收益最高的行为是最有可能的，当收益下降的时候它的可能性指数下降。有些轨迹虽然可能发生，但是可能性非常低，因此智能体可能不愿意承担这个风险：因为想去最大化期望收益，智能体可能宁愿选择收益较低的但是可能性较高的轨迹。</p>
-<p>该模型的优势：</p>
-<ul>
-<li>可以对次优行为进行建模，这个在逆增强学习中非常有意义，用于观察他人的行为来揣测他的真实目标；</li>
-<li>可以使用一些推断算法来求解控制规划问题；</li>
-<li>可以对为什么会偏好随机行为（相较于确定性行为）给出解释。</li>
+        <h3 id="主要算法"><a href="#主要算法" class="headerlink" title="主要算法"></a>主要算法</h3><h4 id="On-Policy算法"><a href="#On-Policy算法" class="headerlink" title="On-Policy算法"></a>On-Policy算法</h4><ul>
+<li>香草策略梯度（VPG）</li>
+<li>信托区域策略优化（TRPO）</li>
+<li>近端策略优化（PPO）</li>
 </ul>
-<p>我们的推断 $(inference)$ 问题是：<strong>如果执行最优策略，那么在当前状态下做出某个行动的概率是多少</strong>。</p>
-<p>为了解决推断问题，需要计算三类问题：</p>
-<ul>
-<li>后向信息$ (backward messages)$ ：$\beta_t(\mathbf{s}_t,\mathbf{a}_t)=p(\mathcal{O}_{t:T}|\mathbf{s}_t,\mathbf{a}_t)$；</li>
-<li>策略计算$ (policy computation)$ ：$\pi(\mathbf{a}_t|\mathbf{s}_t)=p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{1:T})$；</li>
-<li>前向信息$ (forward messages) $:$\alpha_t(\mathbf{s}_t)=p(\mathbf{s}_t|\mathcal{O}_{1:t-1})$。</li>
+<p>VPG 是深度 RL 空间中最基本的入门级算法，因为它完全超越了 DRL 的出现。VPG 的核心要素一直追溯到80年代末/ 90年代初。它开始了一系列的研究，最终导致了更强大的算法，如TRPO，然后很快PPO。</p>
+<p>这一系列工作的一个关键特性是所有这些算法都是 On-Policy 的：即，它们不使用旧数据，这使得它们在样本效率方面很弱。但这是有充分理由的：这些算法直接优化了我们关心的目标 - 策略性能 - 并且数学上需要您在策略数据上计算更新。因此，这一类算法可以降低样本效率，有利于稳定性 - 但您可以看到技术的进展（从VPG到TRPO再到PPO），以弥补样本效率的不足。</p>
+<h4 id="Off-Policy算法"><a href="#Off-Policy算法" class="headerlink" title="Off-Policy算法"></a>Off-Policy算法</h4><ul>
+<li>深度确定性策略梯度（DDPG）</li>
+<li>双延迟DDPG（TD3）</li>
+<li>Soft Actor-Critic（SAC）</li>
 </ul>
-<h4 id="后向信息"><a href="#后向信息" class="headerlink" title="后向信息"></a><strong>后向信息</strong></h4><p><img src="\image\概率图模型1.jpg" alt="图1 概率图模型1"></p>
-<script type="math/tex; mode=display">
-\beta_t(\mathbf{s}_t,\mathbf{a}_t)=p(\mathcal{O}_{t:T}|\mathbf{s}_t,\mathbf{a}_t)\\
-=\int p(\mathcal{O}_{t:T},\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_{t+1}\\
-=\int p(\mathcal{O}_{t+1:T}|\mathbf{s}_{t+1})p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\mathrm{d}\mathbf{s}_{t+1}</script><script type="math/tex; mode=display">
-\beta_t(\mathbf{s}_t)=p(\mathcal{O}_{t:T}|\mathbf{s}_t)\\
-=\int p(\mathcal{O}_{t:T}|\mathbf{s}_{t},\mathbf{a}_{t})p(\mathbf{a}_{t}|\mathbf{s}_{t})\mathrm{d}\mathbf{a}_{t}</script><p>（1）如果 $p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)$ 是均匀分布，则可得：<br>$for \ t=T-1\ to\ 1$：</p>
-<script type="math/tex; mode=display">
-\beta_t(\mathbf{s}_t,\mathbf{a}_t)=p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)}[\beta_{t+1}(\mathbf{s}_{t+1})] \\
-\beta_t(\mathbf{s}_t)=\mathbf{E}_{\mathbf{a}_t\sim p(\mathbf{a}_t|\mathbf{s}_t)}[\beta_t(\mathbf{s}_t,\mathbf{a}_t)]</script><p>这个算法和值函数迭代算法类似，值函数迭代算法如下：</p>
-<script type="math/tex; mode=display">
-Q(\mathbf{s},\mathbf{a})\leftarrow (\mathbf{s},\mathbf{a})+\gamma\mathbf{E}\left[(V(s^{'})\right]\\
-V(s)\leftarrow\max_aQ(\mathbf{s},\mathbf{a})</script><p>为了更清楚地说明类似性，令 $V_t(\mathbf{s}_t)=\log \beta_t(\mathbf{s}_t)，Q_t(\mathbf{s}_t,\mathbf{a}_t)=\log \beta_t(\mathbf{s}_t,\mathbf{a}_t) $，则有</p>
-<script type="math/tex; mode=display">
-V_t(\mathbf{s}_t)=\log\int\exp(Q_t(\mathbf{s}_t,\mathbf{a}_t))\mathrm{d}\mathbf{a}_t\\
-Q_t(\mathbf{s}_t,\mathbf{a}_t)=r(\mathbf{s}_t,\mathbf{a}_t)+\log\mathbf{E}[\exp(V_{t+1}(\mathbf{s}_{t+1}))]</script><p>随着$Q_t(\mathbf{s}_t,\mathbf{a}_t)$的值变大，显然会有$V_t(\mathbf{s}_t)\rightarrow\max_{\mathbf{a}_t}Q_t(\mathbf{s}_t,\mathbf{a}_t)$，因此前者的这种操作也被称为 $softmax$，是$max$函数的一个软化；如果状态转移是确定的，则$Q_t(\mathbf{s}_t,\mathbf{a}_t)=r(\mathbf{s}_t,\mathbf{a}_t)+V_{t+1}(\mathbf{s}_{t+1})$。</p>
-<p>（2）如果 $p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)$ 不是均匀分布，则：</p>
-<script type="math/tex; mode=display">
-V_t(\mathbf{s}_t)=\log\int\exp(Q_t(\mathbf{s}_t,\mathbf{a}_t)+\log p(\mathbf{a}_t|\mathbf{s}_t))\mathrm{d}\mathbf{a}_t\\
-Q_t(\mathbf{s}_t,\mathbf{a}_t)=r(\mathbf{s}_t,\mathbf{a}_t)+\mathbf{E}[V_{t+1}(\mathbf{s}_{t+1})]</script><p>我们重新定义一下$Q$函数：</p>
-<script type="math/tex; mode=display">
-\tilde{Q}_t(\mathbf{s}_t,\mathbf{a}_t)=r(\mathbf{s}_t,\mathbf{a}_t)+\mathbf{E}[V_{t+1}(\mathbf{s}_{t+1})]+\log p(\mathbf{a}_t|\mathbf{s}_t)</script><p>那么值函数则变为：</p>
-<script type="math/tex; mode=display">
-V_t(\mathbf{s}_t)=\log\int\exp(\tilde Q_t(\mathbf{s}_t,\mathbf{a}_t))\mathrm{d}\mathbf{a}_t</script><p>（1）（2）两种情况对比可发现，我们可以把$p(\mathcal{O}_t|\mathbf{s}_t,\mathbf{a}_t)$ 与奖赏$r(\mathbf{s}_t,\mathbf{a}_t)$ 视为一个整体，这样做并不失一般性。</p>
-<h4 id="策略计算"><a href="#策略计算" class="headerlink" title="策略计算"></a><strong>策略计算</strong></h4><p><img src="\image\概率图模型1.jpg" alt="图1 概率图模型1"></p>
-<script type="math/tex; mode=display">
-\pi(\mathbf{a}_t|\mathbf{s}_t)=p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{1:T})
-=p(\mathbf{a}_t|\mathbf{s}_t,\mathcal{O}_{t:T})\\
-=\frac{p(\mathbf{a}_t,\mathbf{s}_t|\mathcal{O}_{t:T})}{p(\mathbf{s}_t|\mathcal{O}_{t:T})}
-=\frac{p(\mathcal{O}_{t:T}|\mathbf{a}_t,\mathbf{s}_t)p(\mathbf{a}_t,\mathbf{s}_t)/p(\mathcal{O}_{t:T})}{p(\mathcal{O}_{t:T}|\mathbf{s}_t)p(\mathbf{s}_t)/p(\mathcal{O}_{t:T})}\\
-=\frac{p(\mathcal{O}_{t:T}|\mathbf{a}_t,\mathbf{s}_t)}{p(\mathcal{O}_{t:T}|\mathbf{s}_t)}\frac{p(\mathbf{a}_t,\mathbf{s}_t)}{p(\mathbf{s}_t)}=\frac{p(\mathcal{O}_{t:T}|\mathbf{a}_t,\mathbf{s}_t)}{p(\mathcal{O}_{t:T}|\mathbf{s}_t)}p(\mathbf{a}_t|\mathbf{s}_t)</script><p>如果我们假设$p(\mathbf{a}_t|\mathbf{s}_t)$是均匀分布，则其为常数，可以略去，则：</p>
-<script type="math/tex; mode=display">
-\pi(\mathbf{a}_t|\mathbf{s}_t)=\frac{\beta_t(\mathbf{s}_t,\mathbf{a}_t)}{\beta_t(\mathbf{s}_t)}</script><p>如果将$V_t(\mathbf{s}_t)=\log \beta_t(\mathbf{s}_t)，Q_t(\mathbf{s}_t,\mathbf{a}_t)=\log \beta_t(\mathbf{s}_t,\mathbf{a}_t) $ 带入上式，则有：</p>
-<script type="math/tex; mode=display">
-\pi(\mathbf{a}_t|\mathbf{s}_t)=\frac{\beta_t(\mathbf{s}_t,\mathbf{a}_t)}{\beta_t(\mathbf{s}_t)}=\exp(Q_t(\mathbf{s}_t,\mathbf{a}_t)-V_t(\mathbf{s}_t))=\exp(A_t(\mathbf{s}_t,\mathbf{a}_t))</script><p>最终的形式变为<strong>优势函数的指数</strong></p>
-<p>如果加入折扣的因素，则策略变为：</p>
-<script type="math/tex; mode=display">
-\pi(\mathbf{a}_t|\mathbf{s}_t)=\exp(\frac{1}{\alpha}Q_t(\mathbf{s}_t,\mathbf{a}_t)-\frac{1}{\alpha}V_t(\mathbf{s}_t))=\exp(\frac{1}{\alpha}A_t(\mathbf{s}_t,\mathbf{a}_t))</script><p><strong>自然解释:</strong></p>
-<ul>
-<li>更有可能采取更好的行动</li>
-<li>随机打破平局</li>
-<li>类似于玻尔兹曼探索</li>
-<li>随着 $\alpha\rightarrow0$，趋紧贪婪策略</li>
-</ul>
-<h4 id="前向信息"><a href="#前向信息" class="headerlink" title="前向信息"></a><strong>前向信息</strong></h4><script type="math/tex; mode=display">
-\alpha_t(\mathbf{s}_t)=p(\mathbf{s}_t|\mathcal{O}_{1:t-1})
-=\int p(\mathbf{s}_t|\mathbf{s}_{t-1},\mathbf{a}_{t-1})p(\mathbf{a}_{t-1}|\mathbf{s}_{t-1},\mathcal{O}_{t-1})p(\mathbf{s}_{t-1}|\mathcal{O}_{1:t-2})\mathrm{d}\mathbf{s}_{t-1}\mathrm{d}\mathbf{a}_{t-1}</script><p>我们假设状态转移概率$p(\mathbf{s}_t|\mathbf{s}_{t-1},\mathbf{a}_{t-1})$是已知的，$p(\mathbf{s}_{t-1}|\mathcal{O}_{1:t-2})=\alpha_{t-1}(\mathbf{s}_{t-1})$，而</p>
-<script type="math/tex; mode=display">
-p(\mathbf{a}_{t-1}|\mathbf{s}_{t-1},\mathcal{O}_{t-1})=\frac{p(\mathcal{O}_{t-1}|\mathbf{s}_{t-1},\mathbf{a}_{t-1})p(\mathbf{a}_{t-1}|\mathbf{s}_{t-1})}{p(\mathcal{O}_{t-1}|\mathbf{s}_{t-1})}</script><p>其中$p(\mathcal{O}_{t-1}|\mathbf{s}_{t-1},\mathbf{a}_{t-1})\propto\exp(r(\mathbf{s}_{t-1},\mathbf{a}_{t-1}))$</p>
-<p>假设$p(\mathbf{a}_{t-1}|\mathbf{s}_{t-1})$是均匀分布，分母也是一个归一化常数，因此$p(\mathbf{a}_{t-1}|\mathbf{s}_{t-1},\mathcal{O}_{t-1})\propto\exp(r(\mathbf{s}_{t-1},\mathbf{a}_{t-1}))$。</p>
-<p>如果求 $p(\mathbf{s}_t|\mathcal{O}_{1:T})$，则</p>
-<script type="math/tex; mode=display">
-p(\mathbf{s}_t|\mathcal{O}_{1:T})=\frac{p(\mathbf{s}_t,\mathcal{O}_{1:T})}{p(\mathcal{O}_{1:T})}=\frac{p(\mathcal{O}_{t:T}|\mathbf{s}_t)p(\mathbf{s}_t,\mathcal{O}_{1:t-1})}{p(\mathcal{O}_{1:T})}\\
-=\frac{p(\mathcal{O}_{t:T}|\mathbf{s}_t)p(\mathbf{s}_t|\mathcal{O}_{1:t-1})p(\mathcal{O}_{1:t-1})}{p(\mathcal{O}_{1:T})}
-\propto\beta_t(\mathbf{s}_t)\alpha_t(\mathbf{s}_t)p(\mathcal{O}_{1:t-1})
-\propto\beta_t(\mathbf{s}_t)\alpha_t(\mathbf{s}_t)</script><p><img src="\image\概率图模型2.jpg" alt="图2 概率图模型2"></p>
-<script type="math/tex; mode=display">
-p(\mathbf{s}_t)\propto\beta_t(\mathbf{s}_t)\alpha_t(\mathbf{s}_t)</script><p>黄色区域是能够有高概率到达终点的状态，蓝色区域是有高概率从初始状态以高收益到达的状态。</p>
+<p>DDPG 是类似于 VPG 的基础算法，导致DDPG的DPG理论直到2014年才发表。DDPG 与 Q-learning 算法密切相关，并且它同时学习Q-函数和策略，这两者的更新可以相互促进对方。</p>
+<p>像 DDPG 和 Q-Learning这样的算法是Off-Policy的，因此它们能够非常有效地重用旧数据。他们通过利用Bellman方程的最优性来获得这种好处，可以训练Q函数以满足使用任何环境交互数据（只要有足够的经验来自环境中的高回报区域）。</p>
+<p>但问题是，无法保证很好地满足贝尔曼方程式会带来很好的策略性能。根据经验，人们可以获得很好的性能 - 当它发生时，样本效率很好 - 但缺乏保证会使这类算法变得脆弱和不稳定。TD3和SAC是DDPG的后代，它们利用各种见解来缓解这些问题。</p>
 
       
     </div>
@@ -567,8 +501,8 @@ p(\mathbf{s}_t)\propto\beta_t(\mathbf{s}_t)\alpha_t(\mathbf{s}_t)</script><p>黄
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/27/最大熵逆向强化学习/" rel="next" title="最大熵逆向强化学习">
-                <i class="fa fa-chevron-left"></i> 最大熵逆向强化学习
+              <a href="/2019/04/27/CGAN/" rel="next" title="CGAN 解读">
+                <i class="fa fa-chevron-left"></i> CGAN 解读
               </a>
             
           </div>
@@ -576,10 +510,6 @@ p(\mathbf{s}_t)\propto\beta_t(\mathbf{s}_t)\alpha_t(\mathbf{s}_t)</script><p>黄
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/27/强化学习环境搭建中的一些技巧/" rel="prev" title="强化学习环境搭建中的一些技巧">
-                强化学习环境搭建中的一些技巧 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -748,7 +678,7 @@ p(\mathbf{s}_t)\propto\beta_t(\mathbf{s}_t)\alpha_t(\mathbf{s}_t)</script><p>黄
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#后向信息"><span class="nav-text">后向信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#策略计算"><span class="nav-text">策略计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前向信息"><span class="nav-text">前向信息</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#主要算法"><span class="nav-text">主要算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#On-Policy算法"><span class="nav-text">On-Policy算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Off-Policy算法"><span class="nav-text">Off-Policy算法</span></a></li></ol></li></ol></div>
             
 
           </div>
