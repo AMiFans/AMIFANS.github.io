@@ -127,7 +127,7 @@
 <meta property="og:image" content="https://github.com/image/Gaussian%20policy%20and%20proposed%20policy.png">
 <meta property="og:image" content="https://github.com/image/off-policy%20actor-critic%20imitation%20learning%20algorithm伪代码.png">
 <meta property="og:image" content="https://github.com/image/Number%20of%20Environment%20Interaction.png">
-<meta property="og:updated_time" content="2019-05-08T12:33:50.666Z">
+<meta property="og:updated_time" content="2019-05-08T12:38:05.101Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sample Efficient Imitation Learning for Continuous Control">
 <meta name="twitter:description" content="1. 介绍1.1 现有的AIL方法在环境交互方面存在以下三个可能导致样本复杂性的特性:a. 采用 on-policy 强化学习方法，在环境交互方面具有较高的样本复杂性。 b.交替进行三个优化过程： 学习奖励函数、用学习到的奖励函数进行价值估计，用估计值更新学习策略。一般来说，随着相互关联的参数化函数数量的增加，训练过程可能会变得不稳定或较慢，从而在训练过程中可能会进行更多的交互。 c. 采用高斯策">
@@ -420,7 +420,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                <time title="修改时间：2019-05-08 20:33:50" itemprop="dateModified" datetime="2019-05-08T20:33:50+08:00">2019-05-08</time>
+                <time title="修改时间：2019-05-08 20:38:05" itemprop="dateModified" datetime="2019-05-08T20:38:05+08:00">2019-05-08</time>
               
             
           </span>
@@ -493,7 +493,7 @@ argmax_\theta\mathbb{E}_{s\sim\rho_\beta,a\sim\pi_\theta}\left[Q_{\pi_\theta,\nu
 <p><img src="\image\Gaussian policy and proposed policy.png" alt="Gaussian policy and proposed policy"></p>
 <h2 id="3-算法"><a href="#3-算法" class="headerlink" title="3. 算法"></a>3. 算法</h2><p>3.1介绍方法 b，3.2介绍方法 c，之后将方法 b、c 应用于方法 a</p>
 <h3 id="3-1-没有奖励学习的值估计"><a href="#3-1-没有奖励学习的值估计" class="headerlink" title="3.1 没有奖励学习的值估计"></a>3.1 没有奖励学习的值估计</h3><h4 id="3-1-1-奖励学习"><a href="#3-1-1-奖励学习" class="headerlink" title="3.1.1 奖励学习"></a>3.1.1 奖励学习</h4><p>定义参数化的奖励函数为 $R_\omega(s,a)=\log r_\omega(s,a)$，$r_\omega(s,a)$ 代表了状态动作对 $(s,a) \in \mathcal{S}_E \times \mathcal{A}_E$ 的概率，换句话说，$r_\omega(s,a)$ 解释了在状态s处专家会有多大的概率采取动作a。</p>
-<p>用这个奖励也可以定义一个<a href="https://www.cnblogs.com/yajun-yin/p/8608344.html" target="_blank" rel="noopener">伯努利分布</a> $P(\pi_E|s,a)=r_\omega(s,a)$（对于专家策略$\pi_E$）,相应地，$P(\pi|s,a)=1-r_\omega(s,a)$（对于其它非专家策略$\pi$）</p>
+<p>用这个奖励也可以定义一个<a href="https://amifans.github.io/2019/05/08/%E4%BC%AF%E5%8A%AA%E5%88%A9%E5%88%86%E5%B8%83/#more" target="_blank" rel="noopener">伯努利分布</a> $P(\pi_E|s,a)=r_\omega(s,a)$（对于专家策略$\pi_E$）,相应地，$P(\pi|s,a)=1-r_\omega(s,a)$（对于其它非专家策略$\pi$）</p>
 <p>一条轨迹的折扣回报可以写为对数似然：</p>
 <script type="math/tex; mode=display">
 \sum^{\infty}_{t=0}\gamma^tR_\omega(s_t,a_t)=\log\prod^{\infty}_{t=0}r^{\gamma^t}_\omega(s_t,a_t)=\log\prod^{\infty}_{t=0}p^{\gamma^t}_\omega(\pi_E|s_t,a_t)......(6)</script><p>上式代表了一条轨迹与专家轨迹的的相似程度，$\gamma使得回报是有限的$</p>
