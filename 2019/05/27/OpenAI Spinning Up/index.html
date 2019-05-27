@@ -128,7 +128,7 @@
 <meta property="og:image" content="https://github.com/image/TRPO_Pseudocode.svg">
 <meta property="og:image" content="https://github.com/image/PPO_Pseudocode.svg">
 <meta property="og:image" content="https://github.com/image/DDPG_Pseudocode.svg">
-<meta property="og:updated_time" content="2019-05-27T09:05:44.095Z">
+<meta property="og:updated_time" content="2019-05-27T09:08:51.066Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenAI Spinning Up">
 <meta name="twitter:description" content="Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。 特点 $VPG$是一种$on-police$的算法。 $VPG$可用于具有离散或连续动作空间的环境。 $VPG$的$Spinning-Up$实现支持使用$MPI$并行化。  关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的">
@@ -406,7 +406,7 @@
                 
               
 
-              <time title="创建时间：2019-05-27 15:40:51 / 修改时间：17:05:44" itemprop="dateCreated datePublished" datetime="2019-05-27T15:40:51+08:00">2019-05-27</time>
+              <time title="创建时间：2019-05-27 15:40:51 / 修改时间：17:08:51" itemprop="dateCreated datePublished" datetime="2019-05-27T15:40:51+08:00">2019-05-27</time>
             
 
             
@@ -556,7 +556,7 @@ a^{\ast}(s)=\arg\max_a Q^{\ast}(s,a)</script><p>DDPG通过学习 $a^{\ast}(s)$ �
 <h3 id="关键方程-3"><a href="#关键方程-3" class="headerlink" title="关键方程"></a><strong>关键方程</strong></h3><p>在这里，我们将解释DDPG的两个部分的背后所蕴含的数学：学习Q函数和学习策略。</p>
 <h4 id="DDPG的Q-learning"><a href="#DDPG的Q-learning" class="headerlink" title="DDPG的Q-learning"></a><strong>DDPG的Q-learning</strong></h4><p>首先，让我们回顾一下描述最优动作值函数的Bellman方程：</p>
 <script type="math/tex; mode=display">
-Q^{\ast}(s,a) =\mathbb{E}_{s'\sim P}\left[r(s,a) + \gamma \max_{a'} Q^{\ast}(s', a')\right]</script><p>这个贝尔曼方程是学习$Q^{*}(s,a)的逼近器$的起点。加入这个逼近器是一个参数化的神经网络$ Q_{\phi}(s,a)$，并且我们已经收集到了转换$(s,a,r,s’,d)$ 的集合$\mathcal{D}$（其中，d 暗指的是 s’ 是否为终止状态），我们设置了一个均方Bellman误差（MSBE）函数，它告诉我们 $Q_{\phi}$离满足Bellman方程有多近。</p>
+Q^{\ast}(s,a) =\mathbb{E}_{s'\sim P}\left[r(s,a) + \gamma \max_{a'} Q^{\ast}(s', a')\right]</script><p>这个贝尔曼方程是学习$Q^{*}(s,a)的逼近器$的起点。假如这个逼近器是一个参数化的神经网络$ Q_{\phi}(s,a)$，并且我们已经收集到了转换$(s,a,r,s’,d)$ 的集合$\mathcal{D}$（其中，d 暗指的是 s’ 是否为终止状态），我们设置了一个均方Bellman误差（MSBE）函数，它告诉我们 $Q_{\phi}$离满足Bellman方程有多近。</p>
 <script type="math/tex; mode=display">
 L(\phi, {\mathcal D}) = \mathbb{E}_{(s,a,r,s',d) \sim \mathcal{D}}\left[\Bigg( Q_{\phi}(s,a) - \left(r + \gamma (1 - d) \max_{a'} Q_{\phi}(s',a') \right) \Bigg)^2\right]</script><p>当$s’$是终端状态时，<code>d=True</code>，(1-d) 表明当$s’$是终端状态时，agent在$s’$之后的状态没有获得额外的奖励。<br>使用函数逼近器的Q-learning算法，比如DQN（以及其变体）和DDPG都依赖于最小化MSBE损失函数。它们都使用了两个主要的tricks，只是DDPG在细节上有一点特殊。<br><strong>Trick 1：Replay Buffers</strong></p>
 <p><strong>Trick 2：Target Networks</strong></p>
