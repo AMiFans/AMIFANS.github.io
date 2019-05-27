@@ -357,7 +357,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/OpenAI Spinning Up/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/强化学习环境搭建中的一些技巧/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="AMiFans">
@@ -377,7 +377,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/04/27/OpenAI Spinning Up/" class="post-title-link" itemprop="url">OpenAI Spinning Up</a>
+                <a href="/2019/04/27/强化学习环境搭建中的一些技巧/" class="post-title-link" itemprop="url">强化学习环境搭建中的一些技巧</a>
               
             
           </h1>
@@ -400,7 +400,185 @@
                 
               
 
-              <time title="创建时间：2019-04-27 15:45:12 / 修改时间：15:45:18" itemprop="dateCreated datePublished" datetime="2019-04-27T15:45:12+08:00">2019-04-27</time>
+              <time title="创建时间：2019-04-27 15:46:12" itemprop="dateCreated datePublished" datetime="2019-04-27T15:46:12+08:00">2019-04-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                <time title="修改时间：2019-04-28 21:20:57" itemprop="dateModified" datetime="2019-04-28T21:20:57+08:00">2019-04-28</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              2019.03.19Windows10 系统下安装pip install gym[atari] 报错解决办法方法：pip install --no-index -f https://github.com/Kojoley/atari-py/releases atari_py
+2019.04.28Windows安装mpi4py方法1.点击下面的链接下载两个文件msmpisdk.msi和msmpisdk.msi并安装https://www.microsoft.com/en-us/download/co
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/27/强化学习环境搭建中的一些技巧/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/概率图模型与软化增强学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AMiFans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AMiFans’s Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/27/概率图模型与软化增强学习/" class="post-title-link" itemprop="url">使用概率图模型对次优行为建模</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-27 15:45:54 / 修改时间：15:45:59" itemprop="dateCreated datePublished" datetime="2019-04-27T15:45:54+08:00">2019-04-27</time>
             
 
             
@@ -458,19 +636,364 @@
         
           
             <p>
-              Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。
-特点
-$VPG$是一种$on-police$的算法。
-$VPG$可用于具有离散或连续动作空间的环境。
-$VPG$的$Spinning-Up$实现支持使用$MPI$并行化。
-
-关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的策略，$J(\pi_{\theta})$表示该策略的预期有限未折扣回报，则$J(\pi_{\thet
+              首先我们看如下实验：如果猴子把场景里一个物体移动到某个指定位置那么给予它一个香蕉作为奖励。我们知道最优的移动轨迹必然是两点连线的直线段，但是猴子也有可能不走这样的直线，而是走一些弯曲的路径，但同样能完成该项任务。这是因为猴子的决策不会总是完美的，它的目的是能到达指定位置并拿到奖励，所以对于猴子来说，行为是随机的。但是“好的行为”总是有一定相似度的。现在我们要使用数学的方法来表达“次优的路径也是可以的但是不能达到目标的路径是不行的”这个界限，并且刻画这个随机行为。
+现在我们的目的是使用概率图模型刻
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/04/27/OpenAI Spinning Up/#more" rel="contents">
+              <a class="btn" href="/2019/04/27/概率图模型与软化增强学习/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/最大熵逆向强化学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AMiFans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AMiFans’s Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/27/最大熵逆向强化学习/" class="post-title-link" itemprop="url">最大熵逆向强化学习</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-27 15:45:42 / 修改时间：15:45:44" itemprop="dateCreated datePublished" datetime="2019-04-27T15:45:42+08:00">2019-04-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              最大熵基于最大边际的方法往往会产生歧义，比如许多不同的回报函数会导致相同的专家策略。在这种情况下，所学到的回报函数往往具有随机的偏好。最大熵方法就是为解决此问题提出的。
+最大熵原理指出，在学习概率模型时，在所有满足约束的概率模型（分布）中，熵最大的模型是最好的模型。现在我们假设存在一个潜在的概率分布，在该概率分布下，产生了专家轨迹。此时，已知条件为
+
+\sum_{\zeta_i}​P(\zeta_i​)f=\tilde{f}......(1)这里用$f$表示特征期望，$\tilde{f}$表示专
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/27/最大熵逆向强化学习/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/熵/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AMiFans">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AMiFans’s Blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/27/熵/" class="post-title-link" itemprop="url">熵</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-27 15:45:29" itemprop="dateCreated datePublished" datetime="2019-04-27T15:45:29+08:00">2019-04-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                <time title="修改时间：2019-05-08 21:21:49" itemprop="dateModified" datetime="2019-05-08T21:21:49+08:00">2019-05-08</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/信息论与概率论/" itemprop="url" rel="index"><span itemprop="name">信息论与概率论</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              信息熵在概率论中，熵是不确定性的度量。不确定性越大，熵越大。在信息论中，平均自信息量又称为信息熵、信源熵，简称熵。熵的数学形式可描述为：
+
+H(X)=-\sum_{i=1}^qp_i\log p_i=H(p_1,p_2,…,p_q)= H(p)其中，$q$为$X$的所有可能取值的个数。由概率空间的完备性和非负性，有$\sum_{i=1}^q p_i=1$和$0 ≤ p( x_i ) ≤ 1$
+为什么信息熵要定义成$-\sum p*\log(p)$？第一，当我们被告知一个极不可能发生的事情发生了，
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/27/熵/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1392,7 +1915,7 @@ $\pi$是一个随机策略，$\rho_
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1415,7 +1938,11 @@ $\pi$是一个随机策略，$\rho_
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1538,7 +2065,7 @@ $\pi$是一个随机策略，$\rho_
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">21.5k</span> 字
+      博客全站共： <span class="post-count">26.3k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->
@@ -1663,6 +2190,12 @@ $\pi$是一个随机策略，$\rho_
     
       
         
+      
+    
+      
+    
+      
+    
       
     
       

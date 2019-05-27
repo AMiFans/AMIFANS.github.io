@@ -117,24 +117,24 @@
 
 </script>
 
-  <meta name="description" content="策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mathb">
+  <meta name="description" content="摘要我们提出了一种与模型无关的元学习算法，因为它与任何经过梯度下降训练的模型兼容，并且适用于各种不同的学习问题，包括分类、回归和强化学习。元学习的目标是在各种学习任务上训练一个模型，这样它就可以只用少量的训练样本来解决新的学习任务。在我们的方法中，模型的参数被显式地训练，这样少量的梯度步长和来自新任务的少量训练数据就可以在该任务上产生良好的泛化性能。实际上，我们的方法训练模型易于微调。结果表明，该">
 <meta property="og:type" content="article">
-<meta property="og:title" content="演员-评论家方法(Actor-Critic)">
-<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/Actor-Critic/index.html">
+<meta property="og:title" content="Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/05/16/Meta-learning：MAML/index.html">
 <meta property="og:site_name" content="AMiFans’s Blogs">
-<meta property="og:description" content="策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mathb">
+<meta property="og:description" content="摘要我们提出了一种与模型无关的元学习算法，因为它与任何经过梯度下降训练的模型兼容，并且适用于各种不同的学习问题，包括分类、回归和强化学习。元学习的目标是在各种学习任务上训练一个模型，这样它就可以只用少量的训练样本来解决新的学习任务。在我们的方法中，模型的参数被显式地训练，这样少量的梯度步长和来自新任务的少量训练数据就可以在该任务上产生良好的泛化性能。实际上，我们的方法训练模型易于微调。结果表明，该">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-27T07:44:13.522Z">
+<meta property="og:updated_time" content="2019-05-17T01:56:11.519Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="演员-评论家方法(Actor-Critic)">
-<meta name="twitter:description" content="策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mathb">
+<meta name="twitter:title" content="Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks">
+<meta name="twitter:description" content="摘要我们提出了一种与模型无关的元学习算法，因为它与任何经过梯度下降训练的模型兼容，并且适用于各种不同的学习问题，包括分类、回归和强化学习。元学习的目标是在各种学习任务上训练一个模型，这样它就可以只用少量的训练样本来解决新的学习任务。在我们的方法中，模型的参数被显式地训练，这样少量的梯度步长和来自新任务的少量训练数据就可以在该任务上产生良好的泛化性能。实际上，我们的方法训练模型易于微调。结果表明，该">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/Actor-Critic/">
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/05/16/Meta-learning：MAML/">
 
 
 
@@ -144,7 +144,7 @@
   };
 </script>
 
-  <title>演员-评论家方法(Actor-Critic) | AMiFans’s Blogs</title>
+  <title>Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks | AMiFans’s Blogs</title>
   
 
 
@@ -360,7 +360,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/Actor-Critic/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/05/16/Meta-learning：MAML/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="AMiFans">
@@ -377,7 +377,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">演员-评论家方法(Actor-Critic)
+          <h1 class="post-title" itemprop="name headline">Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks
 
               
             
@@ -401,12 +401,22 @@
                 
               
 
-              <time title="创建时间：2019-04-27 15:44:09 / 修改时间：15:44:13" itemprop="dateCreated datePublished" datetime="2019-04-27T15:44:09+08:00">2019-04-27</time>
+              <time title="创建时间：2019-05-16 19:39:56" itemprop="dateCreated datePublished" datetime="2019-05-16T19:39:56+08:00">2019-05-16</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                <time title="修改时间：2019-05-17 09:56:11" itemprop="dateModified" datetime="2019-05-17T09:56:11+08:00">2019-05-17</time>
               
             
           </span>
@@ -421,7 +431,7 @@
               </span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/元学习/" itemprop="url" rel="index"><span itemprop="name">元学习</span></a></span>
 
                 
                 
@@ -456,75 +466,11 @@
       
 
       
-        <h3 id="策略梯度法引入值函数"><a href="#策略梯度法引入值函数" class="headerlink" title="策略梯度法引入值函数"></a><strong>策略梯度法引入值函数</strong></h3><p>策略梯度法中梯度的基本形式为：</p>
-<script type="math/tex; mode=display">
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t'=t}^Tr(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})\right]......(1)</script><p>现在我们回顾一下状态-动作值函数$Q(\mathbf{s}_t,\mathbf{a}_t)$和状态值函数$V(\mathbf{s}_t)$的定义：</p>
-<script type="math/tex; mode=display">
-Q(\mathbf{s}_t,\mathbf{a}_t)=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|\mathbf{s}_t,\mathbf{a}_t]......(2)</script><script type="math/tex; mode=display">
-V(s_t)=\sum_{t'=t}^T \mathop{E}_{\pi_\theta} [r(s_{t'}, a_{t'})|s_t]......(3)</script><p>现在我们令公式（1）中的$\sum_{t’=t}^Tr(\mathbf{s}_{i,t’},\mathbf{a}_{i,t’})=\hat{Q}_{i,t}$，为什么用$\hat{Q}_{i,t}$来表示,因为这两者是有密切联系的，$Q(\mathbf{s}_t,\mathbf{a}_t)$是$\hat{Q}_{i,t}$的期望。</p>
-<p>现在我们要做的就是用$Q(\mathbf{s}_t,\mathbf{a}_t)$代替$\hat{Q}_{i,t}$，因为采样的每一条轨迹中，在状态$s_t$之后的奖赏之和可能是不同的，我们想使得状态$s_t$之后奖赏之和能够稳定。</p>
-<p>同样在引入基线后，我们可以将前文所述的基线$b_t=\frac{1}{N}\sum_iQ^\pi(\mathbf{s}_{i,t},\mathbf{a}_{i,t})$用其期望$V(s_t)=\sum_{t’=t}^T\mathop{E}_{\pi_\theta} [r(s_{t’}, a_{t’})|s_t]$取代，现在我们的梯度形式就变为</p>
-<script type="math/tex; mode=display">
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})A^\pi(\mathbf{s}_t,\mathbf{a}_t)\right]......(4)</script><p>其中，$A^\pi(\mathbf{s}_t,\mathbf{a}_t)=Q^\pi(\mathbf{s}_t,\mathbf{a}_t)-V^\pi(\mathbf{s}_t)$,称为优势函数（Advantage Function）。</p>
-<p>优势函数可理解为在给定策略$\pi$的情况下，在状态$\mathbf{s}_t$处，采用行动$\mathbf{a}_t$的收益能比该策略的平均今后收益期望多出多少。</p>
-<h3 id="演员-评论家算法"><a href="#演员-评论家算法" class="headerlink" title="演员-评论家算法"></a><strong>演员-评论家算法</strong></h3><p>演员-评论家算法要做的就是引入另一个参数$\phi$，通过神经网络来拟合优势函数$A^\pi(\mathbf{s}_t,\mathbf{a}_t)$</p>
-<p>$Q(\mathbf{s}_t,\mathbf{a}_t)$和$V^\pi(\mathbf{s}_t)$有如下的关系，</p>
-<script type="math/tex; mode=display">
-Q^\pi(\mathbf{s}_t,\mathbf{a}_t)=r(\mathbf{s}_t,\mathbf{a}_t)+\sum_{t'=t+1}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|\mathbf{s}_t,\mathbf{a}_t]=r(\mathbf{s}_t,\mathbf{a}_t)+\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s_{t+1}}|\mathbf{s}_t,\mathbf{a}_t)}[V^\pi(\mathbf{s}_{t+1})]......(5)</script><p>如果我们用用轨迹样本来估计这个期望（即用$V^\pi(\mathbf{s}_{t+1})$来代替$\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s_{t+1}}|\mathbf{s}_t,\mathbf{a}_t)}[V^\pi(\mathbf{s}_{t+1})]$），那么，优势函数也可以被近似为</p>
-<script type="math/tex; mode=display">
-A^\pi(\mathbf{s}_t,\mathbf{a}_t)\approx r(\mathbf{s}_t,\mathbf{a}_t)+V^\pi(\mathbf{s}_{t+1})-V^\pi(\mathbf{s}_t)......(6)</script><p>这样的话，我们只需要用参数$\phi$去拟合$V^\pi(\mathbf{s}_t)$即可。</p>
-<p>在蒙特卡洛策略评估中，进行一次轨迹采样后</p>
-<script type="math/tex; mode=display">
-V^\pi(\mathbf{s}_t)\approx\sum_{t'=t}^Tr(\mathbf{s}_{t'},\mathbf{a}_{t'})......(7)</script><p>如果进行多次轨迹采样后</p>
-<script type="math/tex; mode=display">
-V^\pi(\mathbf{s}_t)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t'=t}^Tr(\mathbf{s}_{t'},\mathbf{a}_{t'})......(8)</script><p>虽然多次轨迹采样比一次轨迹采样效果好，但是，一次轨迹采样的表现也不错。</p>
-<p>训练神经网络来拟合值函$V_\phi^\pi(\mathbf{s}_t)$则比较简单，首先收集训练数据$\left\{\left(\mathbf{s}_{i,t},y_{i,t}:=\sum_{t’=t}^T r(\mathbf{s}_{i,t},\mathbf{a}_{i,t})\right)\right\}$，然后使用最小二乘的损失函数</p>
-<script type="math/tex; mode=display">
-\mathcal{L}(\phi)=\frac{1}{2}\sum_i\left\Vert\hat{V}_\phi^\pi(\mathbf{s}_i)-y_i\right\Vert^2......(9)</script><p>为了使拟合效果更好，在理想化的情况下，我们的目标也可修改为（自助法(bootstrapped)）</p>
-<script type="math/tex; mode=display">
-y_{i,t}=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|\mathbf{s}_{i,t}]\approx r(\mathbf{s}_{i,t},\mathbf{a}_{i,t})+V^\pi(\mathbf{s}_{i,t+1})\approx r(\mathbf{s}_{i,t},\mathbf{a}_{i,t})+\hat{V}_\phi^\pi(\mathbf{s}_{i,t+1})......(10)</script><p>这样我们便可以直接使用先前的拟合值函数。</p>
-<p><strong>批量演员-评论家算法 (batch actor-critic algorithm)</strong>：</p>
-<ol>
-<li>根据策略$\pi_\theta(\mathbf{a}|\mathbf{s})$得到一些样本$\{\mathbf{s}_i,\mathbf{a}_i\}$，包括所处状态、行动和收益。</li>
-<li>使用样本收益之和拟合$\hat{V}^\pi_\phi(\mathbf{s})$。这一步样本可以做蒙特卡洛，也可以做自助法；拟合可以用最小二乘的目标函数。</li>
-<li>评估优势函数$\hat{A}^\pi(\mathbf{s}_i,\mathbf{a}_i)=r(\mathbf{s}_i,\mathbf{a}_i)+\hat{V}^\pi_\phi(\mathbf{s}_i’)-\hat{V}^\pi_\phi(\mathbf{s}_i)$。</li>
-<li>$\nabla_\theta J(\theta)\approx\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_t|\mathbf{s}_t)\hat{A}^\pi(\mathbf{s}_t,\mathbf{a}_t)\right]$。</li>
-<li>$\theta\leftarrow \theta+\alpha\nabla_\theta J(\theta)$。</li>
-</ol>
-<h3 id="引入“折扣因子”"><a href="#引入“折扣因子”" class="headerlink" title="引入“折扣因子”"></a><strong>引入“折扣因子”</strong></h3><p>在策略梯度中引入“折扣因子”，梯度变为</p>
-<script type="math/tex; mode=display">
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\nabla_\theta\log\pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\left(\sum_{t'=t}^T\gamma^{t'-t}r(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})-b\right)......(11)</script><p>在演员-评论家算法中引入“折扣因子”，首先我们的优势函数将从</p>
-<script type="math/tex; mode=display">
-\hat{A}^\pi(\mathbf{s}_i,\mathbf{a}_i)=r(\mathbf{s}_i,\mathbf{a}_i)+\hat{V}^\pi_\phi(\mathbf{s}_i')-\hat{V}^\pi_\phi(\mathbf{s}_i)......(12)</script><p>变为</p>
-<script type="math/tex; mode=display">
-\hat{A}^\pi(\mathbf{s}_i,\mathbf{a}_i)=r(\mathbf{s}_i,\mathbf{a}_i)+\gamma\hat{V}^\pi_\phi(\mathbf{s}_i')-\hat{V}^\pi_\phi(\mathbf{s}_i)......(13)</script><p>此时的梯度将变为</p>
-<script type="math/tex; mode=display">
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\nabla_\theta\log\pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\left(r(\mathbf{s}_{i,t},\mathbf{a}_{i,t})+\gamma\hat{V}^\pi_\phi(\mathbf{s}_{i,t+1})-\hat{V}^\pi_\phi(\mathbf{s}_{i,t})\right)......(14)</script><p><strong>在线的演员-评论家算法 (online actor-critic algorithm)</strong></p>
-<ol>
-<li>根据策略执行行动$\mathbf{a}\sim\pi_\theta(\mathbf{a}|\mathbf{s})$，得到一个状态转移样本$(\mathbf{s},\mathbf{a},\mathbf{s}’,r)$，即从一个状态出发执行某行动到哪个新的状态，单步收益多少</li>
-<li>使用评论家的结果$r+\gamma\hat{V}^\pi_\phi(\mathbf{s}’)$来更新$\hat{V}^\pi_\phi(\mathbf{s})$</li>
-<li>评估优势函数$\hat{A}^\pi(\mathbf{s},\mathbf{a})=r(\mathbf{s},\mathbf{a})+\gamma\hat{V}^\pi_\phi(\mathbf{s}’)-\hat{V}^\pi_\phi(\mathbf{s})$</li>
-<li>$\nabla_\theta J(\theta)\approx\nabla_\theta\log \pi_\theta(\mathbf{a}|\mathbf{s})\hat{A}^\pi(\mathbf{s},\mathbf{a})$</li>
-<li>$\theta\leftarrow \theta+\alpha\nabla_\theta J(\theta)$</li>
-</ol>
-<p><strong>批量演员-评论家算法 (batch actor-critic algorithm)</strong>：</p>
-<ol>
-<li>根据策略$\pi_\theta(\mathbf{a}|\mathbf{s})$得到一些样本$\{\mathbf{s}_i,\mathbf{a}_i\}$，包括所处状态、行动和收益。</li>
-<li>使用样本收益之和拟合$\hat{V}^\pi_\phi(\mathbf{s})$。这一步样本可以做蒙特卡洛，也可以做自助法；拟合可以用最小二乘的目标函数。</li>
-<li>评估优势函数$\hat{A}^\pi(\mathbf{s}_i,\mathbf{a}_i)=r(\mathbf{s}_i,\mathbf{a}_i)+\gamma\hat{V}^\pi_\phi(\mathbf{s}_i’)-\hat{V}^\pi_\phi(\mathbf{s}_i)$。</li>
-<li>$\nabla_\theta J(\theta)\approx\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_t|\mathbf{s}_t)\hat{A}^\pi(\mathbf{s}_t,\mathbf{a}_t)\right]$。</li>
-<li>$\theta\leftarrow \theta+\alpha\nabla_\theta J(\theta)$。</li>
-</ol>
-<p> Actor-Critic算法（公式14）是低方差的（由于Critic的存在）、有偏差的（如果Critic表现地不好）</p>
-<p>Policy Gradients方法（公式11）是高方差（由于用单样本采样来估计）、无偏差的</p>
-<p>为了使结果无偏差、低方差的，我们可以结合上述两者的优点，算法如下：</p>
-<script type="math/tex; mode=display">
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\nabla_\theta\log\pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\left(\sum_{t'=t}^T\gamma^{t'-t}r(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})-\hat{V}^\pi_\phi(\mathbf{s}_{i,t})\right)</script><p>在CS294-112的作业2中正是利用这个算法。</p>
-<p><strong>参考</strong></p>
-<ol>
-<li><a href="http://rail.eecs.berkeley.edu/deeprlcourse/" target="_blank" rel="noopener">CS 294-112 at UC Berkeley</a></li>
-<li><a href="https://sites.google.com/view/deep-rl-bootcamp/lectures" target="_blank" rel="noopener">UC Berkeley RL Bootcamp</a></li>
-</ol>
+        <h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>我们提出了一种与模型无关的元学习算法，因为它与任何经过梯度下降训练的模型兼容，并且适用于各种不同的学习问题，包括分类、回归和强化学习。元学习的目标是在各种学习任务上训练一个模型，这样它就可以只用少量的训练样本来解决新的学习任务。在我们的方法中，模型的参数被显式地训练，这样少量的梯度步长和来自新任务的少量训练数据就可以在该任务上产生良好的泛化性能。实际上，我们的方法训练模型易于微调。结果表明，该方法在两种图像分类基准上的性能都达到了最新水平，在小样本回归上取得了良好的效果，并利用神经网络策略加速了策略梯度强化学习的微调。</p>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>快速学习是人类智力的一个标志，无论是从几个例子中识别物体，还是在短短几分钟的经验后快速学习新技能。我们的人工智能也应该能够做到这一点，从几个例子中快速学习和适应，并随着更多的数据可用而继续适应。这种快速而灵活的学习是具有挑战性的，因为代理必须将其以前的经验与少量的新信息集成起来，同时避免对新数据的过度拟合。此外，以往经验和新数据的形式将取决于任务。因此，为了获得最大的适用性，学习学习(或元学习)的机制应该适用于任务和完成任务所需的计算形式。<br>在这项工作中，我们提出了一个元学习算法，它是通用的和模型无关的，因为它可以直接应用于任何学习问题和模型的梯度下降过程的训练。我们的重点是深度神经网络模型，但是我们演示了我们的方法如何能够轻松地处理不同的体系结构和不同的问题设置，包括分类、回归和策略梯度强化学习，而只需要最小的修改。<strong>在元学习中，训练模型的目标是从少量的新数据中快速学习一个新任务，而元学习者训练模型能够学习大量不同的任务。我们的方法的核心思想是训练模型的初始参数，使模型在参数通过一个或多个梯度步骤更新后，对新任务具有最大的性能。</strong>与以前学习更新函数或学习规则的元学习方法不同，我们的算法既不增加学习参数的数量，也不限制模型体系结构或者一个Siamese网络，它可以很容易地与全连接的、卷积的或递归的神经网络相结合。它还可以用于多种损失函数，包括可微监督损失和不可微强化学习目标。<br>从特征学习的角度来看，训练模型的参数的过程，例如几个梯度步骤，甚至一个梯度步骤，就可以在一个新的任务上产生良好的结果，这可以看作是构建一个广泛适用于许多任务的内部表示。如果内部表示适合于许多任务，只需稍微微调参数(例如，在前馈模型中主要修改顶层权重)就可以得到很好的结果。实际上，我们的过程对模型进行了优化，使其易于快速微调，允许在适合快速学习的空间中进行调整。从动力系统的角度来看，我们的学习过程可以看作是使新任务的损失函数对参数的敏感性最大化:当灵敏度较高时，局部参数的微小变化会导致任务损失的巨大改进。<br>这项工作的主要贡献是一个简单的模型和任务无关的元学习算法，它训练一个模型的参数以便少量的梯度更新将导致对新任务的快速学习。我们在不同的模型类型，包括全连接网络和卷积网络，以及几个不同的领域，包括few-shot回归、图像分类和强化学习上演示了该算法。我们的评估表明,元学习算法与最先进的one-shot学习（专门为监督分类方法）效果接近,同时使用了更少的参数，另外也可以很容易应用于回归和可以加速强化学习的任务可变性,大大优于直接预训练初始化</p>
+<h3 id="2-Model-Agnostic-Meta-Learning"><a href="#2-Model-Agnostic-Meta-Learning" class="headerlink" title="2. Model-Agnostic Meta-Learning"></a>2. Model-Agnostic Meta-Learning</h3><p>我们的目标是训练能够实现快速适应的模型，这种问题设置通常被形式化为少量学习。在本节中，我们将定义问题设置并给出算法的一般形式。</p>
+<h4 id="2-1-Meta-Learning-Problem-Set-Up"><a href="#2-1-Meta-Learning-Problem-Set-Up" class="headerlink" title="2.1 Meta-Learning Problem Set-Up"></a>2.1 Meta-Learning Problem Set-Up</h4><p>few-shot元学习的目标是训练一个模型，它可以快速地适应一个新的任务，只使用几个数据点和训练迭代。为了实现这一目标，模型或学习者在元学习阶段接受了一系列任务的训练，这样，经过训练的模型只需使用少量的例子或试验就可以快速适应新的任务。实际上，元学习问题将整个任务视为训练示例。在本节中，我们将以一种通用的方式形式化这个元收益问题设置，包括不同学习领域的简单示例。<br>我们将在第3节中详细讨论两个不同的学习领域。我们考虑一个模型，记作f，它将观察到的x映射到输出a。在元学习过程中，该模型被训练成能够适应大量或无限数量的任务。由于我们想把我们的框架应用到各种学习问题上，从分类到强化学习，我们在下面介绍一个学习任务的一般概念。</p>
+<h4 id="2-2-A-Model-Agnostic-Meta-Learning-Algorithm"><a href="#2-2-A-Model-Agnostic-Meta-Learning-Algorithm" class="headerlink" title="2.2 A Model-Agnostic Meta-Learning Algorithm"></a>2.2 A Model-Agnostic Meta-Learning Algorithm</h4><p>我们提出了一种通过元学习学习任何标准模型参数的方法，使模型能够快速适应。这种方法背后的直觉是，一些内部表示比其他表示更容易转换。例如，神经网络可以学习广泛适用于p(T)中的所有任务的内部特征，而不是单个任务。我们如何才能鼓励出现这样的通用表示呢?我们采用一种明确的方法来解决这个问题:由于模型将在新任务上使用基于梯度的学习规则进行微调，我们的目标是学习这样一个模型，这个基于梯度的学习规则可以在不过度拟合的情况下，快速地处理从p(T)中提取的新任务。实际上,我们的目标是找到模型参数变化敏感的任务,这样小的参数的变化将产生大的损失函数改进任何任务来自p (T),当改变的方向梯度的损失(参见图1)。</p>
 
       
     </div>
@@ -555,8 +501,8 @@ y_{i,t}=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/27/PG/" rel="next" title="策略梯度方法(Policy Gradients)">
-                <i class="fa fa-chevron-left"></i> 策略梯度方法(Policy Gradients)
+              <a href="/2019/05/14/tensorflow/" rel="next" title="RL tensorflow的实现技巧">
+                <i class="fa fa-chevron-left"></i> RL tensorflow的实现技巧
               </a>
             
           </div>
@@ -565,8 +511,8 @@ y_{i,t}=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/27/TRPO/" rel="prev" title="信赖域策略优化(TRPO)">
-                信赖域策略优化(TRPO) <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/27/OpenAI Spinning Up/" rel="prev" title="OpenAI Spinning Up">
+                OpenAI Spinning Up <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -740,7 +686,7 @@ y_{i,t}=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#策略梯度法引入值函数"><span class="nav-text">策略梯度法引入值函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#演员-评论家算法"><span class="nav-text">演员-评论家算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入“折扣因子”"><span class="nav-text">引入“折扣因子”</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Model-Agnostic-Meta-Learning"><span class="nav-text">2. Model-Agnostic Meta-Learning</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-Meta-Learning-Problem-Set-Up"><span class="nav-text">2.1 Meta-Learning Problem Set-Up</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-A-Model-Agnostic-Meta-Learning-Algorithm"><span class="nav-text">2.2 A Model-Agnostic Meta-Learning Algorithm</span></a></li></ol></li></ol></div>
             
 
           </div>

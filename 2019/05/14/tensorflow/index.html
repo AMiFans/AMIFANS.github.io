@@ -117,24 +117,24 @@
 
 </script>
 
-  <meta name="description" content="策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mathb">
+  <meta name="description" content="1.tf.where() tf.where(input, a,b)，其中a，b均为尺寸一致的tensor，作用是将a中对应input中true的位置的元素值不变，其余元素进行替换，替换成b中对应位置的元素值。示例：12345678910import tensorflow as tfimport numpy as npsess=tf.Session()a=np.array([[1,0,0],[0,1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="演员-评论家方法(Actor-Critic)">
-<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/Actor-Critic/index.html">
+<meta property="og:title" content="RL tensorflow的实现技巧">
+<meta property="og:url" content="https://github.com/AMiFans/AMiFans.github.io.git/2019/05/14/tensorflow/index.html">
 <meta property="og:site_name" content="AMiFans’s Blogs">
-<meta property="og:description" content="策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mathb">
+<meta property="og:description" content="1.tf.where() tf.where(input, a,b)，其中a，b均为尺寸一致的tensor，作用是将a中对应input中true的位置的元素值不变，其余元素进行替换，替换成b中对应位置的元素值。示例：12345678910import tensorflow as tfimport numpy as npsess=tf.Session()a=np.array([[1,0,0],[0,1">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-27T07:44:13.522Z">
+<meta property="og:updated_time" content="2019-05-15T09:52:03.958Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="演员-评论家方法(Actor-Critic)">
-<meta name="twitter:description" content="策略梯度法引入值函数策略梯度法中梯度的基本形式为：  \nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t&apos;=t}^Tr(\mathbf{s}_{i,t&apos;},\mathb">
+<meta name="twitter:title" content="RL tensorflow的实现技巧">
+<meta name="twitter:description" content="1.tf.where() tf.where(input, a,b)，其中a，b均为尺寸一致的tensor，作用是将a中对应input中true的位置的元素值不变，其余元素进行替换，替换成b中对应位置的元素值。示例：12345678910import tensorflow as tfimport numpy as npsess=tf.Session()a=np.array([[1,0,0],[0,1">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/Actor-Critic/">
+  <link rel="canonical" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/05/14/tensorflow/">
 
 
 
@@ -144,7 +144,7 @@
   };
 </script>
 
-  <title>演员-评论家方法(Actor-Critic) | AMiFans’s Blogs</title>
+  <title>RL tensorflow的实现技巧 | AMiFans’s Blogs</title>
   
 
 
@@ -360,7 +360,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/04/27/Actor-Critic/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/AMiFans/AMiFans.github.io.git/2019/05/14/tensorflow/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="AMiFans">
@@ -377,7 +377,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">演员-评论家方法(Actor-Critic)
+          <h1 class="post-title" itemprop="name headline">RL tensorflow的实现技巧
 
               
             
@@ -401,12 +401,22 @@
                 
               
 
-              <time title="创建时间：2019-04-27 15:44:09 / 修改时间：15:44:13" itemprop="dateCreated datePublished" datetime="2019-04-27T15:44:09+08:00">2019-04-27</time>
+              <time title="创建时间：2019-05-14 10:22:10" itemprop="dateCreated datePublished" datetime="2019-05-14T10:22:10+08:00">2019-05-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                <time title="修改时间：2019-05-15 17:52:03" itemprop="dateModified" datetime="2019-05-15T17:52:03+08:00">2019-05-15</time>
               
             
           </span>
@@ -421,7 +431,7 @@
               </span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度强化学习/" itemprop="url" rel="index"><span itemprop="name">深度强化学习</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/tensorflow/" itemprop="url" rel="index"><span itemprop="name">tensorflow</span></a></span>
 
                 
                 
@@ -456,75 +466,17 @@
       
 
       
-        <h3 id="策略梯度法引入值函数"><a href="#策略梯度法引入值函数" class="headerlink" title="策略梯度法引入值函数"></a><strong>策略梯度法引入值函数</strong></h3><p>策略梯度法中梯度的基本形式为：</p>
+        <p><strong>1.<code>tf.where()</code></strong></p>
+<p><code>tf.where(input, a,b)</code>，其中<code>a</code>，<code>b</code>均为尺寸一致的<code>tensor</code>，作用是将<code>a</code>中对应<code>input</code>中<code>true</code>的位置的元素值不变，其余元素进行替换，替换成<code>b</code>中对应位置的元素值。<br>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">sess=tf.Session()</span><br><span class="line"></span><br><span class="line">a=np.array([[1,0,0],[0,1,1]])</span><br><span class="line">a1=np.array([[3,2,3],[4,5,6]])</span><br><span class="line"></span><br><span class="line">print(sess.run(tf.equal(a,1)))</span><br><span class="line">print(sess.run(tf.where(tf.equal(a,1),a1,1-a1)))</span><br></pre></td></tr></table></figure></p>
+<p>输出结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[[ True False False]</span><br><span class="line"> [False  True  True]]</span><br><span class="line"> </span><br><span class="line">[[ 3 -1 -2]</span><br><span class="line"> [-3  5  6]]</span><br></pre></td></tr></table></figure></p>
+<p>在实现如下的$ppo$目标时：</p>
 <script type="math/tex; mode=display">
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\sum_{t'=t}^Tr(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})\right]......(1)</script><p>现在我们回顾一下状态-动作值函数$Q(\mathbf{s}_t,\mathbf{a}_t)$和状态值函数$V(\mathbf{s}_t)$的定义：</p>
-<script type="math/tex; mode=display">
-Q(\mathbf{s}_t,\mathbf{a}_t)=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|\mathbf{s}_t,\mathbf{a}_t]......(2)</script><script type="math/tex; mode=display">
-V(s_t)=\sum_{t'=t}^T \mathop{E}_{\pi_\theta} [r(s_{t'}, a_{t'})|s_t]......(3)</script><p>现在我们令公式（1）中的$\sum_{t’=t}^Tr(\mathbf{s}_{i,t’},\mathbf{a}_{i,t’})=\hat{Q}_{i,t}$，为什么用$\hat{Q}_{i,t}$来表示,因为这两者是有密切联系的，$Q(\mathbf{s}_t,\mathbf{a}_t)$是$\hat{Q}_{i,t}$的期望。</p>
-<p>现在我们要做的就是用$Q(\mathbf{s}_t,\mathbf{a}_t)$代替$\hat{Q}_{i,t}$，因为采样的每一条轨迹中，在状态$s_t$之后的奖赏之和可能是不同的，我们想使得状态$s_t$之后奖赏之和能够稳定。</p>
-<p>同样在引入基线后，我们可以将前文所述的基线$b_t=\frac{1}{N}\sum_iQ^\pi(\mathbf{s}_{i,t},\mathbf{a}_{i,t})$用其期望$V(s_t)=\sum_{t’=t}^T\mathop{E}_{\pi_\theta} [r(s_{t’}, a_{t’})|s_t]$取代，现在我们的梯度形式就变为</p>
-<script type="math/tex; mode=display">
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})A^\pi(\mathbf{s}_t,\mathbf{a}_t)\right]......(4)</script><p>其中，$A^\pi(\mathbf{s}_t,\mathbf{a}_t)=Q^\pi(\mathbf{s}_t,\mathbf{a}_t)-V^\pi(\mathbf{s}_t)$,称为优势函数（Advantage Function）。</p>
-<p>优势函数可理解为在给定策略$\pi$的情况下，在状态$\mathbf{s}_t$处，采用行动$\mathbf{a}_t$的收益能比该策略的平均今后收益期望多出多少。</p>
-<h3 id="演员-评论家算法"><a href="#演员-评论家算法" class="headerlink" title="演员-评论家算法"></a><strong>演员-评论家算法</strong></h3><p>演员-评论家算法要做的就是引入另一个参数$\phi$，通过神经网络来拟合优势函数$A^\pi(\mathbf{s}_t,\mathbf{a}_t)$</p>
-<p>$Q(\mathbf{s}_t,\mathbf{a}_t)$和$V^\pi(\mathbf{s}_t)$有如下的关系，</p>
-<script type="math/tex; mode=display">
-Q^\pi(\mathbf{s}_t,\mathbf{a}_t)=r(\mathbf{s}_t,\mathbf{a}_t)+\sum_{t'=t+1}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|\mathbf{s}_t,\mathbf{a}_t]=r(\mathbf{s}_t,\mathbf{a}_t)+\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s_{t+1}}|\mathbf{s}_t,\mathbf{a}_t)}[V^\pi(\mathbf{s}_{t+1})]......(5)</script><p>如果我们用用轨迹样本来估计这个期望（即用$V^\pi(\mathbf{s}_{t+1})$来代替$\mathbf{E}_{\mathbf{s}_{t+1}\sim p(\mathbf{s_{t+1}}|\mathbf{s}_t,\mathbf{a}_t)}[V^\pi(\mathbf{s}_{t+1})]$），那么，优势函数也可以被近似为</p>
-<script type="math/tex; mode=display">
-A^\pi(\mathbf{s}_t,\mathbf{a}_t)\approx r(\mathbf{s}_t,\mathbf{a}_t)+V^\pi(\mathbf{s}_{t+1})-V^\pi(\mathbf{s}_t)......(6)</script><p>这样的话，我们只需要用参数$\phi$去拟合$V^\pi(\mathbf{s}_t)$即可。</p>
-<p>在蒙特卡洛策略评估中，进行一次轨迹采样后</p>
-<script type="math/tex; mode=display">
-V^\pi(\mathbf{s}_t)\approx\sum_{t'=t}^Tr(\mathbf{s}_{t'},\mathbf{a}_{t'})......(7)</script><p>如果进行多次轨迹采样后</p>
-<script type="math/tex; mode=display">
-V^\pi(\mathbf{s}_t)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t'=t}^Tr(\mathbf{s}_{t'},\mathbf{a}_{t'})......(8)</script><p>虽然多次轨迹采样比一次轨迹采样效果好，但是，一次轨迹采样的表现也不错。</p>
-<p>训练神经网络来拟合值函$V_\phi^\pi(\mathbf{s}_t)$则比较简单，首先收集训练数据$\left\{\left(\mathbf{s}_{i,t},y_{i,t}:=\sum_{t’=t}^T r(\mathbf{s}_{i,t},\mathbf{a}_{i,t})\right)\right\}$，然后使用最小二乘的损失函数</p>
-<script type="math/tex; mode=display">
-\mathcal{L}(\phi)=\frac{1}{2}\sum_i\left\Vert\hat{V}_\phi^\pi(\mathbf{s}_i)-y_i\right\Vert^2......(9)</script><p>为了使拟合效果更好，在理想化的情况下，我们的目标也可修改为（自助法(bootstrapped)）</p>
-<script type="math/tex; mode=display">
-y_{i,t}=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|\mathbf{s}_{i,t}]\approx r(\mathbf{s}_{i,t},\mathbf{a}_{i,t})+V^\pi(\mathbf{s}_{i,t+1})\approx r(\mathbf{s}_{i,t},\mathbf{a}_{i,t})+\hat{V}_\phi^\pi(\mathbf{s}_{i,t+1})......(10)</script><p>这样我们便可以直接使用先前的拟合值函数。</p>
-<p><strong>批量演员-评论家算法 (batch actor-critic algorithm)</strong>：</p>
-<ol>
-<li>根据策略$\pi_\theta(\mathbf{a}|\mathbf{s})$得到一些样本$\{\mathbf{s}_i,\mathbf{a}_i\}$，包括所处状态、行动和收益。</li>
-<li>使用样本收益之和拟合$\hat{V}^\pi_\phi(\mathbf{s})$。这一步样本可以做蒙特卡洛，也可以做自助法；拟合可以用最小二乘的目标函数。</li>
-<li>评估优势函数$\hat{A}^\pi(\mathbf{s}_i,\mathbf{a}_i)=r(\mathbf{s}_i,\mathbf{a}_i)+\hat{V}^\pi_\phi(\mathbf{s}_i’)-\hat{V}^\pi_\phi(\mathbf{s}_i)$。</li>
-<li>$\nabla_\theta J(\theta)\approx\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_t|\mathbf{s}_t)\hat{A}^\pi(\mathbf{s}_t,\mathbf{a}_t)\right]$。</li>
-<li>$\theta\leftarrow \theta+\alpha\nabla_\theta J(\theta)$。</li>
-</ol>
-<h3 id="引入“折扣因子”"><a href="#引入“折扣因子”" class="headerlink" title="引入“折扣因子”"></a><strong>引入“折扣因子”</strong></h3><p>在策略梯度中引入“折扣因子”，梯度变为</p>
-<script type="math/tex; mode=display">
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\nabla_\theta\log\pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\left(\sum_{t'=t}^T\gamma^{t'-t}r(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})-b\right)......(11)</script><p>在演员-评论家算法中引入“折扣因子”，首先我们的优势函数将从</p>
-<script type="math/tex; mode=display">
-\hat{A}^\pi(\mathbf{s}_i,\mathbf{a}_i)=r(\mathbf{s}_i,\mathbf{a}_i)+\hat{V}^\pi_\phi(\mathbf{s}_i')-\hat{V}^\pi_\phi(\mathbf{s}_i)......(12)</script><p>变为</p>
-<script type="math/tex; mode=display">
-\hat{A}^\pi(\mathbf{s}_i,\mathbf{a}_i)=r(\mathbf{s}_i,\mathbf{a}_i)+\gamma\hat{V}^\pi_\phi(\mathbf{s}_i')-\hat{V}^\pi_\phi(\mathbf{s}_i)......(13)</script><p>此时的梯度将变为</p>
-<script type="math/tex; mode=display">
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\nabla_\theta\log\pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\left(r(\mathbf{s}_{i,t},\mathbf{a}_{i,t})+\gamma\hat{V}^\pi_\phi(\mathbf{s}_{i,t+1})-\hat{V}^\pi_\phi(\mathbf{s}_{i,t})\right)......(14)</script><p><strong>在线的演员-评论家算法 (online actor-critic algorithm)</strong></p>
-<ol>
-<li>根据策略执行行动$\mathbf{a}\sim\pi_\theta(\mathbf{a}|\mathbf{s})$，得到一个状态转移样本$(\mathbf{s},\mathbf{a},\mathbf{s}’,r)$，即从一个状态出发执行某行动到哪个新的状态，单步收益多少</li>
-<li>使用评论家的结果$r+\gamma\hat{V}^\pi_\phi(\mathbf{s}’)$来更新$\hat{V}^\pi_\phi(\mathbf{s})$</li>
-<li>评估优势函数$\hat{A}^\pi(\mathbf{s},\mathbf{a})=r(\mathbf{s},\mathbf{a})+\gamma\hat{V}^\pi_\phi(\mathbf{s}’)-\hat{V}^\pi_\phi(\mathbf{s})$</li>
-<li>$\nabla_\theta J(\theta)\approx\nabla_\theta\log \pi_\theta(\mathbf{a}|\mathbf{s})\hat{A}^\pi(\mathbf{s},\mathbf{a})$</li>
-<li>$\theta\leftarrow \theta+\alpha\nabla_\theta J(\theta)$</li>
-</ol>
-<p><strong>批量演员-评论家算法 (batch actor-critic algorithm)</strong>：</p>
-<ol>
-<li>根据策略$\pi_\theta(\mathbf{a}|\mathbf{s})$得到一些样本$\{\mathbf{s}_i,\mathbf{a}_i\}$，包括所处状态、行动和收益。</li>
-<li>使用样本收益之和拟合$\hat{V}^\pi_\phi(\mathbf{s})$。这一步样本可以做蒙特卡洛，也可以做自助法；拟合可以用最小二乘的目标函数。</li>
-<li>评估优势函数$\hat{A}^\pi(\mathbf{s}_i,\mathbf{a}_i)=r(\mathbf{s}_i,\mathbf{a}_i)+\gamma\hat{V}^\pi_\phi(\mathbf{s}_i’)-\hat{V}^\pi_\phi(\mathbf{s}_i)$。</li>
-<li>$\nabla_\theta J(\theta)\approx\sum_{t=1}^T\left[\nabla_\theta\log \pi_\theta(\mathbf{a}_t|\mathbf{s}_t)\hat{A}^\pi(\mathbf{s}_t,\mathbf{a}_t)\right]$。</li>
-<li>$\theta\leftarrow \theta+\alpha\nabla_\theta J(\theta)$。</li>
-</ol>
-<p> Actor-Critic算法（公式14）是低方差的（由于Critic的存在）、有偏差的（如果Critic表现地不好）</p>
-<p>Policy Gradients方法（公式11）是高方差（由于用单样本采样来估计）、无偏差的</p>
-<p>为了使结果无偏差、低方差的，我们可以结合上述两者的优点，算法如下：</p>
-<script type="math/tex; mode=display">
-\nabla_\theta J(\theta)\approx\frac{1}{N}\sum_{i=1}^N\sum_{t=1}^T\nabla_\theta\log\pi_\theta(\mathbf{a}_{i,t}|\mathbf{s}_{i,t})\left(\sum_{t'=t}^T\gamma^{t'-t}r(\mathbf{s}_{i,t'},\mathbf{a}_{i,t'})-\hat{V}^\pi_\phi(\mathbf{s}_{i,t})\right)</script><p>在CS294-112的作业2中正是利用这个算法。</p>
-<p><strong>参考</strong></p>
-<ol>
-<li><a href="http://rail.eecs.berkeley.edu/deeprlcourse/" target="_blank" rel="noopener">CS 294-112 at UC Berkeley</a></li>
-<li><a href="https://sites.google.com/view/deep-rl-bootcamp/lectures" target="_blank" rel="noopener">UC Berkeley RL Bootcamp</a></li>
-</ol>
+L^{CLIP}(\theta)=\hat{\mathbb{E}}_t\left[ min(r_t(\theta)\hat{A}_t ,clip(r_t(\theta),1-\varepsilon,1+\varepsilon)\hat{A}_t)\right],where\;
+r_t(\theta)=\frac{\pi_{\theta}\left(a_t|s_t\right)}{\pi_{\theta_{old}}\left(a_t|s_t\right)}</script><p>可使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ratio = tf.exp(log_p - log_p_old_ph)</span><br><span class="line">min_adv = tf.where(adv_ph &gt; 0, (1+clip_ratio)*adv_ph, (1-clip_ratio)*adv_ph)</span><br><span class="line">pi_loss = -tf.reduce_mean(tf.minimum(ratio * adv_ph, min_adv))</span><br><span class="line">v_loss = tf.reduce_mean((ret_ph - v)**2)</span><br></pre></td></tr></table></figure></p>
+<p><strong>2.从多类数据分别采样一个大小为batch size的样本</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">size = 10 # 样本数量</span><br><span class="line">obs_dim=5 # 样本维度</span><br><span class="line">obs1_buf = np.zeros([size, obs_dim], dtype=np.float32) # shape (10,5)</span><br><span class="line">obs2_buf = np.zeros([size, obs_dim], dtype=np.float32) # shape (10,5)</span><br><span class="line"></span><br><span class="line"># 从样本中随机采样5组数据</span><br><span class="line">def sample_batch(batch_size=5):</span><br><span class="line">    idxs = np.random.randint(0, size, size=batch_size)</span><br><span class="line">    return dict(obs1=obs1_buf[idxs],obs2=obs2_buf[idxs])</span><br><span class="line"></span><br><span class="line">print(sample_batch(5))</span><br></pre></td></tr></table></figure></p>
+<p>输出结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;&apos;obs1&apos;: array([[ 0.,  0.,  0.,  0.,  0.],</span><br><span class="line">       [ 0.,  0.,  0.,  0.,  0.],</span><br><span class="line">       [ 0.,  0.,  0.,  0.,  0.],</span><br><span class="line">       [ 0.,  0.,  0.,  0.,  0.],</span><br><span class="line">       [ 0.,  0.,  0.,  0.,  0.]], dtype=float32), &apos;obs2&apos;: array([[ 0.,  0.,  0.,  0.,  0.],</span><br><span class="line">       [ 0.,  0.,  0.,  0.,  0.],</span><br><span class="line">       [ 0.,  0.,  0.,  0.,  0.],</span><br><span class="line">       [ 0.,  0.,  0.,  0.,  0.],</span><br><span class="line">       [ 0.,  0.,  0.,  0.,  0.]], dtype=float32)&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>3.<code>tf.group()</code></strong><br><code>tf.group()</code>用于创建一个<strong>操作</strong>对象，将多个传入的操作<strong>组合</strong>起来（适合不需要考虑顺序的操作）。</p>
+<p>一般在网络训练时候使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">generator_train_op = tf.train.AdamOptimizer(g_loss, ...)</span><br><span class="line"></span><br><span class="line">discriminator_train_op = tf.train.AdamOptimizer(d_loss,...)</span><br><span class="line"></span><br><span class="line">train_ops = tf.groups(generator_train_op ,discriminator_train_op)</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -555,8 +507,8 @@ y_{i,t}=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/27/PG/" rel="next" title="策略梯度方法(Policy Gradients)">
-                <i class="fa fa-chevron-left"></i> 策略梯度方法(Policy Gradients)
+              <a href="/2019/05/10/DDPG/" rel="next" title="深度确定性策略梯度(DDPG)">
+                <i class="fa fa-chevron-left"></i> 深度确定性策略梯度(DDPG)
               </a>
             
           </div>
@@ -565,8 +517,8 @@ y_{i,t}=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/27/TRPO/" rel="prev" title="信赖域策略优化(TRPO)">
-                信赖域策略优化(TRPO) <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/16/Meta-learning：MAML/" rel="prev" title="Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks">
+                Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -611,17 +563,8 @@ y_{i,t}=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -729,23 +672,6 @@ y_{i,t}=\sum_{t'=t}^T\mathbf{E}_{\pi_\theta}[r(\mathbf{s}_{t'},\mathbf{a}_{t'})|
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#策略梯度法引入值函数"><span class="nav-text">策略梯度法引入值函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#演员-评论家算法"><span class="nav-text">演员-评论家算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入“折扣因子”"><span class="nav-text">引入“折扣因子”</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
