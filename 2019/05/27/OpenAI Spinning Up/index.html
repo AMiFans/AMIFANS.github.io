@@ -128,7 +128,7 @@
 <meta property="og:image" content="https://github.com/image/TRPO_Pseudocode.svg">
 <meta property="og:image" content="https://github.com/image/PPO_Pseudocode.svg">
 <meta property="og:image" content="https://github.com/image/DDPG_Pseudocode.svg">
-<meta property="og:updated_time" content="2019-05-27T08:51:05.306Z">
+<meta property="og:updated_time" content="2019-05-27T08:56:51.160Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenAI Spinning Up">
 <meta name="twitter:description" content="Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。 特点 $VPG$是一种$on-police$的算法。 $VPG$可用于具有离散或连续动作空间的环境。 $VPG$的$Spinning-Up$实现支持使用$MPI$并行化。  关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的">
@@ -406,7 +406,7 @@
                 
               
 
-              <time title="创建时间：2019-05-27 15:40:51 / 修改时间：16:51:05" itemprop="dateCreated datePublished" datetime="2019-05-27T15:40:51+08:00">2019-05-27</time>
+              <time title="创建时间：2019-05-27 15:40:51 / 修改时间：16:56:51" itemprop="dateCreated datePublished" datetime="2019-05-27T15:40:51+08:00">2019-05-27</time>
             
 
             
@@ -546,8 +546,7 @@ g(\epsilon, A) = \left\{\begin{array}{ll}
 <h1 id="Deep-Deterministic-Policy-Gradient"><a href="#Deep-Deterministic-Policy-Gradient" class="headerlink" title="Deep Deterministic Policy Gradient"></a><strong>Deep Deterministic Policy Gradient</strong></h1><h3 id="背景-3"><a href="#背景-3" class="headerlink" title="背景"></a><strong>背景</strong></h3><p>深度确定性策略梯度（DDPG）是一种同时学习Q函数和策略的算法。它使用off-policy数据和Bellman方程来学习Q函数，并使用Q函数来学习策略。<br>这种方法与 Q-learning 密切相关，并且以同样的方式激发：如果您知道最佳动作 - 值函数$ Q^{*} (s,a)$，那么在任何给定状态下，最优动作可以通过求解下式可以找到：</p>
 <script type="math/tex; mode=display">
 a^{*}(s)=\arg\max_a Q^{*}(s,a)</script><p>DDPG通过学习 $a^{<em>}(s)$ 的近似来交错学习 $Q^{</em>}(s,a)$ 的近似值，并且这种方式特别适用于具有连续动作空间的环境。但是，DDPG特别适用于具有连续动作空间的环境是什么意思呢？它和我们如何计算最大动作 $\max_a Q^{*}(s,a)$ 相关。</p>
-<p>当存在有限数量的离散动作时，求解最大值没有问题，因为我们可以分别计算每个动作的Q值并直接比较它们。但是当动作空间是连续的时候，我们无法详尽地评估空间，解决优化问题非常重要。使用常规优化算法计算 $\max_a Q^{*}(s,a)$ 将是一个非常昂贵的子程序。并且由于每次 agent 想要在环境中采取行动时都需要运行，这是难以接受的。</p>
-<p>因为动作空间是连续的，所以假定函数 $Q^{<em>}(s,a)$ 相对于动作参数是可微分的。利用这个事实，我们可以为策略 $\mu$ 设置一个有效的、基于梯度的学习规则。因此，我们不用每次都运行昂贵的子程序求 $\max_a Q^{</em>}(s,a)$，而是用$\max_a Q(s, a) \approx Q(s, \mu(s))$来近似。</p>
+<p>当存在有限数量的离散动作时，求解最大值没有问题，因为我们可以分别计算每个动作的Q值并直接比较它们。但是当动作空间是连续的时候，我们无法详尽地评估空间，解决优化问题非常重要。使用常规优化算法计算 $\max_a Q^{<em>}(s,a)$ 将是一个非常昂贵的子程序。并且由于每次 agent 想要在环境中采取行动时都需要运行，这是难以接受的。<br>因为动作空间是连续的，所以假定函数$Q^{</em>}(s,a)$  相对于动作参数是可微分的。利用这个事实，我们可以为策略 $\mu$ 设置一个有效的、基于梯度的学习规则。因此，我们不用每次都运行昂贵的子程序求<br>$\max_a Q^{*}(s,a)$，而是用 $\max_a Q(s,a) \approx Q(s,\mu(s))$ 来近似。</p>
 <h3 id="特点-3"><a href="#特点-3" class="headerlink" title="特点"></a><strong>特点</strong></h3><ul>
 <li>$DDPG$是一种$off-police$的算法。</li>
 <li>$DDPG$只能用于具有连续动作空间的环境。</li>
