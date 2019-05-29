@@ -129,7 +129,8 @@
 <meta property="og:image" content="https://github.com/image/PPO_Pseudocode.svg">
 <meta property="og:image" content="https://github.com/image/DDPG_Pseudocode.svg">
 <meta property="og:image" content="https://github.com/image/TD3_Pseudocode.svg">
-<meta property="og:updated_time" content="2019-05-27T13:37:19.221Z">
+<meta property="og:image" content="https://github.com/image/SAC_Pseudocode.svg">
+<meta property="og:updated_time" content="2019-05-29T11:52:45.189Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenAI Spinning Up">
 <meta name="twitter:description" content="Vanilla Policy Gradient背景策略梯度的关键思想是提高导致更高回报的行动的概率，并降低导致回报率较低的行动的概率，直至达到最优策略。 特点 $VPG$是一种$on-police$的算法。 $VPG$可用于具有离散或连续动作空间的环境。 $VPG$的$Spinning-Up$实现支持使用$MPI$并行化。  关键方程用$\pi_{\theta}$表示一个带有参数$\theta$的">
@@ -407,12 +408,22 @@
                 
               
 
-              <time title="创建时间：2019-05-27 15:40:51 / 修改时间：21:37:19" itemprop="dateCreated datePublished" datetime="2019-05-27T15:40:51+08:00">2019-05-27</time>
+              <time title="创建时间：2019-05-27 15:40:51" itemprop="dateCreated datePublished" datetime="2019-05-27T15:40:51+08:00">2019-05-27</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                <time title="修改时间：2019-05-29 19:52:45" itemprop="dateModified" datetime="2019-05-29T19:52:45+08:00">2019-05-29</time>
               
             
           </span>
@@ -606,6 +617,56 @@ L(\phi_2, {\mathcal D}) = \mathbb{E}_{(s,a,r,s',d) \sim {\mathcal D}}{\Bigg( Q_{
 <h3 id="参考资料-4"><a href="#参考资料-4" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h3><ul>
 <li><a href="https://arxiv.org/abs/1802.09477" target="_blank" rel="noopener">Addressing Function Approximation Error in Actor-Critic Methods, Fujimoto et al, 2018</a></li>
 </ul>
+<h1 id="Soft-Actor-Critic"><a href="#Soft-Actor-Critic" class="headerlink" title="Soft Actor-Critic"></a><strong>Soft Actor-Critic</strong></h1><h3 id="背景-5"><a href="#背景-5" class="headerlink" title="背景"></a><strong>背景</strong></h3><p>SAC是一种使用off-policy方式来优化随机策略的算法，在随机策略优化和DDPG风格的方法之间形成了一个桥梁。它不是TD3的继承（几乎同时发布），但它包含了剪切的双Q技巧，并且由于SAC中策略的固有随机性，它还可以从目标策略平滑等方面获益。<br>SAC的核心特征是<strong>熵正则化</strong>。策略被训练来最大化期望回报和熵（策略随机性的衡量方法）。这和探索-利用之间的权衡密切相关：增加熵会导致更多的探索，这可以加速后来的学习。它还可以防止策略过早收敛到糟糕的局部最优。</p>
+<h3 id="特点-5"><a href="#特点-5" class="headerlink" title="特点"></a><strong>特点</strong></h3><ul>
+<li>$SAC$是一种$off-policy$算法。</li>
+<li>此处实现的$SAC$版本只能用于具有连续动作空间的环境。</li>
+<li>可以实现$SAC$的备用版本（稍微更改策略更新规则）以处理离散的操作空间。</li>
+<li>$SAC$的$Spinning Up$实现不支持使用$MPI$并行化。</li>
+</ul>
+<h3 id="关键方程-5"><a href="#关键方程-5" class="headerlink" title="关键方程"></a><strong>关键方程</strong></h3><p>为了解释SAC，我们必须首先介绍熵正则化强化学习。在熵正则化强化学习中，值函数方程稍微有些不同。</p>
+<h4 id="熵正则化强化学习"><a href="#熵正则化强化学习" class="headerlink" title="熵正则化强化学习"></a><strong>熵正则化强化学习</strong></h4><p>熵衡量了一个随机变量的随机性，如果硬币被加权以至于它几乎总是正面朝上，那么它具有低熵; 如果它被均匀加权以至于任何一面朝上的机会是一样的，则它具有高熵。<br>x是一个随机变量，它服从概率密度分布P。x的熵H根据下式从其分布P计算：</p>
+<script type="math/tex; mode=display">
+H(P) = \mathbb{E}_{\;x\sim P}{\left[-\log P(x)\right]}.</script><p>在熵正则化强化学习中，agent在每个时间步骤获得奖励，并且该时间步与其对应的策略的熵成比例。强化学习变为：</p>
+<script type="math/tex; mode=display">
+\pi^* = \arg \max_{\pi} \mathbb{E}_{\tau \sim \pi}\left[{ \sum_{t=0}^{\infty} \gamma^t \bigg( R(s_t, a_t, s_{t+1}) + \alpha H\left(\pi(\cdot|s_t)\right) \bigg)}\right],</script><p>其中，$\alpha$为权衡系数。现在，我们可以在此设置中定义稍微不同的值函数。$ V^{\pi} $被改为包括每个时间步的熵奖金：</p>
+<script type="math/tex; mode=display">
+V^{\pi}(s) = \mathbb{E}_{\tau \sim \pi}\left[{\left.  \sum_{t=0}^{\infty} \gamma^t \bigg( R(s_t, a_t, s_{t+1}) + \alpha H\left(\pi(\cdot|s_t)\right) \bigg)\right| s_0 = s}\right]</script><p>$Q^{\pi}$被改为包括每个时间步的熵奖金，除了第一个时间步:</p>
+<script type="math/tex; mode=display">
+Q^{\pi}(s,a) =\mathbb{E}_{\tau \sim \pi}\left[{\left.  \sum_{t=0}^{\infty} \gamma^t  R(s_t, a_t, s_{t+1}) + \alpha \sum_{t=1}^{\infty} \gamma^t H\left(\pi(\cdot|s_t)\right)\right| s_0 = s, a_0 = a }\right]</script><p>根据上面的定义，$V^{\pi}(s)$和$Q^{\pi}(s,a)$的关系为：</p>
+<script type="math/tex; mode=display">
+V^{\pi}(s) = \mathbb{E}_{a \sim \pi}\left[{Q^{\pi}(s,a)}\right] + \alpha H\left(\pi(\cdot|s)\right)</script><script type="math/tex; mode=display">
+Q^{\pi}(s,a) = \mathbb{E}_{s' \sim P \\ a' \sim \pi}{R(s,a,s') + \gamma\left(Q^{\pi}(s',a') + \alpha H\left(\pi(\cdot|s')\right) \right)} \\
+= \mathbb{E}_{s' \sim P}{R(s,a,s') + \gamma V^{\pi}(s')}</script><h4 id="Soft-Actor-Critic-1"><a href="#Soft-Actor-Critic-1" class="headerlink" title="Soft Actor-Critic"></a><strong>Soft Actor-Critic</strong></h4><p>SAC同时学习策略$\pi_{\theta}$、两个Q函数：$Q_{\phi_1}, Q_{\phi_2}$和一个值函数$V_\phi$</p>
+<p><strong>Learning Q</strong><br>两个Q函数的学习通过最小化MSBE，他们有共同的target，类似于TD3，损失函数为：</p>
+<script type="math/tex; mode=display">
+L(\phi_i, {\mathcal D}) = \mathbb{E}_{(s,a,r,s',d) \sim {\mathcal D}}\left[
+    \Bigg( Q_{\phi_i}(s,a) - \left(r + \gamma (1 - d) V_{\psi_{\text{targ}}}(s') \right) \Bigg)^2
+    \right].</script><p>目标值网络，如DDPG和TD3中的目标网络，是通过在训练过程中 polyak averaging 网络参数获得的。</p>
+<p><strong>Learning V</strong><br>值函数V的学习通过利用$ Q^{\pi}$和$V^{\pi}$之间的联系来学习。在我们进入学习规则之前，让我们首先使用熵的定义来重写联系方程，以获得：</p>
+<script type="math/tex; mode=display">
+V^{\pi}(s) = \mathbb{E}_{a \sim \pi}{Q^{\pi}(s,a)} + \alpha H\left(\pi(\cdot|s)\right) \\
+= \mathbb{E}_{a \sim \pi}{Q^{\pi}(s,a) - \alpha \log \pi(a|s)}.</script><p>RHS是ations的期望，因此我们可以通过从策略中采样来估算它：</p>
+<script type="math/tex; mode=display">
+V^{\pi}(s) \approx Q^{\pi}(s,\tilde{a}) - \alpha \log \pi(\tilde{a}|s), \;\;\;\;\; \tilde{a} \sim \pi(\cdot|s).</script><p>基于上述的近似，SAC为$V_\phi$建立了一个均方误差损失。但是我们使用Q值做什么呢？SAC使用像TD3这样的剪切双Q来学习值函数，并取两个近似值之间最小的Q值。因此，SAC的价值函数参数的损失为：</p>
+<script type="math/tex; mode=display">
+L(\psi, {\mathcal D}) = \mathbb{E}_{s \sim \mathcal{D} \\ \tilde{a} \sim \pi_{\theta}}{\Bigg(V_{\psi}(s) - \left(\min_{i=1,2} Q_{\phi_i}(s,\tilde{a}) - \alpha \log \pi_{\theta}(\tilde{a}|s) \right)\Bigg)^2}.</script><p>重要的是，我们<strong>不在</strong>此处使用replay buffer中的 actions：这些 actions是从当前的策略中新获取的。</p>
+<p><strong>Learning the Policy</strong><br>策略应采取行动在每个状态最大化预期的未来收益与预期的未来熵之和。也就是说，它应该最大化$V^\pi(s)$：</p>
+<script type="math/tex; mode=display">
+\mathbb{E}_{a \sim \pi}\left[{Q^{\pi}(s,a) - \alpha \log \pi(a|s)}\right]</script><p>我们优化策略的方法使用了重参数化的技巧，其中来自于$\pi_{\theta}(\cdot|s)$的样本通过计算一个状态、策略参数和独立噪声的都确定的函数来获得。为了说明：根据SAC论文的作者，我们使用压扁高斯策略，这意味着样本是根据下式获得：</p>
+<script type="math/tex; mode=display">
+\tilde{a}_{\theta}(s, \xi) = \tanh\left( \mu_{\theta}(s) + \sigma_{\theta}(s) \odot \xi \right), \;\;\;\;\; \xi \sim \mathcal{N}(0, I).</script><p><strong>You Should Know</strong><br>此策略与我们在其他策略优化算法中使用的策略有两个主要差异：<br><strong>1. The squashing function.</strong><br>$\tanh$确保了在SAC策略中actions在有限的范围内是有界的。这在VPG，TRPO和PPO策略中是不存在的。它也改变了分布：在没有经过$\tanh$时（即$\mu_{\theta}(s) + \sigma_{\theta}(s) \odot \xi$），SAC策略是一个像其他算法的策略一样的因子高斯，但在$\tanh$之后(即$\tanh\left( \mu_{\theta}(s) + \sigma_{\theta}(s) \odot \xi \right)$)却不是了。</p>
+<p><strong>2\ The way standard deviations are parameterized.</strong><br>在VPG，TRPO和PPO中，我们用状态无关的参数向量表示log std devs。在SAC中，我们将log std devs表示为来自神经网络的输出，这意味着它们以复杂的方式依赖于状态。根据我们的经验，SAC与状态无关的log std devs不起作用。</p>
+<p>重新参数化技巧允许我们将对actions的期望（包含痛点：分布依赖于策略参数）重写为对噪声的期望（这消除了痛点：分布现在不依赖于参数）：</p>
+<script type="math/tex; mode=display">
+\mathbb{E}_{a \sim \pi_{\theta}}{Q^{\pi_{\theta}}(s,a) - \alpha \log \pi_{\theta}(a|s)} = \mathbb{E}_{\xi \sim \mathcal{N}}{Q^{\pi_{\theta}}(s,\tilde{a}_{\theta}(s,\xi)) - \alpha \log \pi_{\theta}(\tilde{a}_{\theta}(s,\xi)|s)}</script><p>为了获得策略损失，最后一步我们需要用一个函数逼近器替换$ Q^{\pi_{\theta}}$。和TD3一样，我们使用Q_{\phi_1}。因此策略根据下式进行优化：</p>
+<script type="math/tex; mode=display">
+\max_{\theta}\mathbb{E}_{s \sim \mathcal{D} \\ \xi \sim \mathcal{N}}\left[{Q_{\phi_1}(s,\tilde{a}_{\theta}(s,\xi)) - \alpha \log \pi_{\theta}(\tilde{a}_{\theta}(s,\xi)|s)}\right]</script><p>这与DDPG和TD3的策略优化几乎相同，除了随机性和熵项。</p>
+<h3 id="探索和开发-5"><a href="#探索和开发-5" class="headerlink" title="探索和开发"></a><strong>探索和开发</strong></h3><p>SAC使用熵正则化训练随机策略，并以on-policy方式进行探索。熵正则化系数$\alpha$明确地控制了探索 - 利用权衡，较高的$\alpha$对应于更多的探索，而较低的$\alpha$对应于更多的利用。正确的系数（导致最稳定/最高奖励学习的系数）可能因环境而异，可能需要仔细调整。</p>
+<h3 id="伪代码-5"><a href="#伪代码-5" class="headerlink" title="伪代码"></a><strong>伪代码</strong></h3><p><img src="\image\SAC_Pseudocode.svg" alt="SAC 伪代码"></p>
+<h3 id="参考资料-5"><a href="#参考资料-5" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h3><ul>
+<li><a href="https://arxiv.org/abs/1801.01290" target="_blank" rel="noopener">Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor, Haarnoja et al, 2018</a></li>
+</ul>
 
       
     </div>
@@ -645,10 +706,6 @@ L(\phi_2, {\mathcal D}) = \mathbb{E}_{(s,a,r,s',d) \sim {\mathcal D}}{\Bigg( Q_{
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/29/SAC/" rel="prev" title>
-                 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -719,7 +776,7 @@ L(\phi_2, {\mathcal D}) = \mathbb{E}_{(s,a,r,s',d) \sim {\mathcal D}}{\Bigg( Q_{
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -821,7 +878,7 @@ L(\phi_2, {\mathcal D}) = \mathbb{E}_{(s,a,r,s',d) \sim {\mathcal D}}{\Bigg( Q_{
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vanilla-Policy-Gradient"><span class="nav-text">Vanilla Policy Gradient</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键方程"><span class="nav-text">关键方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索和开发"><span class="nav-text">探索和开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码"><span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-text">参考资料</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Trust-Region-Policy-Optimization"><span class="nav-text">Trust Region Policy Optimization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-1"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点-1"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键方程-1"><span class="nav-text">关键方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索和开发-1"><span class="nav-text">探索和开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码-1"><span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料-1"><span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Proximal-Policy-Optimization"><span class="nav-text">Proximal Policy Optimization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-2"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点-2"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键方程-2"><span class="nav-text">关键方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索和开发-2"><span class="nav-text">探索和开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码-2"><span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料-2"><span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Deterministic-Policy-Gradient"><span class="nav-text">Deep Deterministic Policy Gradient</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-3"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点-3"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键方程-3"><span class="nav-text">关键方程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DDPG的Q-learning"><span class="nav-text">DDPG的Q-learning</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DDPG的Policy-Learning"><span class="nav-text">DDPG的Policy Learning</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索和开发-3"><span class="nav-text">探索和开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码-3"><span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料-3"><span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Twin-Delayed-DDPG"><span class="nav-text">Twin Delayed DDPG</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-4"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点-4"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键方程-4"><span class="nav-text">关键方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索和开发-4"><span class="nav-text">探索和开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码-4"><span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料-4"><span class="nav-text">参考资料</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vanilla-Policy-Gradient"><span class="nav-text">Vanilla Policy Gradient</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键方程"><span class="nav-text">关键方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索和开发"><span class="nav-text">探索和开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码"><span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-text">参考资料</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Trust-Region-Policy-Optimization"><span class="nav-text">Trust Region Policy Optimization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-1"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点-1"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键方程-1"><span class="nav-text">关键方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索和开发-1"><span class="nav-text">探索和开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码-1"><span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料-1"><span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Proximal-Policy-Optimization"><span class="nav-text">Proximal Policy Optimization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-2"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点-2"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键方程-2"><span class="nav-text">关键方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索和开发-2"><span class="nav-text">探索和开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码-2"><span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料-2"><span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deep-Deterministic-Policy-Gradient"><span class="nav-text">Deep Deterministic Policy Gradient</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-3"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点-3"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键方程-3"><span class="nav-text">关键方程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DDPG的Q-learning"><span class="nav-text">DDPG的Q-learning</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DDPG的Policy-Learning"><span class="nav-text">DDPG的Policy Learning</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索和开发-3"><span class="nav-text">探索和开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码-3"><span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料-3"><span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Twin-Delayed-DDPG"><span class="nav-text">Twin Delayed DDPG</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-4"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点-4"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键方程-4"><span class="nav-text">关键方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索和开发-4"><span class="nav-text">探索和开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码-4"><span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料-4"><span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Soft-Actor-Critic"><span class="nav-text">Soft Actor-Critic</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景-5"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点-5"><span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键方程-5"><span class="nav-text">关键方程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#熵正则化强化学习"><span class="nav-text">熵正则化强化学习</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Soft-Actor-Critic-1"><span class="nav-text">Soft Actor-Critic</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索和开发-5"><span class="nav-text">探索和开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码-5"><span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料-5"><span class="nav-text">参考资料</span></a></li></ol></li></div>
             
 
           </div>
